@@ -1,5 +1,56 @@
 public class code {
 
+    public static void bubble_sorting(int arr[]) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(" " + arr[i]);
+        }
+    }
+
+    public static void selection_sorting(int arr[]) {
+        for (int i = 0; i < arr.length; i++) {
+            int min = Integer.MAX_VALUE;
+            int c = 0;
+            for (int j = i; j < arr.length; j++) {
+
+                if (arr[j] < min) {
+                    min = arr[j];
+                    c = j;
+                }
+
+            }
+            arr[c] = arr[i];
+            arr[i] = min;
+
+        }
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(" " + arr[i]);
+        }
+    }
+
+    public static void inserting_sorting(int arr[]) {
+        for (int i = 1; i < arr.length; i++) {
+            for (int j = i; j > 0; j--) {
+                if (arr[j] < arr[j - 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j - 1];
+                    arr[j - 1] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(" " + arr[i]);
+        }
+    }
+
     public static void check_if_array_is_sorted(int arr[], int a) {
         int n = arr.length;
         if (a < n - 1) {
@@ -16,24 +67,56 @@ public class code {
         System.out.println("sorted");
     }
 
-    public static int last_occurance_of_number_in_array(int arr[],int key,int i){
-        if (i==arr.length) {
+    public static int last_occurance_of_number_in_array(int arr[], int key, int i) {
+        if (i == arr.length) {
             return -1;
         }
-        int isfound=last_occurance_of_number_in_array(arr, key, i+1);
-        if (isfound==-1 && arr[i]==key) {
+        int isfound = last_occurance_of_number_in_array(arr, key, i + 1);
+        if (isfound == -1 && arr[i] == key) {
             return i;
         }
         return isfound;
     }
-    
-    public static int print_x_power_n(int a,int n){
-       if(n==1) return a;
-       int number=print_x_power_n(a, n-1);
-       return number*a;
+
+    public static int print_x_power_n(int a, int n) {
+        if (n == 1)
+            return a;
+        int number = print_x_power_n(a, n - 1);
+        return number * a;
     }
+
+    public static int optamize_x_power_n(int a, int n) {
+        if (n == 0) {
+            return 1;
+        }
+        int halfpower = optamize_x_power_n(a, n / 2);
+        int halfpowersq = halfpower * halfpower;
+        if (n % 2 != 0) {
+            halfpowersq = a * halfpowersq;
+        }
+        return halfpowersq;
+    }
+
+    public static int tiling_problem(int n) {
+        if (n == 0 || n == 1)
+            return 1;
+
+        // vertical choice
+        int v = tiling_problem(n - 1);
+
+        // horizontal choice
+        int h = tiling_problem(n - 2);
+
+        int total = v + h;
+        return total;
+    }
+
+public static void remove_duplicates_in_a_string(String arrr[]){
+
+}
+
     public static void main(String args[]) {
-        
+
         // int arr[] = { 1, 2, 3, 4, 5, 6, 9 };
         // check_if_array_is_sorted(arr, 0);
 
@@ -43,5 +126,17 @@ public class code {
 
         // int number=print_x_power_n(3, 3);
         // System.out.println(number);
+
+        // int number=optamize_x_power_n(3, 10);
+        // System.out.println(number);
+
+        // int number = tiling_problem(6);
+        // System.out.println(number);
+
+        // int arr[] = {9,5,7,3,52,1,4,78,62,2 };
+        // selection_sorting(arr);
+        // bubble_sorting(arr);
+        // inserting_sorting(arr);
+
     }
 }
