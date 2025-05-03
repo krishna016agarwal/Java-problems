@@ -111,9 +111,67 @@ public class code {
         return total;
     }
 
-public static void remove_duplicates_in_a_string(String arrr[]){
+    public static void print_duplicates_of_a_string_adjacent_to_each_other(String arr) {
 
-}
+        int arr2[] = new int[arr.length()];
+        for (int j = 0; j < arr.length(); j++) {
+
+            for (int j2 = 0; j2 <= j; j2++) {
+                if (j2 != j) {
+                    if (arr.charAt(j2) == arr.charAt(j)) {
+                        arr2[j2]++;
+                        arr2[j] = 0;
+
+                        break;
+                    }
+                } else {
+                    int c = 1;
+
+                    arr2[j] = c;
+                }
+
+            }
+
+        }
+        for (int i = 0; i < arr.length(); i++) { // aacbcadddd
+            for (int j = 0; j < arr2[i]; j++) { // 3021004000
+                System.out.print(arr.charAt(i));
+            }
+        }
+    }
+
+    public static void remove_duplicates_in_a_string(String str, int index, StringBuilder newstr, boolean arr[]) {
+        // base case
+        if (index == str.length()) {
+            System.out.println(newstr);
+            return;
+        }
+        ;
+        // recusrsive function
+        char currChar = str.charAt(index);
+        if (arr[currChar - 'a'] == true) {
+            // duplicate found
+            remove_duplicates_in_a_string(str, index + 1, newstr, arr);
+        } else {
+            arr[currChar - 'a'] = true;
+            newstr.append(currChar);
+            remove_duplicates_in_a_string(str, index + 1, newstr, arr);
+        }
+    }
+
+    public static void rain_problem(int arr[]) {
+        int total_rain_water = 0;
+        int max_height_of_building_in_left_side = Integer.MIN_VALUE;          
+        for (int i = 0; i < arr.length; i++) {                                
+            for (int j = i; j >= 0; j--) {                                   
+                if (max_height_of_building_in_left_side < arr[j]) {           
+                    max_height_of_building_in_left_side = arr[j];            
+                }
+            }
+            total_rain_water += max_height_of_building_in_left_side - arr[i];
+        }
+        System.out.println("Total Rain Water=" + " " + total_rain_water);
+    }
 
     public static void main(String args[]) {
 
@@ -138,5 +196,14 @@ public static void remove_duplicates_in_a_string(String arrr[]){
         // bubble_sorting(arr);
         // inserting_sorting(arr);
 
+        // String arr = "aacbcadddd";
+        // print_duplicates_of_a_string_adjacent_to_each_other(arr);
+
+        // String str = "helloworld";
+        // remove_duplicates_in_a_string(str, 0, new StringBuilder(""), new
+        // boolean[26]);
+
+        // int arr[]={5,2,5,4,3,5};
+        // rain_problem(arr);
     }
 }
