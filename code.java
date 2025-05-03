@@ -160,6 +160,7 @@ public class code {
     }
 
     public static void rain_problem(int arr[]) {
+        
         int total_rain_water = 0;
         int max_height_of_building_in_left_side = Integer.MIN_VALUE;          
         for (int i = 0; i < arr.length; i++) {                                
