@@ -160,13 +160,13 @@ public class code {
     }
 
     public static void rain_problem(int arr[]) {
-        
+
         int total_rain_water = 0;
-        int max_height_of_building_in_left_side = Integer.MIN_VALUE;          
-        for (int i = 0; i < arr.length; i++) {                                
-            for (int j = i; j >= 0; j--) {                                   
-                if (max_height_of_building_in_left_side < arr[j]) {           
-                    max_height_of_building_in_left_side = arr[j];            
+        int max_height_of_building_in_left_side = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i; j >= 0; j--) {
+                if (max_height_of_building_in_left_side < arr[j]) {
+                    max_height_of_building_in_left_side = arr[j];
                 }
             }
             total_rain_water += max_height_of_building_in_left_side - arr[i];
@@ -174,6 +174,27 @@ public class code {
         System.out.println("Total Rain Water=" + " " + total_rain_water);
     }
 
+    public static int friends_Pairing(int n) {
+        if (n == 1 || n == 2) {
+            return n;
+        }
+        // single ..total pairs
+        return friends_Pairing(n - 1) + friends_Pairing(n - 2) * (n - 1);
+    }
+
+    public static void print_binary_string_without_consecutive_ones(int n,String str,int lastplace){
+         if (n==0) {
+            System.out.println(str);
+            return;
+         }
+         System.out.println("\n"+"upper"+lastplace+"n"+n+"str"+str);
+print_binary_string_without_consecutive_ones(n-1, str+"0", 0);
+if (lastplace==0) {
+    System.out.println("\n"+"lower"+lastplace+"n"+n+"str"+str);
+    print_binary_string_without_consecutive_ones(n-1, str+"1", 1); 
+}
+System.out.println("\n"+"upperlower"+lastplace+"n"+n+"str"+str);
+    }
     public static void main(String args[]) {
 
         // int arr[] = { 1, 2, 3, 4, 5, 6, 9 };
@@ -206,5 +227,10 @@ public class code {
 
         // int arr[]={5,2,5,4,3,5};
         // rain_problem(arr);
+
+        // int a=friends_Pairing(3);
+        // System.out.println(a);
+
+       // print_binary_string_without_consecutive_ones(2, "", 0);
     }
 }
