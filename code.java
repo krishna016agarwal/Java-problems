@@ -196,6 +196,109 @@ public class code {
         System.out.println("\n" + "upperlower" + lastplace + "n" + n + "str" + str);
     }
 
+    public static void printArray(int arr[]) {
+        for (int value : arr) {
+            System.out.print(" " + value);
+        }
+        System.out.println();
+    }
+
+    public static int binary_search(int arr[], int n) {
+        int si = 0;
+        int ei = arr.length - 1;
+
+        while (si <= ei) {
+            int mid = (ei + si) / 2;
+            if (arr[mid] == n) {
+                System.out.println(mid);
+                return mid;
+            }
+            if (arr[mid] > n) {
+                ei = mid - 1;
+            } else {
+                si += 1;
+            }
+
+        }
+
+        System.out.println("not found");
+        return -1;
+    }
+
+    public static int find_element_in_sorted_rotated_array_recursion(int arr[], int target, int si, int ei) {
+        if (si > ei) {
+            return -1;
+        }
+        int mid = si + (ei - si) / 2;
+        if (arr[mid] == target) {
+            return mid;
+        }
+        // line1
+        if (arr[si] <= arr[mid]) {
+            // case1-left
+            if (arr[si] <= target && target <= arr[mid]) {
+                return find_element_in_sorted_rotated_array_recursion(arr, target, si, mid - 1);
+            } else {
+                // right side of line 1
+                return find_element_in_sorted_rotated_array_recursion(arr, target, mid + 1, ei);
+            }
+        } else { // line 2
+            if (arr[mid] <= target && target <= arr[ei]) {
+                // right side
+                return find_element_in_sorted_rotated_array_recursion(arr, target, mid + 1, ei);
+            } else {
+                // left side
+                return find_element_in_sorted_rotated_array_recursion(arr, target, si, mid - 1);
+            }
+        }
+
+    }
+
+    public static int find_element_in_sorted_rotated_array(int arr[], int target, int si, int ei) {
+
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
+            if (arr[mid] == target) {
+                return mid;
+            }
+            if (arr[si] <= target && target <= arr[mid]) {
+                ei = mid - 1;
+            } else {
+                si = mid + 1;
+            }
+
+        }
+        return -1;
+    }
+
+    public static void back_tracking_arrays(int arr[], int i) { // time complexity = O(n) space complexity= O(n)
+        // base case
+        if (i == arr.length) {
+            printArray(arr);
+            return;
+        }
+        // recursion
+        arr[i] = i + 1;
+        back_tracking_arrays(arr, i + 1);
+        arr[i] -= 2; // backtracking step
+
+    }
+
+    public static void subsets(String str, String str2, int i) {
+        if (i == str.length()) {
+            if (str2.length()==0) {
+                System.out.println("null");
+            }
+            System.out.println(str2);
+            return;
+        }
+
+        subsets(str, str2 + str.charAt(i), i + 1); // yes choice
+        // String newStr = str2.substring(0, str2.length() - 1);
+        subsets(str, str2, i + 1); // no choice
+
+    }
+
     public static void main(String args[]) {
 
         // int arr[] = { 1, 2, 3, 4, 5, 6, 9 };
@@ -236,7 +339,40 @@ public class code {
 
         // int arr[] = { 8, 5, 2, 9, -6, 1, -3 };
         // MergeSort.mergeSort(arr, 0, arr.length - 1);
-        // MergeSort.printSortedArray(arr);
+        // printArray(arr);
+
+        // int arr[] = { 8, 5, 2, 9, -6, 1, -3 };
+        // QuickSort.quicksort(arr, 0, arr.length-1);
+        // printArray(arr);
+
+        // int arr[] = { 1,2,3,4,5,6};
+        // binary_search(arr, 0);
+
+        // int arr[] = { 4, 5, 6, 7, 0, 1, 2, };
+        // int index = find_element_in_sorted_rotated_array_recursion(arr, 0, 0,
+        // arr.length - 1);
+        // if (index == -1) {
+        // System.out.println("not found");
+        // } else {
+        // System.out.println(index);
+        // }
+
+        // int arr[] = { 4, 5, 6, 7, 0, 1, 2, };
+        // int index = find_element_in_sorted_rotated_array(arr, 0, 0, arr.length - 1);
+        // if (index == -1) {
+        // System.out.println("not found");
+        // } else {
+        // System.out.println(index);
+        // }
+
+        // int arr[]=new int[5];
+        // back_tracking_arrays(arr, 0);
+        // for (int i = 0; i < arr.length; i++) {
+        // System.out.print(" "+arr[i]);
+        // }
+
+        // String str = "abc";
+        // subsets(str, "", 0);
     }
 }
 
@@ -277,10 +413,34 @@ class MergeSort {
         }
     }
 
-    public static void printSortedArray(int arr[]) {
-        for (int value : arr) {
-            System.out.print(" " + value);
+}
+
+class QuickSort { // time complexity- O(nlogn)
+    public static void quicksort(int arr[], int si, int ei) {
+        if (si >= ei)
+            return;
+
+        int ptind = partition(arr, si, ei);
+        quicksort(arr, si, ptind - 1); // left part
+        quicksort(arr, ptind + 1, ei); // right part
+
+    }
+
+    public static int partition(int arr[], int si, int ei) {
+        int pivot = arr[ei]; // last element will be pivot
+        int i = si - 1;
+        for (int j = si; j < ei; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
         }
-        System.out.println();
+        i++;
+        int temp = arr[i];
+        arr[i] = arr[ei];
+        arr[ei] = temp;
+        return i;
     }
 }
