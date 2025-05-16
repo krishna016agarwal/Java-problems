@@ -284,7 +284,7 @@ public class code {
 
     }
 
-    public static void subsets(String str, String str2, int i) {
+    public static void subsets(String str, String str2, int i) {   //Time complexity = O(n*2^n)  space complexity=O(n)
         if (i == str.length()) {
             if (str2.length()==0) {
                 System.out.println("null");
@@ -299,7 +299,30 @@ public class code {
 
     }
 
-    public static void main(String args[]) {
+   public static void permutation(String str,String str2){  //Time complexity = O(n*n!)
+    if (str.length()==0) {
+        System.out.println(str2);
+        return;
+    }
+        for (int i = 0; i < str.length(); i++) {
+            char curr=str.charAt(i);
+            String Newstr=str.substring(0, i)+str.substring(i+1);
+            
+            permutation(Newstr, str2+curr);
+        }
+   }
+   
+   public static void tower_of_hanoi(int n,String src , String helper , String des){  //Time complexity =O(2^n)
+    if (n==1) {
+        System.out.println("transfer disk "+n+" from "+src +" to "+des);
+        return;
+    }
+    tower_of_hanoi(n-1, src, des, helper);
+    System.out.println("transfer disk "+n+" from "+src +" to "+des);
+    tower_of_hanoi(n-1, helper, src, des);
+   }
+
+   public static void main(String args[]) {
 
         // int arr[] = { 1, 2, 3, 4, 5, 6, 9 };
         // check_if_array_is_sorted(arr, 0);
@@ -373,6 +396,12 @@ public class code {
 
         // String str = "abc";
         // subsets(str, "", 0);
+
+        // String str="123456";
+        // permutation(str, "");
+
+        // tower_of_hanoi(3, "S", "H", "D");
+       
     }
 }
 
