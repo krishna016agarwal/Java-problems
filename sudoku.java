@@ -48,13 +48,14 @@ public class sudoku {
         for (int digit = 1; digit <=9; digit++) {
             if (isSafe(sudoku, row, col, digit)) {
                 sudoku[row][col] = digit;
-                if (sudoku_solver(sudoku, nextrow, nextcol)) {
-                    return true;
+                if (sudoku_solver(sudoku, nextrow, nextcol)) { //going to next column (row,col+1) or row+1,0)
+                    return true;   //digit safely fit on that index of matrix
                 }
-                sudoku[row][col] = 0;
+                //digit doesnot safely fitted on the (row,col+1) or (row+1,0) so backtracking on the (row,col) or (row,8)
+                sudoku[row][col] = 0; //backtracking step -- making (row,col)=0
             }
         }
-        return false;
+        return false;  //none of 1 to 9 fits on the (row,col) so returing false making call to the (row,col-1) or (row-1,8)
     }
 
     public static void main(String args[]) {
