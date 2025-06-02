@@ -216,7 +216,7 @@ public class code {
             if (arr[mid] > n) {
                 ei = mid - 1;
             } else {
-                si += 1;
+                si =mid+ 1;
             }
 
         }
@@ -369,7 +369,7 @@ public class code {
         // printArray(arr);
 
         // int arr[] = { 1,2,3,4,5,6};
-        // binary_search(arr, 0);
+        // binary_search(arr, 1);
 
         // int arr[] = { 4, 5, 6, 7, 0, 1, 2, };
         // int index = find_element_in_sorted_rotated_array_recursion(arr, 0, 0,
