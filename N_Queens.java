@@ -100,8 +100,8 @@ public class N_Queens {
             }
         }
       
-        nQueens(board, 0);
-        System.out.println("\nTotal ways= "+count);
+        // nQueens(board, 0);
+        // System.out.println("\nTotal ways= "+count);
 
 
         // if(nQueens_one_solution(board, 0)){
