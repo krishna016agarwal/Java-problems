@@ -322,6 +322,15 @@ public class code {
     tower_of_hanoi(n-1, helper, src, des);
    }
 
+   public static int fibonacci(int n){
+    if (n==1) {
+        return 1;
+    }
+    if (n<=0) {
+        return 0;
+    }
+    return fibonacci(n-1)+fibonacci(n-2);
+   }
    public static void main(String args[]) {
 
         // int arr[] = { 1, 2, 3, 4, 5, 6, 9 };
@@ -401,7 +410,10 @@ public class code {
         // permutation(str, "");
 
         // tower_of_hanoi(3, "S", "H", "D");
-       
+        
+        for (int i = 0; i < 10; i++) {
+            System.out.println(fibonacci(i));
+        }
     }
 }
 
