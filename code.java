@@ -265,6 +265,22 @@ public class code {
         return fibonacci(n - 1) + fibonacci(n - 2);
     }
 
+    static void find_element_in_sorted_array_staicase_method(int arr[][], int target) { //time complexity -O(row+column)
+        int row = 0;
+        int col = arr.length - 1;
+        while (row < arr.length && col >= 0) {
+            if (arr[row][col] == target) {
+                System.out.println("(" + row + "," + col + ")");
+                break;
+            }
+            if (target > arr[row][col])
+                row++;
+            if (target < arr[row][col])
+                col--;
+
+        }
+    }
+
     public static void main(String args[]) {
 
         // int arr[] = { 1, 2, 3, 4, 5, 6, 1 };
@@ -295,13 +311,7 @@ public class code {
 
         // print_binary_string_without_consecutive_ones(2, "", 0);
 
-        // int arr[] = { 8, 5, 2, 9, -6, 1, -3 };
-        // MergeSort.mergeSort(arr, 0, arr.length - 1);
-        // printArray(arr);
-
-        // int arr[] = { 8, 5, 2, 9, -6, 1, -3 };
-        // QuickSort.quicksort(arr, 0, arr.length-1);
-        // printArray(arr);
+       
 
         // int arr[] = { 1,2,3,4,5,6};
         // binary_search(arr, 1);
@@ -337,78 +347,14 @@ public class code {
 
         // tower_of_hanoi(3, "S", "H", "D");
 
-        for (int i = 0; i < 10; i++) {
-            System.out.println(fibonacci(i));
-        }
-    }
-}
+        // for (int i = 0; i < 10; i++) {
+        // System.out.println(fibonacci(i));
+        // }
 
-class MergeSort {
 
-    public static void mergeSort(int arr[], int i, int e) {
-        if (i >= e)
-            return;
-        int mid = i + (e - i) / 2;
+        // int arr[][] = { { 10, 20, 30, 40 }, { 15, 25, 35, 45 }, { 27, 29, 37, 48 }, { 32, 33, 39, 50 } };
+        // find_element_in_sorted_array_staicase_method(arr, 37);  
 
-        mergeSort(arr, i, mid);
-        mergeSort(arr, mid + 1, e);
-        mergeConquor(arr, i, e, mid);
-    }
 
-    public static void mergeConquor(int arr[], int si, int e, int mid) {
-        int temp[] = new int[e - si + 1];
-        int i = si, j = mid + 1, k = 0;
-
-        while (i <= mid && j <= e) {
-            if (arr[i] < arr[j]) {
-                temp[k++] = arr[i++];
-            } else {
-                temp[k++] = arr[j++];
-            }
-        }
-
-        while (i <= mid) {
-            temp[k++] = arr[i++];
-        }
-
-        while (j <= e) {
-            temp[k++] = arr[j++];
-        }
-
-        for (k = 0, i = si; k < temp.length; k++, i++) {
-            arr[i] = temp[k];
-        }
-    }
-
-}
-
-class QuickSort { // time complexity- O(nlogn)
-
-    public static void quicksort(int arr[], int si, int ei) {
-        if (si >= ei)
-            return;
-
-        int ptind = partition(arr, si, ei);
-        quicksort(arr, si, ptind - 1); // left part
-        quicksort(arr, ptind + 1, ei); // right part
-
-    }
-
-    public static int partition(int arr[], int si, int ei) {
-        int pivot = arr[ei]; // last element will be pivot
-        int i = si - 1;
-        for (int j = si; j < ei; j++) {
-            if (arr[j] < pivot) {
-                i++;
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-        }
-        i++;
-        int temp = arr[i];
-        arr[i] = arr[ei];
-        arr[ei] = temp;
-        return i;
     }
 }

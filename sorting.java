@@ -125,8 +125,6 @@ public class sorting {
         }
     }
 
-   
-
     public static void main(String args[]) {
         // int arr[] = { 9, 5, 7, 3, 52, 1, 4, 78, 62, 2 };
         // selection_sorting(arr);
@@ -139,6 +137,84 @@ public class sorting {
         // int arr[] = { 1, 3, 1, 3, 2, 1, 8, 6,2 }; //time complexity-O(n+k)
         // counting_sort(arr);
 
-       // spiral_matrix();
+        // spiral_matrix();
+
+        // int arr[] = { 8, 5, 2, 9, -6, 1, -3 };
+        // MergeSort.mergeSort(arr, 0, arr.length - 1);
+        // code.printArray(arr);
+
+        // int arr[] = { 8, 5, 2, 9, -6, 1, -3 };
+        // QuickSort.quicksort(arr, 0, arr.length-1);
+        // code.printArray(arr);
+    }
+}
+
+class MergeSort {
+
+    public static void mergeSort(int arr[], int i, int e) {
+        if (i >= e)
+            return;
+        int mid = i + (e - i) / 2;
+
+        mergeSort(arr, i, mid);
+        mergeSort(arr, mid + 1, e);
+        mergeConquor(arr, i, e, mid);
+    }
+
+    public static void mergeConquor(int arr[], int si, int e, int mid) {
+        int temp[] = new int[e - si + 1];
+        int i = si, j = mid + 1, k = 0;
+
+        while (i <= mid && j <= e) {
+            if (arr[i] < arr[j]) {
+                temp[k++] = arr[i++];
+            } else {
+                temp[k++] = arr[j++];
+            }
+        }
+
+        while (i <= mid) {
+            temp[k++] = arr[i++];
+        }
+
+        while (j <= e) {
+            temp[k++] = arr[j++];
+        }
+
+        for (k = 0, i = si; k < temp.length; k++, i++) {
+            arr[i] = temp[k];
+        }
+    }
+
+}
+
+class QuickSort { // time complexity- O(nlogn)
+
+    public static void quicksort(int arr[], int si, int ei) {
+        if (si >= ei)
+            return;
+
+        int ptind = partition(arr, si, ei);
+        quicksort(arr, si, ptind - 1); // left part
+        quicksort(arr, ptind + 1, ei); // right part
+
+    }
+
+    public static int partition(int arr[], int si, int ei) {
+        int pivot = arr[ei]; // last element will be pivot
+        int i = si - 1;
+        for (int j = si; j < ei; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+        i++;
+        int temp = arr[i];
+        arr[i] = arr[ei];
+        arr[ei] = temp;
+        return i;
     }
 }
