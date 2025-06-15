@@ -1,72 +1,5 @@
 public class code {
 
-    public static void bubble_sorting(int arr[]) {
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr.length - 1; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-                }
-            }
-        }
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(" " + arr[i]);
-        }
-    }
-
-    public static void selection_sorting(int arr[]) {
-        for (int i = 0; i < arr.length; i++) {
-            int min = Integer.MAX_VALUE;
-            int c = 0;
-            for (int j = i; j < arr.length; j++) {
-
-                if (arr[j] < min) {
-                    min = arr[j];
-                    c = j;
-                }
-
-            }
-            arr[c] = arr[i];
-            arr[i] = min;
-
-        }
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(" " + arr[i]);
-        }
-    }
-
-    public static void inserting_sorting(int arr[]) {
-        for (int i = 1; i < arr.length; i++) {
-            for (int j = i; j > 0; j--) {
-                if (arr[j] < arr[j - 1]) {
-                    int temp = arr[j];
-                    arr[j] = arr[j - 1];
-                    arr[j - 1] = temp;
-                }
-            }
-        }
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(" " + arr[i]);
-        }
-    }
-
-    public static void check_if_array_is_sorted(int arr[], int a) {
-        int n = arr.length;
-        if (a < n - 1) {
-            if (arr[a] < arr[a + 1]) {
-
-                check_if_array_is_sorted(arr, a + 1);
-
-                return;
-            }
-            System.out.println("not sorted");
-            return;
-        }
-
-        System.out.println("sorted");
-    }
-
     public static int last_occurance_of_number_in_array(int arr[], int key, int i) {
         if (i == arr.length) {
             return -1;
@@ -216,7 +149,7 @@ public class code {
             if (arr[mid] > n) {
                 ei = mid - 1;
             } else {
-                si =mid+ 1;
+                si = mid + 1;
             }
 
         }
@@ -284,9 +217,9 @@ public class code {
 
     }
 
-    public static void subsets(String str, String str2, int i) {   //Time complexity = O(n*2^n)  space complexity=O(n)
+    public static void subsets(String str, String str2, int i) { // Time complexity = O(n*2^n) space complexity=O(n)
         if (i == str.length()) {
-            if (str2.length()==0) {
+            if (str2.length() == 0) {
                 System.out.println("null");
             }
             System.out.println(str2);
@@ -299,42 +232,40 @@ public class code {
 
     }
 
-   public static void permutation(String str,String str2){  //Time complexity = O(n*n!)
-    if (str.length()==0) {
-        System.out.println(str2);
-        return;
-    }
-        for (int i = 0; i < str.length(); i++) {
-            char curr=str.charAt(i);
-            String Newstr=str.substring(0, i)+str.substring(i+1);
-            
-            permutation(Newstr, str2+curr);
+    public static void permutation(String str, String str2) { // Time complexity = O(n*n!)
+        if (str.length() == 0) {
+            System.out.println(str2);
+            return;
         }
-   }
-   
-   public static void tower_of_hanoi(int n,String src , String helper , String des){  //Time complexity =O(2^n)
-    if (n==1) {
-        System.out.println("transfer disk "+n+" from "+src +" to "+des);
-        return;
-    }
-    tower_of_hanoi(n-1, src, des, helper);
-    System.out.println("transfer disk "+n+" from "+src +" to "+des);
-    tower_of_hanoi(n-1, helper, src, des);
-   }
+        for (int i = 0; i < str.length(); i++) {
+            char curr = str.charAt(i);
+            String Newstr = str.substring(0, i) + str.substring(i + 1);
 
-   public static int fibonacci(int n){
-    if (n==1) {
-        return 1;
+            permutation(Newstr, str2 + curr);
+        }
     }
-    if (n<=0) {
-        return 0;
-    }
-    return fibonacci(n-1)+fibonacci(n-2);
-   }
-   public static void main(String args[]) {
 
-        // int arr[] = { 1, 2, 3, 4, 5, 6, 9 };
-        // check_if_array_is_sorted(arr, 0);
+    public static void tower_of_hanoi(int n, String src, String helper, String des) { // Time complexity =O(2^n)
+        if (n == 1) {
+            System.out.println("transfer disk " + n + " from " + src + " to " + des);
+            return;
+        }
+        tower_of_hanoi(n - 1, src, des, helper);
+        System.out.println("transfer disk " + n + " from " + src + " to " + des);
+        tower_of_hanoi(n - 1, helper, src, des);
+    }
+
+    public static int fibonacci(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        if (n <= 0) {
+            return 0;
+        }
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+
+    public static void main(String args[]) {
 
         // int arr[] = { 1, 2, 3, 4, 5, 6, 1 };
         // int index=last_occurance_of_number_in_array(arr, 1, 0);
@@ -348,11 +279,6 @@ public class code {
 
         // int number = tiling_problem(6);
         // System.out.println(number);
-
-        // int arr[] = {9,5,7,3,52,1,4,78,62,2 };
-        // selection_sorting(arr);
-        // bubble_sorting(arr);
-        // inserting_sorting(arr);
 
         // String arr = "aacbcadddd";
         // print_duplicates_of_a_string_adjacent_to_each_other(arr);
@@ -410,7 +336,7 @@ public class code {
         // permutation(str, "");
 
         // tower_of_hanoi(3, "S", "H", "D");
-        
+
         for (int i = 0; i < 10; i++) {
             System.out.println(fibonacci(i));
         }
@@ -458,7 +384,6 @@ class MergeSort {
 
 class QuickSort { // time complexity- O(nlogn)
 
-    
     public static void quicksort(int arr[], int si, int ei) {
         if (si >= ei)
             return;
