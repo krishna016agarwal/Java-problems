@@ -85,7 +85,9 @@ public class linkedList {
             System.out.println("Linklist is empty");
             return;
         } else if (size == 1) {
+            size=0;
             head = tail = null;
+            return;
         }
         Node temp = head;
         for (int i = 0; i < size - 2; i++) {
@@ -95,7 +97,25 @@ public class linkedList {
         tail = temp;
         size--;
     }
-
+public void search(int ele){  //O(n)
+     if (size==0) {
+        System.out.println("LinkList is empty");
+        return;
+    }
+    int i=0;
+    Node temp=head;
+   
+    while (temp.data!=ele) {
+        i++;
+        temp=temp.next;
+          if (temp==null) {
+        System.out.println("Not found");
+        return;
+    }
+    }
+  
+    System.out.println(i);
+}
     public static void main(String args[]) {
         linkedList ll = new linkedList();
 
@@ -113,6 +133,7 @@ public class linkedList {
         System.out.println(ll.size);
         ll.removeLast();
         ll.printLinkList();
-        System.out.println(ll.size);
+       
+        ll.search(1);
     }
 }
