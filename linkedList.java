@@ -18,6 +18,7 @@ public class linkedList {
 
     public void addFirst(int data) { // O(1)
         Node newNode = new Node(data); // create new node
+      
         size++;
         if (head == null) {
             head = tail = newNode; // if linklist is empty
@@ -178,36 +179,84 @@ public class linkedList {
 
     }
 
+    static class is_palindrome {
+        // slow-fast approach
+        public Node findMid(Node head) { // helper
+            Node slow = head;
+            Node fast = head;
+            while (fast != null && fast.next != null) {
+                slow = slow.next; // +1
+                fast = fast.next.next; // +2
+            }
+            return slow; // slow is my MidNode
+        }
+
+        public boolean checkPanlindrome() {
+            if (head == null || head.next == null) {
+                return true;
+
+            }
+            // find midNode
+            Node midNode = findMid(head);
+
+            // reverse 2nd half
+            Node curr = midNode;
+            Node pre = null;
+            Node next = curr.next;
+            while (curr != null) {
+                next = curr.next;
+                curr.next = pre;
+                pre = curr;
+                curr = next;
+
+            }
+            Node right = pre;// right half head
+            Node left = head;
+
+            // check left half and right half equal or not
+            while (right != null) {
+                if (left.data != right.data) {
+                    return false;
+                }
+                left = left.next;
+                right = right.next;
+
+            }
+            return true;
+        }
+    }
+
     public static void main(String args[]) {
         linkedList ll = new linkedList();
 
-        ll.addFirst(1);
-
         ll.addFirst(2);
-        ll.addLast(3);
-        ll.addLast(4);
-        ll.addAtIndex(4, 12);
+        ll.addFirst(1);
+        ll.addLast(1);
+        ll.addLast(2);
 
-        ll.printLinkList();
-        System.out.println(ll.size);
-        ll.removeFirst();
-        ll.printLinkList();
-        System.out.println(ll.size);
-        ll.removeLast();
-        ll.printLinkList();
+        // ll.addAtIndex(4, 12);
 
-        ll.search(1);
+        // ll.printLinkList();
 
-        linkedList.resSearch r = new resSearch(); // if resSearch is static
-        // linkedList.resSearch r=ll.new resSearch(); //if resSearch is not static
-        System.out.println(r.recursiveSearch(1));
+        // System.out.println(ll.size);
+
+        // ll.removeFirst();
+        // ll.printLinkList();
+
+        // ll.search(1);
+
+        // resSearch r = new resSearch(); // if resSearch is static
+        // // linkedList.resSearch r=ll.new resSearch(); //if resSearch is not static
+        // System.out.println(r.recursiveSearch(2));
 
         // ll.reverse();
         // ll.printLinkList();
-        ll.addLast(16);
-        ll.printLinkList();
-        ll.remove_Nth_node_from_end(3);
-        ll.printLinkList();
+
+        // ll.remove_Nth_node_from_end(3);
+        // ll.printLinkList();
+
+         is_palindrome s=new is_palindrome();
+         System.out.println(s.checkPanlindrome());
 
     }
 }
