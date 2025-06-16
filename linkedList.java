@@ -13,6 +13,7 @@ public class linkedList {
 
     public static Node head;
     public static Node tail;
+
     public static int size; // O(1)
 
     public void addFirst(int data) { // O(1)
@@ -85,7 +86,7 @@ public class linkedList {
             System.out.println("Linklist is empty");
             return;
         } else if (size == 1) {
-            size=0;
+            size = 0;
             head = tail = null;
             return;
         }
@@ -97,25 +98,86 @@ public class linkedList {
         tail = temp;
         size--;
     }
-public void search(int ele){  //O(n)
-     if (size==0) {
-        System.out.println("LinkList is empty");
-        return;
+
+    public void search(int ele) { // O(n)
+        if (size == 0) {
+            System.out.println("LinkList is empty");
+            return;
+        }
+        int i = 0;
+        Node temp = head;
+
+        while (temp.data != ele) {
+            i++;
+            temp = temp.next;
+            if (temp == null) {
+                System.out.println("Not found");
+                return;
+            }
+        }
+
+        System.out.println(i);
     }
-    int i=0;
-    Node temp=head;
-   
-    while (temp.data!=ele) {
-        i++;
-        temp=temp.next;
-          if (temp==null) {
-        System.out.println("Not found");
-        return;
+
+    static class resSearch { // O(n) space- O(n)
+        public int helper(Node head, int key) { // O(n)
+            if (head == null) {
+                return -1;
+            }
+            if (head.data == key) {
+                return 0;
+            }
+            int idx = helper(head.next, key);
+            if (idx == -1) {
+                return -1;
+            }
+            return idx + 1;
+        }
+
+        public int recursiveSearch(int key) {
+            return helper(head, key);
+        }
     }
+
+    public void reverse() { // O(n)
+        Node pre = null;
+        Node curr = tail = head;
+        Node next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = pre;
+            pre = curr;
+            curr = next;
+        }
+        head = pre;
+
     }
-  
-    System.out.println(i);
-}
+
+    public void remove_Nth_node_from_end(int n) { // O(n)
+        int sz = 0;
+        Node temp = head;
+        while (temp != null) {
+            sz++;
+            temp = temp.next;
+        }
+        if (n == sz) {
+            head = head.next;
+            return;
+        }
+        if (n == 0 || n > sz) {
+            System.out.println("Invalid index");
+            return;
+        }
+        int i = 1;
+        Node pre = head;
+        while (i < sz - n) {
+            pre = pre.next;
+            i++;
+        }
+        pre.next = pre.next.next;
+
+    }
+
     public static void main(String args[]) {
         linkedList ll = new linkedList();
 
@@ -133,7 +195,19 @@ public void search(int ele){  //O(n)
         System.out.println(ll.size);
         ll.removeLast();
         ll.printLinkList();
-       
+
         ll.search(1);
+
+        linkedList.resSearch r = new resSearch(); // if resSearch is static
+        // linkedList.resSearch r=ll.new resSearch(); //if resSearch is not static
+        System.out.println(r.recursiveSearch(1));
+
+        // ll.reverse();
+        // ll.printLinkList();
+        ll.addLast(16);
+        ll.printLinkList();
+        ll.remove_Nth_node_from_end(3);
+        ll.printLinkList();
+
     }
 }
