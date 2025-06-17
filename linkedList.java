@@ -18,7 +18,7 @@ public class linkedList {
 
     public void addFirst(int data) { // O(1)
         Node newNode = new Node(data); // create new node
-      
+
         size++;
         if (head == null) {
             head = tail = newNode; // if linklist is empty
@@ -225,22 +225,54 @@ public class linkedList {
             return true;
         }
     }
-    
-    public static boolean isCycle(){
-        Node slow=head;
-        Node fast=head;
-        while (fast!=null && fast.next!=null) {
-            slow=slow.next;
-            fast=fast.next.next;
-            if (slow==fast) {
+
+    public static boolean isCycle() {
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
                 return true;
             }
         }
         return false;
     }
 
+    public static void removeCycle() {
+        // first find cycle
+
+        Node slow = head;
+        Node fast = head;
+        boolean cycle = false;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                cycle = true;
+                break;
+            }
+        }
+        if (!cycle) {
+            return;
+        }
+        // find meet point
+
+        slow = head;
+        Node pre = null; // last node
+        while (slow != fast) {
+            pre = fast;
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        // remove cycle last.next=null;
+        pre.next = null;
+
+    }
+
     public static void main(String args[]) {
-        linkedList ll = new linkedList();
+        // linkedList ll = new linkedList();
 
         // ll.addFirst(2);
         // ll.addFirst(1);
@@ -268,16 +300,18 @@ public class linkedList {
         // ll.remove_Nth_node_from_end(3);
         // ll.printLinkList();
 
-        //  is_palindrome s=new is_palindrome();
-        //  System.out.println(s.checkPanlindrome());
+        // is_palindrome s=new is_palindrome();
+        // System.out.println(s.checkPanlindrome());
 
-
-        
-        // head=new Node(1);
-        // head.next=new Node(2);
-        //  head.next.next=new Node(2);
-        // //   head.next.next.next=head;
-        //   System.out.println(isCycle());
+        // head = new Node(1);
+        // Node temp = new Node(3);
+        // head.next = temp;
+        // head.next.next = new Node(2);
+        // head.next.next.next = temp;
+        // // 1->3->2->3
+        // System.out.println(isCycle());
+        // removeCycle();
+        // System.out.println(isCycle());
 
     }
 }
