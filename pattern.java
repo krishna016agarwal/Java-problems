@@ -34,11 +34,11 @@ public class pattern {
     }
   }
 
-  public static void diamond(int n) {
-    //top
+  public static void diamond(int n) { // O(n^2)
+    // top
     for (int i = 0; i < n; i++) {
       // spaces
-      for (int j = 0; j < n-i; j++) {
+      for (int j = 0; j < n - i; j++) {
         System.out.print(" ");
       }
       // stars
@@ -46,27 +46,65 @@ public class pattern {
         System.out.print("*");
       }
       // spaces
-      for (int l = 0; l <n-i; l++) {
+      for (int l = 0; l < n - i; l++) {
         System.out.print(" ");
       }
       System.out.print("\n");
     }
-//bottom
+    // bottom
 
-for (int i = n; i >0; i--) {
+    for (int i = n; i > 0; i--) {
       // spaces
-      for (int j = n-i; j >=0; j--) {
+      for (int j = n - i; j >= 0; j--) {
         System.out.print(" ");
       }
       // stars
-      for (int k = 2 * (i-1) + 1; k >0 ; k--) {
+      for (int k = 2 * (i - 1) + 1; k > 0; k--) {
         System.out.print("*");
       }
       // spaces
-      for (int j = n-i; j >=0; j--) {
+      for (int j = n - i; j >= 0; j--) {
         System.out.print(" ");
       }
       System.out.print("\n");
+    }
+  }
+
+  public static void diamond2(int n) { // O(n^2)
+
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n - i - 1; j++) {
+        System.out.print(" ");
+      }
+      for (int j = 0; j < 2 * (i + 1) - 1; j++) {
+        System.out.print("*");
+      }
+      System.out.println();
+    }
+    for (int i = 0; i < n - 1; i++) {
+      for (int j = 0; j <= i; j++) {
+        System.out.print(" ");
+      }
+      for (int j = 2 * (n - i - 1) - 1; j > 0; j--) {
+        System.out.print("*");
+      }
+      System.out.println();
+    }
+  }
+
+  public static void diamond3(int n) {
+    int totalRows = 2 * n - 1;
+    for (int i = 0; i < totalRows; i++) {
+      int spaces = Math.abs(n - 1 - i);
+      int stars = totalRows - 2 * spaces;
+
+      for (int j = 0; j < spaces; j++) {
+        System.out.print(" ");
+      }
+      for (int j = 0; j < stars; j++) {
+        System.out.print("*");
+      }
+      System.out.println();
     }
   }
 
@@ -74,6 +112,8 @@ for (int i = n; i >0; i--) {
 
     // draw_number_rectangle(3);
     // triangle_of_number(5);
-   // diamond(5);
+    // diamond(3);
+    // diamond2(2);
+    // diamond3(2);
   }
 }
