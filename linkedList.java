@@ -329,6 +329,50 @@ public class linkedList {
         }
     }
 
+    public static void zigzag() {
+        // finding mid Node
+
+        Node slow = head;
+
+        Node fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // reverse 2nd half
+        Node pre = null;
+        Node curr = slow.next;
+        slow.next = null;
+        Node next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = pre;
+            pre = curr;
+            curr = next;
+        }
+        Node right = pre;
+        Node left = head;
+        // 1>2>3>4>5>6>null
+        // 1>2>3>null //6>5>4>null
+
+        // connecting 2 linkedList
+
+        Node nextleft;
+        Node nextright;
+        while (right != null && left != null) {
+            nextleft = left.next;
+            left.next = right;
+            nextright = right.next;
+            right.next = nextleft;
+
+            left = nextleft;
+            right = nextright;
+
+        }
+
+    }
+
     public static void main(String args[]) {
         // linkedList ll = new linkedList();
 
@@ -374,18 +418,30 @@ public class linkedList {
 
         // --------------Merge Sort------------------
 
-        // linkedList ll= new linkedList();
+        // linkedList ll = new linkedList();
         // ll.addFirst(1);
         // ll.addFirst(2);
         // ll.addFirst(3);
         // ll.addFirst(4);
         // ll.addFirst(5);
-
         // //5>4>3>2>1
         // ll.printLinkList();
         // MergeSort r=new MergeSort();
         // ll.head= r.mergeSort(ll.head);
         // ll.printLinkList();
-        // ---------------------------------------------
+
+        // ---------------Zig Zag------------------------------
+
+        // linkedList ll = new linkedList();
+        // ll.addFirst(6);
+        // ll.addFirst(5);
+        // ll.addFirst(4);
+        // ll.addFirst(3);
+        // ll.addFirst(2);
+        // ll.addFirst(1);
+        // ll.printLinkList();
+        // ll.zigzag();
+        // ll.printLinkList();
+//----------------------------------------------------
     }
 }
