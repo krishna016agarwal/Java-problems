@@ -89,6 +89,61 @@ public class stack {
         s.push(top);
     }
 
+    public static String reverseString(String str) {
+        Stack<Character> s = new Stack<>();
+        int idx = 0;
+        while (idx < str.length()) {
+            char a = str.charAt(idx);
+            s.push(a);
+            idx++;
+        }
+        StringBuilder result = new StringBuilder("");
+        while (!s.isEmpty()) {
+            result.append(s.pop());
+        }
+        return result.toString();
+    }
+
+    public static void reverseStack(Stack<Integer> s) {
+        if (s.isEmpty()) {
+            return;
+        }
+        int top = s.pop();
+        reverseStack(s);
+        pushAtBottom(s, top);
+
+    }
+
+    public static void print(Stack<Integer> s) {
+        while (!s.isEmpty()) {
+            System.out.print(s.pop() + " ");
+        }
+    }
+
+    public static void nextGreaterElement(int arr[]) { // O(n)
+        Stack<Integer> s = new Stack<>();
+        int nextArr[] = new int[arr.length];
+        for (int i = arr.length - 1; i >= 0; i--) {
+            while (!s.isEmpty() && s.peek() <= arr[i]) {
+
+                s.pop();
+            }
+            if (s.isEmpty()) {
+                nextArr[i] = -1;
+            } else {
+                nextArr[i] = s.peek();
+            }
+
+            s.push(arr[i]);
+
+        }
+
+        for (int i = 0; i < nextArr.length; i++) {
+            System.out.print(nextArr[i] + " ");
+        }
+
+    }
+
     public static void main(String args[]) {
         // ----------array list stack--------- //O(1)
         // stackB.push(1);
@@ -111,20 +166,38 @@ public class stack {
         // }
 
         // ------------Java collection framework Stack-----------
-        Stack<Integer> s = new Stack<>();
-        s.push(1);
-        s.push(2);
-        s.push(3);
-        s.push(4);
+        // Stack<Integer> s = new Stack<>();
+        // s.push(1);
+        // s.push(2);
+        // s.push(3);
+        // s.push(4);
         // while (!s.isEmpty()) {
         // System.out.print(s.peek()+" ");
         // s.pop();
         // }
 
-        pushAtBottom(s, 5);
-        while (!s.isEmpty()) {
-            System.out.print(s.peek() + " ");
-            s.pop();
-        }
+        // pushAtBottom(s, 5);
+        // while (!s.isEmpty()) {
+        // System.out.print(s.peek() + " ");
+        // s.pop();
+        // }
+        // -------------------Reverse String -------------------------
+        // String str="hello world";
+        // String a=reverseString(str);
+        // System.out.println(a);
+
+        // -----------------reverse Stack---------------
+        // Stack<Integer> s = new Stack<>();
+        // s.push(1);
+        // s.push(2);
+        // s.push(3);
+        // s.push(4);
+
+        // reverseStack(s);
+        // print(s);
+
+
+        // int arr[] = { 6, 8, 0, 1, 3 };
+        // nextGreaterElement(arr);
     }
 }
