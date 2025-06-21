@@ -144,6 +144,56 @@ public class stack {
 
     }
 
+    public static boolean isValid(String str) { // O(n)
+        Stack<Character> s = new Stack<>();
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '(' || str.charAt(i) == '{' || str.charAt(i) == '[') {
+                s.push(str.charAt(i));
+            } else {
+                if (s.isEmpty()) {
+                    return false;
+                }
+                if ((s.peek() == '(' && str.charAt(i) == ')')
+                        || (s.peek() == '{' && str.charAt(i) == '}')
+                        || (s.peek() == '[' && str.charAt(i) == ']')) {
+                    s.pop();
+                }
+            }
+
+        }
+        if (s.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean duplicateParentheses(String str) { // O(n)
+        Stack<Character> s = new Stack<>();
+
+        for (int i = 0; i < str.length(); i++) {
+
+            // closing
+            if (str.charAt(i) == ')') {
+                int count = 0;
+                while (s.peek() != '(') {
+                    s.pop();
+                    count++;
+                }
+                if (count < 1) {
+                    return true; // duplicate exist
+                }
+                s.pop(); // opening pair
+
+            }
+            if (str.charAt(i) != ')') {
+                // opening
+                s.push(str.charAt(i));
+            }
+        }
+        return false;
+    }
+
     public static void main(String args[]) {
         // ----------array list stack--------- //O(1)
         // stackB.push(1);
@@ -196,8 +246,14 @@ public class stack {
         // reverseStack(s);
         // print(s);
 
-
         // int arr[] = { 6, 8, 0, 1, 3 };
         // nextGreaterElement(arr);
+
+        // String str="()({[]})[]";
+        // System.out.println(isValid(str));
+
+        // String str="((c+d))"; //valid string
+        // String str1="(a+b)";
+        // System.out.println(duplicateParentheses(str));
     }
 }
