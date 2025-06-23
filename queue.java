@@ -278,28 +278,90 @@ public class queue {
     }
 
     public static void non_repeating_letters_in_a_stream_of_characters(String str) {
-        String str2 = "";
+
         int fre[] = new int[26]; // a-z
         Queue<Character> q = new LinkedList<>();
         for (int i = 0; i < str.length(); i++) {
             char a = str.charAt(i);
             fre[a - 'a']++; // 'a' - 'a' → 0 / 'b'- 'a' → 1 / 'c'- 'a' → 25
-           
+
             q.add(a);
-            str2 = str2 + a;
-            while (condition) {
-                
-            }
-             if (fre[q.peek()-'a']==1) {
-                System.out.println(q.peek());
-            }else{
+
+            while (!q.isEmpty() && fre[q.peek() - 'a'] > 1) {
                 q.remove();
-                System.out.println("-1");
             }
+            if (q.isEmpty()) {
+                System.out.print(-1 + " ");
+            } else {
+                System.out.print(q.peek() + " ");
+            }
+
+        }
+        System.out.println();
+    }
+
+    public static void Interleave_2_halve_for_a_queue_even_length(Queue<Integer> q) { //time-O(n) space-O(n)
+        int size = q.size();
+
+        Queue<Integer> q2 = new LinkedList<>();
+        for (int i = 0; i < size / 2; i++) {
+            q2.add(q.remove());
+        }
+
+        // q=[1,2,3,4,5,6,7,8,9,10] --> q2=[1,2,3,4,5] q=[6,7,8,9,10]
+       
+        while (!q2.isEmpty()) {
+            q.add(q2.remove());
+            q.add(q.remove());
+
+        }
+
+        while (!q.isEmpty()) {
+            System.out.print(q.remove() + " ");
         }
     }
 
-    public static void main(String args[]) {
+   public static void reverse_Queue(Queue<Integer> q){
+    
+    Stack<Integer> s=new Stack<>();
+       while (!q.isEmpty()) {
+        s.add(q.remove());
+       }
+       while (!s.isEmpty()) {
+        q.add(s.pop());
+       }
+       while (!q.isEmpty()) {
+        System.out.print(q.remove()+" ");
+       }
+   }
+    
+   static class make_stack_using_deque{
+   static Deque<Integer> s=new LinkedList<>();
+
+    public static boolean isEmpty(){
+          return s.isEmpty();
+    }
+    public static void add(int data){
+          s.addLast(data);
+    }
+    public static int pop(){
+        if (isEmpty()) {
+            System.out.println("empty");
+            return -1;
+        }
+        return s.removeLast();
+    }
+    public static int peek(){
+         if (isEmpty()) {
+            System.out.println("empty");
+            return -1;
+        }
+        return s.getLast();
+    }
+   }
+   
+   
+   public static void main(String args[]) {
         // ArrayQueue s=new ArrayQueue(5) //non static method
 
         // new ArrayQueue(5); // static method
@@ -383,5 +445,59 @@ public class queue {
         // make_stack_using_two_queue.pop();
         // }
 
+        // -----------------------------------------
+
+        // String str="aabccxb";
+        // non_repeating_letters_in_a_stream_of_characters(str);
+
+        // ---------------Interleave_2_halve_for_a_queue_even_length------------------
+
+        // Queue<Integer> q = new LinkedList<>();
+        // q.add(1);
+        // q.add(2);
+        // q.add(3);
+        // q.add(4);
+        // q.add(5);
+        // q.add(6);
+        // q.add(7);
+        // q.add(8);
+        // q.add(9);
+        // q.add(10);
+        // Interleave_2_halve_for_a_queue_even_length(q);
+
+        //-----------------Reverse Queue-------------------------------
+
+        //   Queue<Integer> q = new LinkedList<>();
+        // q.add(1);
+        // q.add(2);
+        // q.add(3);
+        // q.add(4);
+        // q.add(5);
+        // q.add(6);
+        // q.add(7);
+        // q.add(8);
+        // q.add(9);
+        // q.add(10);
+        // reverse_Queue(q);
+
+        //-----------------------------
+
+        // Deque<Integer> q=new LinkedList<>();
+        // q.addFirst(1);
+        // q.addFirst(2);
+        // System.out.println(q);
+        // q.removeFirst();
+        // System.out.println(q);
+
+        //--------make_stack_using_deque------------------------------
+
+        // new make_stack_using_deque();
+        // make_stack_using_deque.add(1);
+        // make_stack_using_deque.add(2);
+        // make_stack_using_deque.add(3);
+        // while (!make_stack_using_deque.isEmpty()) {
+        //     System.out.println(make_stack_using_deque.peek());
+        //     make_stack_using_deque.pop();
+        // }
     }
 }
