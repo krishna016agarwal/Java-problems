@@ -1,15 +1,12 @@
 public class FirstMissingPositive {
 
-
- public static int firstMissing(int[] nums) {
-   int n = nums.length;
+    public static int firstMissing(int[] nums) {
+        int n = nums.length;
 
         for (int i = 0; i < n; i++) {
-            while (
-                nums[i] > 0 && 
-                nums[i] <= n && 
-                nums[nums[i] - 1] != nums[i]
-            ) {
+            while (nums[i] > 0 &&
+                    nums[i] <= n &&
+                    nums[nums[i] - 1] != nums[i]) {
                 // Swap nums[i] with its correct position
                 int correctIndex = nums[i] - 1;
                 int temp = nums[i];
@@ -26,11 +23,12 @@ public class FirstMissingPositive {
         }
 
         return n + 1;
-   
- }
-    public static void main(String[] args){
-int arr[]={4,2,9,1,7,3,5,6,  2,8};
 
-System.out.println(firstMissing(arr));
+    }
+
+    public static void main(String[] args) {
+        int arr[] = { 4, 2, 9, 1, 7, 5, 6, 2, 8 };
+
+        System.out.println(firstMissing(arr));
     }
 }
