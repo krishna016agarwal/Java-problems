@@ -300,7 +300,7 @@ public class queue {
         System.out.println();
     }
 
-    public static void Interleave_2_halve_for_a_queue_even_length(Queue<Integer> q) { //time-O(n) space-O(n)
+    public static void Interleave_2_halve_for_a_queue_even_length(Queue<Integer> q) { // time-O(n) space-O(n)
         int size = q.size();
 
         Queue<Integer> q2 = new LinkedList<>();
@@ -309,7 +309,7 @@ public class queue {
         }
 
         // q=[1,2,3,4,5,6,7,8,9,10] --> q2=[1,2,3,4,5] q=[6,7,8,9,10]
-       
+
         while (!q2.isEmpty()) {
             q.add(q2.remove());
             q.add(q.remove());
@@ -321,47 +321,77 @@ public class queue {
         }
     }
 
-   public static void reverse_Queue(Queue<Integer> q){
-    
-    Stack<Integer> s=new Stack<>();
-       while (!q.isEmpty()) {
-        s.add(q.remove());
-       }
-       while (!s.isEmpty()) {
-        q.add(s.pop());
-       }
-       while (!q.isEmpty()) {
-        System.out.print(q.remove()+" ");
-       }
-   }
-    
-   static class make_stack_using_deque{
-   static Deque<Integer> s=new LinkedList<>();
+    public static void reverse_Queue(Queue<Integer> q) {
 
-    public static boolean isEmpty(){
-          return s.isEmpty();
-    }
-    public static void add(int data){
-          s.addLast(data);
-    }
-    public static int pop(){
-        if (isEmpty()) {
-            System.out.println("empty");
-            return -1;
+        Stack<Integer> s = new Stack<>();
+        while (!q.isEmpty()) {
+            s.add(q.remove());
         }
-        return s.removeLast();
-    }
-    public static int peek(){
-         if (isEmpty()) {
-            System.out.println("empty");
-            return -1;
+        while (!s.isEmpty()) {
+            q.add(s.pop());
         }
-        return s.getLast();
+        while (!q.isEmpty()) {
+            System.out.print(q.remove() + " ");
+        }
     }
-   }
-   
-   
-   public static void main(String args[]) {
+
+    static class make_stack_using_deque {
+        static Deque<Integer> s = new LinkedList<>();
+
+        public static boolean isEmpty() {
+            return s.isEmpty();
+        }
+
+        public static void add(int data) {
+            s.addLast(data);
+        }
+
+        public static int pop() {
+            if (isEmpty()) {
+                System.out.println("empty");
+                return -1;
+            }
+            return s.removeLast();
+        }
+
+        public static int peek() {
+            if (isEmpty()) {
+                System.out.println("empty");
+                return -1;
+            }
+            return s.getLast();
+        }
+    }
+
+    static class make_queuq_using_deque {
+        static Deque<Integer> q = new LinkedList<>();
+
+        public static boolean isEmpty() {
+            return q.isEmpty();
+        }
+
+        public static void add(int data) {
+            q.addLast(data);
+        }
+
+        public static int remove() {
+            if (q.isEmpty()) {
+                System.out.println("empty queue");
+                return -1;
+            }
+            return q.removeFirst();
+        }
+
+        public static int peek() {
+            if (q.isEmpty()) {
+                System.out.println("empty queue");
+                return -1;
+            }
+            return q.getFirst();
+        }
+    }
+
+    public static void main(String args[]) {
         // ArrayQueue s=new ArrayQueue(5) //non static method
 
         // new ArrayQueue(5); // static method
@@ -465,9 +495,9 @@ public class queue {
         // q.add(10);
         // Interleave_2_halve_for_a_queue_even_length(q);
 
-        //-----------------Reverse Queue-------------------------------
+        // -----------------Reverse Queue-------------------------------
 
-        //   Queue<Integer> q = new LinkedList<>();
+        // Queue<Integer> q = new LinkedList<>();
         // q.add(1);
         // q.add(2);
         // q.add(3);
@@ -480,7 +510,7 @@ public class queue {
         // q.add(10);
         // reverse_Queue(q);
 
-        //-----------------------------
+        // -----------------------------
 
         // Deque<Integer> q=new LinkedList<>();
         // q.addFirst(1);
@@ -489,15 +519,28 @@ public class queue {
         // q.removeFirst();
         // System.out.println(q);
 
-        //--------make_stack_using_deque------------------------------
+        // --------make_stack_using_deque------------------------------
 
         // new make_stack_using_deque();
         // make_stack_using_deque.add(1);
         // make_stack_using_deque.add(2);
         // make_stack_using_deque.add(3);
         // while (!make_stack_using_deque.isEmpty()) {
-        //     System.out.println(make_stack_using_deque.peek());
-        //     make_stack_using_deque.pop();
+        // System.out.println(make_stack_using_deque.peek());
+        // make_stack_using_deque.pop();
         // }
+
+        // --------------------make_queuq_using_deque--------------------------------
+
+        // new make_queuq_using_deque();
+        // make_queuq_using_deque.add(1);
+        // make_queuq_using_deque.add(2);
+        // make_queuq_using_deque.add(3);
+        // make_queuq_using_deque.add(4);
+        // while (!make_queuq_using_deque.isEmpty()) {
+        // System.out.print(make_queuq_using_deque.peek()+" ");
+        // make_queuq_using_deque.remove();
+        // }
+
     }
 }

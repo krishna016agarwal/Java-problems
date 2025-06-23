@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class stack {
-    static class stackB {
+    static class stack_using_arraylist {
         static ArrayList<Integer> a = new ArrayList<>();
 
         public static boolean isEmpty() { // O(1)
@@ -32,17 +32,17 @@ public class stack {
         }
     }
 
-    static class Node {
-        int data;
-        Node next;
+    static class stack_using_linkedList {
+        static class Node {
+            int data;
+            Node next;
 
-        Node(int data) {
-            this.data = data;
-            this.next = null;
+            Node(int data) {
+                this.data = data;
+                this.next = null;
+            }
         }
-    }
 
-    static class stackll {
         static Node head = null;
 
         public static boolean isEmpty() {// O(1)
@@ -241,23 +241,23 @@ public class stack {
 
     public static void main(String args[]) {
         // ----------array list stack--------- //O(1)
-        // stackB.push(1);
-        // stackB.push(2);
-        // stackB.push(3);
-        // stackB.push(4);
-        // while (!stackB.isEmpty()) {
-        // System.out.println(stackB.peek());
-        // stackB.pop();
+        // stack_using_arraylist.push(1);
+        // stack_using_arraylist.push(2);
+        // stack_using_arraylist.push(3);
+        // stack_using_arraylist.push(4);
+        // while (!stack_using_arraylist.isEmpty()) {
+        // System.out.println(stack_using_arraylist.peek());
+        // stack_using_arraylist.pop();
         // }
 
         // -----------linked list stack-----------
-        // stackll.push(4);
-        // stackll.push(3);
-        // stackll.push(2);
-        // stackll.push(1);
-        // while (!stackll.isEmpty()) {
-        // System.out.print(stackll.peek()+" ");
-        // stackll.pop();
+        // stack_using_linkedList.push(4);
+        // stack_using_linkedList.push(3);
+        // stack_using_linkedList.push(2);
+        // stack_using_linkedList.push(1);
+        // while (!stack_using_linkedList.isEmpty()) {
+        // System.out.print(stack_using_linkedList.peek()+" ");
+        // stack_using_linkedList.pop();
         // }
 
         // ------------Java collection framework Stack-----------
