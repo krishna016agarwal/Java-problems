@@ -35,9 +35,9 @@ public class arrayList {
         return max_water;
     }
 
-    public static void pair_sum_two_pointer_approach(ArrayList<Integer> number, int target) {
-        int lp = 0;
-        int rp = number.size() - 1;
+    public static void pair_sum_two_pointer_approach(ArrayList<Integer> number, int target) { // sorted array //O(n)
+        int lp = 0; // left pointer
+        int rp = number.size() - 1; // right pointer
         boolean isFound = false;
         while (lp < rp) {
             int sum = number.get(lp) + number.get(rp);
@@ -57,11 +57,15 @@ public class arrayList {
         }
     }
 
-    public static void pair_sum_rotated_array(ArrayList<Integer> list, int target) {
+    public static void pair_sum_rotated_array(ArrayList<Integer> list, int target) { // rotated sorted array //O(n)
         int breakpoint = -1;
         int n = list.size();
         boolean isFound = false;
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) { /*
+                                                 * left pointer always giver to smallest
+                                                 * element and right pointer is always
+                                                 * given to largest element
+                                                 */
             if (list.get(i) > list.get(i + 1)) {
                 breakpoint = i;
                 break;
@@ -77,9 +81,9 @@ public class arrayList {
                 System.out.println("(" + list.get(lp) + "," + list.get(rp) + ")");
             }
             if (sum < target) {
-                lp = (lp + 1) % n;
+                lp = (lp + 1) % n;  //going always in forward direction towards right
             } else {
-                rp = (n + rp - 1) % n;
+                rp = (n + rp - 1) % n;   //going in backward direction towards left
             }
         }
         if (!isFound) {
@@ -111,7 +115,6 @@ public class arrayList {
         // number.add(6);
         // pair_sum_two_pointer_approach(number, 6);
 
-       
         // ArrayList<Integer> list = new ArrayList<>();
         // list.add(11);
         // list.add(15);
