@@ -114,6 +114,6 @@ public class pattern {
     // triangle_of_number(5);
     // diamond(3);
     // diamond2(2);
-    // diamond3(2);
+    //diamond3(2);
   }
 }
