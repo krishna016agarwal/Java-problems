@@ -24,7 +24,7 @@ public class binaryTree {
             Node newNode = new Node(nodes[idx]);
             newNode.left = buildTree(nodes);
             newNode.right = buildTree(nodes);
-            return newNode;
+            return newNode;  //returns root
         }
 
         public static void printPreOrder(Node tree) { // O(n)
@@ -61,6 +61,7 @@ public class binaryTree {
         }
 
         public static void printLevelOrder(Node tree) { // O(n)
+
             if (tree == null) {
                 return;
             }
@@ -91,7 +92,8 @@ public class binaryTree {
 
             }
         }
-   public static int height(Node tree){ //O(n)
+ 
+        public static int height(Node tree){ //O(n)
     if (tree==null) {
         return 0;
     }
@@ -99,7 +101,48 @@ public class binaryTree {
     int rh=height(tree.right);
     return Math.max(lh,rh)+1;
    }
+  
+ 
+         public static int no_Of_Nodes(Node tree){
+           
+            if (tree==null) {
+                return 0;
+            }
+            
+            
+         return   no_Of_Nodes(tree.right)+ no_Of_Nodes(tree.left)+1;
+         
+         }
+
+        public static int sum_of_nodes(Node root){
+            if (root==null) {
+                return 0;
+            }
+          return root.data+sum_of_nodes(root.left)+sum_of_nodes(root.right);
+        }
+        
+        public static int diameter_of_tree(Node root){  //O(n^2)
+
+      if (root==null) {
+         return 0;
     }
+    int ld=diameter_of_tree(root.left);
+    int rd=diameter_of_tree(root.right);
+    int heightleft=height(root.left);
+    int heightright=height(root.right);
+    int self=heightleft+heightright+1;
+    return Math.max(Math.max(ld,rd),self);
+
+
+
+
+
+
+        }
+
+
+
+        }
 
     public static void main(String[] args) {
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -111,12 +154,23 @@ public class binaryTree {
  */
 
         BinaryTree tree = new BinaryTree();
+        
         Node root = tree.buildTree(nodes);
 
         // tree.printPreOrder(root);
+
         // tree.printInOrder(root);
+
         // tree.printPostOrder(root);
+
        // tree.printLevelOrder(root);
-        System.out.println(tree.height(root));
+
+      //  System.out.println(tree.height(root));
+
+     // System.out.println(tree.no_Of_Nodes(root));
+
+    // System.out.println(tree.sum_of_nodes(root));
+    
+    //  System.out.println(tree.diameter_of_tree(root));
     }
 }
