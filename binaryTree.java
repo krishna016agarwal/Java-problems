@@ -24,7 +24,7 @@ public class binaryTree {
             Node newNode = new Node(nodes[idx]);
             newNode.left = buildTree(nodes);
             newNode.right = buildTree(nodes);
-            return newNode;  //returns root
+            return newNode; // returns root
         }
 
         public static void printPreOrder(Node tree) { // O(n)
@@ -65,7 +65,7 @@ public class binaryTree {
             if (tree == null) {
                 return;
             }
-            
+
             Queue<Node> q = new LinkedList<>();
             q.add(tree);
             q.add(null);
@@ -92,69 +92,105 @@ public class binaryTree {
 
             }
         }
- 
-        public static int height(Node tree){ //O(n)
-    if (tree==null) {
-        return 0;
-    }
-    int lh=height(tree.left);
-    int rh=height(tree.right);
-    return Math.max(lh,rh)+1;
-   }
-  
- 
-         public static int no_Of_Nodes(Node tree){
-           
-            if (tree==null) {
+
+        public static int height(Node tree) { // O(n)
+            if (tree == null) {
                 return 0;
             }
-            
-            
-         return   no_Of_Nodes(tree.right)+ no_Of_Nodes(tree.left)+1;
-         
-         }
+            int lh = height(tree.left);
+            int rh = height(tree.right);
+            return Math.max(lh, rh) + 1;
+        }
 
-        public static int sum_of_nodes(Node root){
-            if (root==null) {
+        public static int no_Of_Nodes(Node tree) {
+
+            if (tree == null) {
                 return 0;
             }
-          return root.data+sum_of_nodes(root.left)+sum_of_nodes(root.right);
-        }
-        
-        public static int diameter_of_tree(Node root){  //O(n^2)
 
-      if (root==null) {
-         return 0;
+            return no_Of_Nodes(tree.right) + no_Of_Nodes(tree.left) + 1;
+
+        }
+
+        public static int sum_of_nodes(Node root) {
+            if (root == null) {
+                return 0;
+            }
+            return root.data + sum_of_nodes(root.left) + sum_of_nodes(root.right);
+        }
+
+        public static int diameter_of_tree(Node root) { // O(n^2)
+
+            if (root == null) {
+                return 0;
+            }
+            int ld = diameter_of_tree(root.left);
+            int rd = diameter_of_tree(root.right);
+            int heightleft = height(root.left);
+            int heightright = height(root.right);
+            int self = heightleft + heightright + 1;
+            return Math.max(Math.max(ld, rd), self);
+
+        }
+
+        public static class diameter {// Approach 2nd
+            int dia;
+            int ht;
+
+            diameter(int dia, int ht) {
+                this.dia = dia;
+                this.ht = ht;
+            }
+
+            public static diameter diameterApproach2(Node root) { // O(n)
+                if (root == null) {
+                    return new diameter(0, 0);
+                }
+                diameter left = diameterApproach2(root.left);
+                diameter right = diameterApproach2(root.right);
+
+                int diam = Math.max(Math.max(left.dia, right.dia), left.ht + right.ht + 1);
+                int ht = Math.max(left.ht, right.ht) + 1;
+
+                return new diameter(diam, ht);
+            }
+        }
+
+
+        public static boolean isIdentical(Node node,Node subRoot){
+            if (node==null && subRoot==null) {
+                return true;
+            }else if(node==null ||subRoot==null || node.data!=subRoot.data){
+                return false;
+            }
+            if (!isIdentical(node.left, subRoot.left)) {
+               return false; 
+            }
+            if (!isIdentical(node.right, subRoot.right)) {
+               return false; 
+            }
+            return true; 
+        }
+        public static boolean subtree_of_another_tree(Node root, Node subtree) {
+            if (root == null) {
+                return false;
+            }
+            if (root.data == subtree.data) {
+
+                if (isIdentical(root, subtree)) {
+                    return true;
+                }
+            }
+
+            return subtree_of_another_tree(root.left, subtree) || subtree_of_another_tree(root.right, subtree);
+        }
     }
-    int ld=diameter_of_tree(root.left);
-    int rd=diameter_of_tree(root.right);
-    int heightleft=height(root.left);
-    int heightright=height(root.right);
-    int self=heightleft+heightright+1;
-    return Math.max(Math.max(ld,rd),self);
-
-
-
-
-
-
-        }
-
-
-
-        }
 
     public static void main(String[] args) {
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
- /* 1
-   / \
-  2    3
- / \    \
-4   5    6  
- */
 
         BinaryTree tree = new BinaryTree();
-        
+
         Node root = tree.buildTree(nodes);
 
         // tree.printPreOrder(root);
@@ -163,14 +199,27 @@ public class binaryTree {
 
         // tree.printPostOrder(root);
 
-       // tree.printLevelOrder(root);
+        // tree.printLevelOrder(root);
 
-      //  System.out.println(tree.height(root));
+        // System.out.println(tree.height(root));
 
-     // System.out.println(tree.no_Of_Nodes(root));
+        // System.out.println(tree.no_Of_Nodes(root));
 
-    // System.out.println(tree.sum_of_nodes(root));
-    
-    //  System.out.println(tree.diameter_of_tree(root));
+        // System.out.println(tree.sum_of_nodes(root));
+
+        // -----------------------------------------------
+
+        // System.out.println(tree.diameter_of_tree(root));
+
+        // System.out.println( ( BinaryTree.diameter.diameterApproach2(root)).dia);
+
+        // --------------------------------------------------
+        int nodes2[] = {  2, 4, -1, -1, 5, -1, -1};
+        BinaryTree tree2 = new BinaryTree();
+
+        BinaryTree.idx = -1;
+        Node subtree = tree2.buildTree(nodes2);
+System.out.println(tree2.subtree_of_another_tree(root, subtree));
+        
     }
 }
