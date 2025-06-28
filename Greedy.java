@@ -139,7 +139,7 @@ public class Greedy {
     public static class job {
         public static class Job {
 
-            int id;
+            int id; //index
             int deadline;
             int profit;
 
@@ -174,8 +174,9 @@ public class Greedy {
     public static void chocola_problem(Integer costHor[], Integer costVer[]) {
         Arrays.sort(costVer, Collections.reverseOrder());
         Arrays.sort(costHor, Collections.reverseOrder());
-        int h = 0, v = 0;
-        int hp = 1, vp = 1;
+        int h = 0, v = 0; //traverse over costVer & costHor
+        int hp = 1 ;//horizontal pieces 
+        int vp = 1; 
         int cost = 0;
         while (h < costHor.length && v < costVer.length) {
             // vertical cost < hor cost
@@ -233,7 +234,7 @@ public class Greedy {
 
         // -----------------------------------------
 
-        // int jobInfo[][] = { { 4, 20 }, { 1, 10 }, { 1, 40 }, { 1, 30 } };
+        // int jobInfo[][] = { { 2, 20 }, { 1, 10 }, { 2, 40 }, { 2, 30 } }; //index 0 is deadline inex 1 is profit
         // ArrayList<job.Job> s = new ArrayList<>();
 
         // for (int i = 0; i < jobInfo.length; i++) {
