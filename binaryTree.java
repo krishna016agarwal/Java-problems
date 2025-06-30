@@ -119,13 +119,13 @@ public class binaryTree {
             return root.data + sum_of_nodes(root.left) + sum_of_nodes(root.right);
         }
 
-        public static int diameter_of_tree(Node root) { // O(n^2)
+        public static int diameter_of_tree(Node root) { // O(n^2) approach 1st
 
             if (root == null) {
                 return 0;
             }
-            int ld = diameter_of_tree(root.left);
-            int rd = diameter_of_tree(root.right);
+            int ld = diameter_of_tree(root.left); // left diameter
+            int rd = diameter_of_tree(root.right);// rigt diameter
             int heightleft = height(root.left);
             int heightright = height(root.right);
             int self = heightleft + heightright + 1;
@@ -156,33 +156,36 @@ public class binaryTree {
             }
         }
 
-        public static boolean isIdentical(Node node, Node subRoot) {
-            if (node == null && subRoot == null) {
-                return true;
-            } else if (node == null || subRoot == null || node.data != subRoot.data) {
-                return false;
-            }
-            if (!isIdentical(node.left, subRoot.left)) {
-                return false;
-            }
-            if (!isIdentical(node.right, subRoot.right)) {
-                return false;
-            }
-            return true;
-        }
-
-        public static boolean subtree_of_another_tree(Node root, Node subtree) {
-            if (root == null) {
-                return false;
-            }
-            if (root.data == subtree.data) {
-
-                if (isIdentical(root, subtree)) {
+        static class SubTree {
+            public static boolean isIdentical(Node node, Node subRoot) {
+                if (node == null && subRoot == null) {
                     return true;
+                } else if (node == null || subRoot == null || node.data != subRoot.data) {
+                    return false;
                 }
+                if (!isIdentical(node.left, subRoot.left)) {
+                    return false;
+                }
+                if (!isIdentical(node.right, subRoot.right)) {
+                    return false;
+                }
+                return true;
             }
 
-            return subtree_of_another_tree(root.left, subtree) || subtree_of_another_tree(root.right, subtree);
+            public static boolean subtree_of_another_tree(Node root, Node subtree) {
+                if (root == null) {
+                    return false;
+                }
+                if (root.data == subtree.data) {
+
+                    if (isIdentical(root, subtree)) {
+                        return true;
+                    }
+                }
+
+                return subtree_of_another_tree(root.left, subtree) || subtree_of_another_tree(root.right, subtree);
+            }
+
         }
 
         static class TopView {
@@ -234,6 +237,67 @@ public class binaryTree {
 
         }
 
+        public static void kth_level(Node root, int n) { // approach 1 //O(n)
+            if (root == null) {
+                return;
+            }
+            Queue<Node> q = new LinkedList<>();
+            q.add(root);
+            q.add(null);
+            int i = 1;
+            while (!q.isEmpty()) {
+                Node a = q.remove();
+                if (a == null) {
+                    if (q.isEmpty()) {
+                        break;
+                    } else {
+                        i++;
+                        if (i == n) {
+                            while (!q.isEmpty()) {
+                                System.out.print(q.remove().data + " ");
+                            }
+                            return;
+                        }
+                        q.add(null);
+                    }
+                } else {
+
+                    if (a.left != null) {
+                        q.add(a.left);
+                    }
+                    if (a.right != null) {
+                        q.add(a.right);
+                    }
+                }
+            }
+        }
+
+        public static void kth_level_approach_2(Node root, int n, int level) {// O(n)
+            if (root == null) {
+                return;
+            }
+            if (level == n) {
+                System.out.print(root.data + " ");
+                return;
+            }
+            kth_level_approach_2(root.left, n, level + 1);
+
+            kth_level_approach_2(root.right, n, level + 1);
+
+        }
+
+        // static class Ancestor{
+
+        // public static Arrays getpath(int num1,Node root,ArrayList<Integer> path){
+        // arr
+        // }
+        // public static void lowest_common_ancestor(Node root,int num1,int num2){
+        // ArrayList<Integer> path1=new ArrayList<>();
+        // ArrayList<Integer> path2=new ArrayList<>();
+        // getpath(num1, root, path1)
+        // }
+        // }
+
     }
 
     public static void main(String[] args) {
@@ -263,16 +327,25 @@ public class binaryTree {
 
         // System.out.println( ( BinaryTree.diameter.diameterApproach2(root)).dia);
 
-        // --------------------------------------------------
+        // --------------------Sub Tree------------------------------
+
         // int nodes2[] = { 2, 4, -1, -1, 5, -1, -1 };
         // BinaryTree tree2 = new BinaryTree();
 
         // BinaryTree.idx = -1;
         // Node subtree = tree2.buildTree(nodes2);
-        // System.out.println(tree2.subtree_of_another_tree(root, subtree));
+        // System.out.println(BinaryTree.SubTree.subtree_of_another_tree(root,
+        // subtree));
 
         // -------------------------------------------------------
         // BinaryTree.TopView.topView(root);
+
+        // ---------------------------------------------------
+
+        // tree.kth_level(root, 3);
+        // tree.kth_level_approach_2(root, 3, 1);
+
+        // ------------------------------
 
     }
 }
