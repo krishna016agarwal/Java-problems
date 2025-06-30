@@ -286,17 +286,40 @@ public class binaryTree {
 
         }
 
-        // static class Ancestor{
+        static class Ancestor {
 
-        // public static Arrays getpath(int num1,Node root,ArrayList<Integer> path){
-        // arr
-        // }
-        // public static void lowest_common_ancestor(Node root,int num1,int num2){
-        // ArrayList<Integer> path1=new ArrayList<>();
-        // ArrayList<Integer> path2=new ArrayList<>();
-        // getpath(num1, root, path1)
-        // }
-        // }
+            public static boolean getpath(int num, Node root, ArrayList<Node> path) {// O(n)
+                if (root == null) {
+                    return false;
+                }
+                path.add(root);
+                if (root.data == num) {
+                    return true;
+                }
+                boolean foundleft = getpath(num, root.left, path);
+                boolean foundright = getpath(num, root.right, path);
+                if (foundright || foundleft) {
+                    return true;
+                }
+                path.remove(path.size() - 1);
+                return false;
+            }
+
+            public static void lowest_common_ancestor(Node root, int num1, int num2) {// O(n)
+                ArrayList<Node> path1 = new ArrayList<>();
+                ArrayList<Node> path2 = new ArrayList<>();
+                getpath(num1, root, path1);
+                getpath(num2, root, path2);
+                int i = 0;
+                for (; i < path1.size() && i < path2.size(); i++) {
+                    if (path1.get(i) != path2.get(i)) {
+
+                        break;
+                    }
+                }
+                System.out.println(path1.get(i - 1).data);
+            }
+        }
 
     }
 
@@ -304,7 +327,6 @@ public class binaryTree {
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
 
         BinaryTree tree = new BinaryTree();
-        
 
         Node root = tree.buildTree(nodes);
 
@@ -347,6 +369,7 @@ public class binaryTree {
         // tree.kth_level_approach_2(root, 3, 1);
 
         // ------------------------------
+      //  BinaryTree.Ancestor.lowest_common_ancestor(root, 4, 6);
 
     }
 }
