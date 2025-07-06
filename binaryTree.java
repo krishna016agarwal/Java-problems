@@ -364,8 +364,77 @@ public class binaryTree {
             }
         }
 
-        
-   
+        public static int kth_ancestor(Node root, int n, int k) {
+            // if (root == null) {
+            // return -1;
+            // }
+            // if (root.data == n) {
+            // return 1;
+            // }
+            // int dist1 = kth_ancestor(root.left, n, k);
+            // int dist2 = kth_ancestor(root.right, n, k);
+
+            // if (dist1 == k) {
+            // System.out.println(root.data);
+            // return -1;
+            // }
+            // if (dist2 == k) {
+            // System.out.println(root.data);
+            // return -1;
+            // }
+            // if (dist1 == -1 && dist2 != -1) {
+            // return dist2 = dist2 + 1;
+            // }
+            // if (dist2 == -1 && dist1 != -1) {
+            // return dist1 = dist1 + 1;
+            // }
+
+            // return -1;
+            if (root == null) {
+                return -1;
+            }
+            if (root.data == n) {
+                return 0;
+            }
+            int dist1 = kth_ancestor(root.left, n, k);
+            int dist2 = kth_ancestor(root.right, n, k);
+
+            if (dist1 == -1 && dist2 == -1) {
+                return -1;
+            }
+
+            int max = Math.max(dist1, dist2);
+            if (max + 1 == k) {
+                System.out.println(root.data);
+
+            }
+            return max + 1;
+
+        }
+
+        public static class SumTree {
+            public static int sum(Node root) {
+                if (root == null) {
+                    return 0;
+                }
+                int lsum = sum(root.left);
+                int rsum = sum(root.right);
+                return lsum + rsum + root.data;
+
+            }
+
+            public static void transform_to_sum_tree(Node root) {
+                if (root == null) {
+                    return;
+                }
+                int lsum = sum(root.left);
+                int rsum = sum(root.right);
+                root.data = lsum + rsum;
+                transform_to_sum_tree(root.left);
+                transform_to_sum_tree(root.right);
+
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -420,6 +489,16 @@ public class binaryTree {
 
         // -------------------------------------------------------
 
-        //System.out.println(BinaryTree.minimum_distance_btw_two_node.minimum_distance_btw_two_node(root, 4, 3));
+        // System.out.println(BinaryTree.minimum_distance_btw_two_node.minimum_distance_btw_two_node(root,
+        // 4, 3));
+
+        // -----------------------------------------------------------
+
+        // tree.kth_ancestor(root, 4, 0);
+
+        // ----------------transform_to_sum_tree----------------------------
+
+        // BinaryTree.SumTree.transform_to_sum_tree(root);
+        // tree.printPreOrder(root);
     }
 }
