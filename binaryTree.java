@@ -305,7 +305,7 @@ public class binaryTree {
                 return false;
             }
 
-            public static void lowest_common_ancestor(Node root, int num1, int num2) {// O(n)
+            public static void lowest_common_ancestor(Node root, int num1, int num2) {// O(n) space-O(n)
                 ArrayList<Node> path1 = new ArrayList<>();
                 ArrayList<Node> path2 = new ArrayList<>();
                 getpath(num1, root, path1);
@@ -321,6 +321,51 @@ public class binaryTree {
             }
         }
 
+        public static Node lowest_common_ancestor_approach2(Node root, int n, int m) {
+            if (root == null || root.data == n || root.data == m) {
+                return root;
+            }
+            Node leftlca = lowest_common_ancestor_approach2(root.left, n, m);
+            Node rightlcs = lowest_common_ancestor_approach2(root.right, n, m);
+            if (leftlca == null) {
+                return rightlcs;
+            }
+            if (rightlcs == null) {
+                return leftlca;
+            }
+            return root;
+        }
+
+        public static class minimum_distance_btw_two_node {
+
+            public static int lcadist(Node root, int n) {
+                if (root == null) {
+                    return -1;
+                }
+                if (root.data == n) {
+                    return 0;
+                }
+                int leftDist = lcadist(root.left, n);
+                int rightDist = lcadist(root.right, n);
+                if (leftDist == -1 && rightDist == -1) {
+                    return -1;
+                } else if (leftDist == -1) {
+                    return rightDist + 1;
+                } else {
+                    return leftDist + 1;
+                }
+            }
+
+            public static int minimum_distance_btw_two_node(Node root, int a, int b) {
+                Node lca = lowest_common_ancestor_approach2(root, a, b);
+                int dist1 = lcadist(lca, a);
+                int dist2 = lcadist(lca, b);
+                return dist1 + dist2;
+            }
+        }
+
+        
+   
     }
 
     public static void main(String[] args) {
@@ -369,7 +414,12 @@ public class binaryTree {
         // tree.kth_level_approach_2(root, 3, 1);
 
         // ------------------------------
-      //  BinaryTree.Ancestor.lowest_common_ancestor(root, 4, 6);
+        // BinaryTree.Ancestor.lowest_common_ancestor(root, 4, 6);
 
+        // System.out.println( tree.lowest_common_ancestor_approach2(root, 4, 5).data);
+
+        // -------------------------------------------------------
+
+        //System.out.println(BinaryTree.minimum_distance_btw_two_node.minimum_distance_btw_two_node(root, 4, 3));
     }
 }
