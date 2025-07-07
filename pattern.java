@@ -108,12 +108,124 @@ public class pattern {
     }
   }
 
+  public static void rightPyramid(int n) {
+    for (int i = 1; i <= 2 * n - 1; i++) {
+      int spaces = Math.abs(n - i);
+      int stars = n - spaces;
+      // for (int j = 0; j < stars; j++) {
+      // System.out.print("*");
+      // }
+      System.out.print("*".repeat(stars));
+      System.out.println();
+    }
+  }
+
+  public static void number_empty_triangle_rectangle(int n) {
+    for (int i = 1; i <= n; i++) {
+      int spaces = 2 * n - 2 * i;
+      for (int j = 1; j <= i; j++) {
+        System.out.print(j);
+      }
+      System.out.print(" ".repeat(spaces));
+      for (int j = i; j > 0; j--) {
+        System.out.print(j);
+      }
+      System.out.println();
+    }
+  }
+
+  public static void numberTriangle(int n) {
+    int i = 1;
+    for (int j = 1; j <= n; j++) {
+      for (int j2 = 0; j2 < j; j2++) {
+        System.out.print(i + " ");
+        i++;
+      }
+      System.out.println();
+    }
+  }
+
+  public static void alphabetTriangle(int n) {
+
+    for (int j = 1; j <= n; j++) {
+      for (int j2 = 0; j2 < j; j2++) {
+        System.out.print((char) ('A' + j2) + " ");
+
+      }
+      System.out.println();
+    }
+  }
+
+  public static void alphabetPyramid(int n) {
+    for (int i = 1; i <= n; i++) {
+      int spaces = n - i;
+      System.out.print(" ".repeat(spaces)); // print spaces
+      int val = 2 * i - 1;
+      for (int j = 1; j <= val; j++) {
+        if (j < (val / 2 + 1)) {
+          System.out.print((char) ('A' + (j - 1)));
+        } else {
+          System.out.print((char) ('A' + (val - j)));
+        }
+      }
+      System.out.println();
+    }
+  }
+
+  public static void alphabetInvertedTriangle(int n) {
+    for (int i = n; i > 0; i--) {
+      for (int j = 0; j < n - i + 1; j++) {
+        System.out.print((char) ('A' + i + j - 1));
+      }
+      System.out.println();
+    }
+  }
+
+  public static void diamonFrame(int n) {
+    int k = 2 * n;
+    for (int i = k; i > 0; i--) {
+
+      int con = (k - i) * 2;
+      int spaces;
+
+      // logic
+      if (con == k) {
+        spaces = con - 2;
+      } else if (i > n) {
+        spaces = con;
+      } else {
+        spaces = i * 2 - 2;
+      }
+      int stars = k - spaces;
+
+      int halfFill = stars / 2;
+      for (int l = 0; l < halfFill; l++) {
+        System.out.print("*");
+      }
+
+      System.out.print(" ".repeat(spaces));
+
+      for (int l = 0; l < halfFill; l++) {
+        System.out.print("*");
+      }
+
+      System.out.println();
+    }
+  }
+
   public static void main(String[] args) {
 
     // draw_number_rectangle(3);
     // triangle_of_number(5);
     // diamond(3);
     // diamond2(2);
-    //diamond3(2);
+    // diamond3(2);
+    // rightPyramid(5);
+    // number_empty_triangle_rectangle(5);
+    // numberTriangle(5);
+    // alphabetTriangle(5);
+    // alphabetPyramid(5);
+    // alphabetInvertedTriangle(5);
+    diamonFrame(5);
   }
 }
