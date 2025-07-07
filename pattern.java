@@ -213,6 +213,21 @@ public class pattern {
     }
   }
 
+ public static void butterfly(int n){
+  int k=2*n;
+  for (int i = 1; i < k; i++) {
+    int spaces= k/2>i ? k-2*i : 2*i-k; //condition
+    int stars=k-spaces;
+    for (int j = 0; j < stars/2; j++) {
+      System.out.print("*");
+    }
+    System.out.print(" ".repeat(spaces));
+     for (int j = 0; j < stars/2; j++) {
+      System.out.print("*");
+    }
+    System.out.println();
+  }
+ }
   public static void main(String[] args) {
 
     // draw_number_rectangle(3);
@@ -226,6 +241,7 @@ public class pattern {
     // alphabetTriangle(5);
     // alphabetPyramid(5);
     // alphabetInvertedTriangle(5);
-    diamonFrame(5);
+    //diamonFrame(5);
+   // butterfly(5);
   }
 }

@@ -281,6 +281,18 @@ public class code {
         }
     }
 
+   public static boolean isPrime(int n){  //O(sqrt(n))
+    if (n<=1) {
+        return false;
+    }
+    for (int i = 2; i < Math.sqrt(n); i++) {
+       if (n%i==0) {
+        return false;
+       }
+    }
+    return true;
+   }
+
     public static void main(String args[]) {
 
         // int arr[] = { 1, 2, 3, 4, 5, 6, 1 };
@@ -354,6 +366,8 @@ public class code {
 
         // int arr[][] = { { 10, 20, 30, 40 }, { 15, 25, 35, 45 }, { 27, 29, 37, 48 }, { 32, 33, 39, 50 } };
         // find_element_in_sorted_array_staicase_method(arr, 37);  
+
+      //  System.out.println(isPrime(0));
 
 
     }
