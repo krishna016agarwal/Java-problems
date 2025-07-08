@@ -201,7 +201,7 @@ public class binaryTree {
                 // level order
                 Queue<TopView> q = new LinkedList<>();
 
-                HashMap<Integer, Node> map = new HashMap<>();
+                hashMap<Integer, Node> map = new hashMap<>();
                 int min = 0, max = 0;
                 q.add(new TopView(root, 0));
                 q.add(null);
