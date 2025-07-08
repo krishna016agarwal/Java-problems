@@ -125,6 +125,57 @@ public class sorting {
         }
     }
 
+    class recursiveBubble {
+        public static int[] bubblesort(int arr[]) {
+            helper(arr, arr.length);
+            return arr;
+        }
+
+        private static void helper(int arr[], int n) {
+            if (n == 1)
+                return;
+            for (int i = 0; i < n - 1; i++) {
+                if (arr[i] > arr[i + 1]) {
+                    int temp = arr[i];
+                    arr[i] = arr[i + 1];
+                    arr[i + 1] = temp;
+                }
+            }
+            helper(arr, n - 1);
+        }
+    }
+
+    class insertionSort {
+        public int[] insertingSorting(int arr[]) {
+            helper(arr, 1);
+            return arr;
+        }
+
+        private void helper(int arr[], int n) {
+            if (n == arr.length) {
+                return;
+            }
+            for (int i = n; i > 0; i--) {
+                if (arr[i - 1] > arr[i]) {
+                    int temp = arr[i - 1];
+                    arr[i - 1] = arr[i];
+                    arr[i] = temp;
+                }
+            }
+            helper(arr, n + 1);
+        }
+    }
+
+    class mergeSorting{
+        public int[] sort(int arr[]){
+            helper(arr);
+            return arr;
+        }
+        private void helper(int arr[]){
+            
+        }
+    }
+    
     public static void main(String args[]) {
         // int arr[] = { 9, 5, 7, 3, 52, 1, 4, 78, 62, 2 };
         // selection_sorting(arr);
@@ -146,6 +197,21 @@ public class sorting {
         // int arr[] = { 8, 5, 2, 9, -6, 1, -3 };
         // QuickSort.quicksort(arr, 0, arr.length-1);
         // code.printArray(arr);
+
+        // --------------------------------------
+        // int arr[]={7,5,4,1,3};
+        // sorting.recursiveBubble.bubblesort(arr);
+        // for (int i = 0; i < arr.length; i++) {
+        // System.out.print(arr[i]+" ");
+        // }
+        // ---------------------------------------
+        // sorting s=new sorting();
+        // int arr[]={7,1,5,4,3,6,2};
+        // insertionSort a=s.new insertionSort();
+        // a.insertingSorting(arr);
+        // for (int i = 0; i < arr.length; i++) {
+        // System.out.print(arr[i]+" ");
+        // }
     }
 }
 
