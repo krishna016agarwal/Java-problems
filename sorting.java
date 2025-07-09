@@ -189,11 +189,11 @@ public class sorting {
         // counting_sort(arr);
 
         // spiral_matrix();
-
+//--------------------------------------------------------
         // int arr[] = { 8, 5, 2, 9, -6, 1, -3 };
         // MergeSort.mergeSort(arr, 0, arr.length - 1);
         // code.printArray(arr);
-
+//----------------------------------------------------------
         // int arr[] = { 8, 5, 2, 9, -6, 1, -3 };
         // QuickSort.quicksort(arr, 0, arr.length-1);
         // code.printArray(arr);
@@ -229,7 +229,9 @@ class MergeSort {
 
     public static void mergeConquor(int arr[], int si, int e, int mid) {
         int temp[] = new int[e - si + 1];
-        int i = si, j = mid + 1, k = 0;
+        int i = si; //first array
+        int j = mid + 1; //second array
+        int k = 0; //temp array
 
         while (i <= mid && j <= e) {
             if (arr[i] < arr[j]) {
