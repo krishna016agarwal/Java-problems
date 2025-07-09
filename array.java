@@ -56,12 +56,50 @@ public class array {
         return j+1;
     }
 
+   public static void rotateArray(int arr[],int k){
+ 
+   if (arr.length==0 || arr.length==1 ||k==0) {
+    return;
+   }
+ 
+   if (arr.length%2==0 && k%2==0) {
+    int i=0;
+    while (i<k) {
+        int temp=arr[i];
+        arr[i]=arr[(i+k)%arr.length];
+        arr[(i+k)%arr.length]=temp;
+        i++;
+    }
+    
+    return;
+   }
+     int temp=arr[0];
+    int next=k%arr.length;
+     while (temp!=arr[next]) {
+      
+        temp=(temp)+(arr[next]);
+    arr[next]=(temp)-(arr[next]);
+    temp=(temp)-(arr[next]);
+    next=(next+3)%arr.length;
+
+     }
+ 
+   
+
+   }
+   
     public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
 
         //  int arr[] = { 1,1,2,2,2, 2, 7, 7,8,8,9,10,10 };
        // remove_duplicate_in_sorted_array(arr);
-        // System.out.println(remove_duplicate_in_sorted_array(arr)); 
+        // System.out.println(remove_duplicate_in_sorted_array(arr));
+        
+        int arr[]={-1,-100,3,99};
+        rotateArray(arr,2);
+        for (int i = 0; i < arr.length; i++) {
+    System.out.print(arr[i]+" ");
+   }
     }
 }
