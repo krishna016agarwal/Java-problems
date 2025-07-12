@@ -191,32 +191,55 @@ public class array {
         printArray(union);
     }
 
-      public static int missingNumber(int[] nums) {//O(n)  SC-O(n)
-        HashMap<Integer,Boolean> q=new HashMap<>();
-        int a=-1;
-        for (int i = 0; i <=nums.length; i++) { //O(n)
-            q.put(i, false); //O(1)
+    public static int missingNumber(int[] nums) {// O(n) SC-O(n)
+        HashMap<Integer, Boolean> q = new HashMap<>();
+        int a = -1;
+        for (int i = 0; i <= nums.length; i++) { // O(n)
+            q.put(i, false); // O(1)
         }
-        for (int i = 0; i < nums.length; i++) { //O(n)
-            q.put(nums[i], true); //O(1)
+        for (int i = 0; i < nums.length; i++) { // O(n)
+            q.put(nums[i], true); // O(1)
         }
-        for (int i = 0; i <= nums.length; i++) { //O(n)
-            if (q.get(i)==false) { //O(1)
-                a=i;
+        for (int i = 0; i <= nums.length; i++) { // O(n)
+            if (q.get(i) == false) { // O(1)
+                a = i;
                 break;
             }
         }
         return a;
     }
-    
-      public static int missingNumber_Optimal_Solution(int[] nums) {//O(n)  SC-O(1)
-        int n=nums.length;
-        int sum=n* (n+1)/2;
+
+    public static int missingNumber_Optimal_Solution(int[] nums) {// O(n) SC-O(1)
+        int n = nums.length;
+        int sum = n * (n + 1) / 2;
         for (int i = 0; i < nums.length; i++) {
-            sum-=nums[i];
+            sum -= nums[i];
         }
         return sum;
-      }
+    }
+
+    public static int findMaxConsecutiveOnes(int[] nums) {// O(n) SC-O(1)
+        int a = 0;
+        int max = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 1) {
+                a++;
+                max = Math.max(max, a);
+            } else {
+                a = 0;
+            }
+        }
+        return max;
+    }
+
+    public static int find_Number_appears_one_time_in_array(int[] nums) {
+        int xor = 0;
+        for (int i = 0; i < nums.length; i++) {
+            xor ^= nums[i];
+        }
+        return xor;
+    }
+
     public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
@@ -248,5 +271,11 @@ public class array {
         // int arr[]={0,1,2,4};
         // System.out.println(missingNumber(arr));
         // System.out.println(missingNumber_Optimal_Solution(arr));
+
+        // int arr[] = { 1, 0, 1, 1, 0, 1, 1, 1 };
+        // System.out.println(findMaxConsecutiveOnes(arr));
+
+        int arr[] = { 1, 1, 4, 6, 7, 2, 6, 2, 7 };
+        System.out.println(find_Number_appears_one_time_in_array(arr));
     }
 }
