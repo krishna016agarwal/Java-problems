@@ -218,6 +218,17 @@ public class array {
         return sum;
     }
 
+     public static int missingNumber_Optimal_Solution_2(int[] nums) {// O(n) SC-O(1)
+    int xor=0;
+    for (int i = 0; i < nums.length; i++) {
+        xor^=i;  //xor=(0^1^2^3^4)^ (0^1^2^4) = 3
+        xor^=nums[i];
+    }   
+    return xor^nums.length; 
+    
+    }
+
+
     public static int findMaxConsecutiveOnes(int[] nums) {// O(n) SC-O(1)
         int a = 0;
         int max = 0;
@@ -232,14 +243,38 @@ public class array {
         return max;
     }
 
-    public static int find_Number_appears_one_time_in_array(int[] nums) {
+    public static int find_Number_appears_one_time_in_array(int[] nums) { // O(n) SC-O(1)
         int xor = 0;
         for (int i = 0; i < nums.length; i++) {
-            xor ^= nums[i];
+            xor ^= nums[i];   //1^1^4^6^4= 0^4^6^4 = 4^6^4 = 4^4^6 = 0^6 = 6
         }
         return xor;
     }
 
+   public static void largest_subarray_with_sum_k(int arr[],int k){
+        int max=-1;
+        int a=0;
+        int j=0;
+        for (int i = 0; i < arr.length; i++) {
+            a+=arr[i];
+            j++;
+            if (a>k) {
+                a=arr[i];
+                j=1;
+            }
+            if (i>0 && arr[i]+arr[i-1]==k) {
+                a=arr[i]+arr[i-1];
+                j=Math.max(2,j);
+                
+            }
+             if(a==k){
+              max=Math.max(max, j);
+            }
+        }
+        System.out.println(max);
+
+   }
+   
     public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
@@ -271,11 +306,15 @@ public class array {
         // int arr[]={0,1,2,4};
         // System.out.println(missingNumber(arr));
         // System.out.println(missingNumber_Optimal_Solution(arr));
+       //  System.out.println(missingNumber_Optimal_Solution_2(arr));
 
         // int arr[] = { 1, 0, 1, 1, 0, 1, 1, 1 };
         // System.out.println(findMaxConsecutiveOnes(arr));
 
-        int arr[] = { 1, 1, 4, 6, 7, 2, 6, 2, 7 };
-        System.out.println(find_Number_appears_one_time_in_array(arr));
+        // int arr[] = { 1, 1, 4, 6, 7, 2, 6, 2, 7 };
+        // System.out.println(find_Number_appears_one_time_in_array(arr));
+
+        int arr[]={1,2,3,1,1,1,1,4,2,3};
+        largest_subarray_with_sum_k(arr, 3);
     }
 }
