@@ -191,6 +191,32 @@ public class array {
         printArray(union);
     }
 
+      public static int missingNumber(int[] nums) {//O(n)  SC-O(n)
+        HashMap<Integer,Boolean> q=new HashMap<>();
+        int a=-1;
+        for (int i = 0; i <=nums.length; i++) { //O(n)
+            q.put(i, false); //O(1)
+        }
+        for (int i = 0; i < nums.length; i++) { //O(n)
+            q.put(nums[i], true); //O(1)
+        }
+        for (int i = 0; i <= nums.length; i++) { //O(n)
+            if (q.get(i)==false) { //O(1)
+                a=i;
+                break;
+            }
+        }
+        return a;
+    }
+    
+      public static int missingNumber_Optimal_Solution(int[] nums) {//O(n)  SC-O(1)
+        int n=nums.length;
+        int sum=n* (n+1)/2;
+        for (int i = 0; i < nums.length; i++) {
+            sum-=nums[i];
+        }
+        return sum;
+      }
     public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
@@ -218,5 +244,9 @@ public class array {
         // int arr1[] = { 1, 2, 2, 3, 3, 4, 5, 6 };
         // int arr2[] = { 2, 3, 3, 5, 6, 6, 7 };
         // intersection_of_two_arrays(arr1, arr2);
+
+        // int arr[]={0,1,2,4};
+        // System.out.println(missingNumber(arr));
+        // System.out.println(missingNumber_Optimal_Solution(arr));
     }
 }
