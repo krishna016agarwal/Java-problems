@@ -123,12 +123,12 @@ public class array {
         }
     }
 
-    public static void union_of_two_arrays(int arr1[], int arr2[]) { //O(n) SC- O(n)
+    public static void union_of_two_arrays(int arr1[], int arr2[]) { // O(n) SC- O(n)
         Deque<Integer> q = new LinkedList<>();
         int i = 0, j = 0;
-           int a=0;
+        int a = 0;
         while (i < arr1.length && j < arr2.length) {
-         
+
             if (arr1[i] == arr2[j]) {
                 a = arr1[i];
                 i++;
@@ -140,29 +140,55 @@ public class array {
                 q.addLast(a);
             }
         }
-            while (i < arr1.length) {
+        while (i < arr1.length) {
+            if (q.peekLast() == null || q.peekLast() != arr1[i]) {
+                q.addLast(arr1[i]);
+
+            }
+            i++;
+
+        }
+        while (j < arr2.length) {
+            if (q.peekLast() == null || q.peekLast() != arr2[j]) {
+                q.addLast(arr2[j]);
+            }
+            j++;
+
+        }
+        int union[] = new int[q.size()];
+        i = 0;
+        while (!q.isEmpty()) {
+            union[i++] = q.removeFirst();
+
+        }
+        printArray(union);
+
+    }
+
+    public static void intersection_of_two_arrays(int arr1[], int arr2[]) { // O(n) SC- O(n)
+        Deque<Integer> q = new LinkedList<>();
+        int i = 0;
+        int j = 0;
+        while (i < arr1.length && j < arr2.length) {
+            if (arr1[i] == arr2[j]) {
                 if (q.peekLast() == null || q.peekLast() != arr1[i]) {
-                    q.addLast(arr1[i]);
-               
+                    q.add(arr1[i]);
                 }
                 i++;
-              
-            }
-            while (j < arr2.length) {
-                if (q.peekLast() == null || q.peekLast() != arr2[j]) {
-                    q.addLast(arr2[j]);
-                }
                 j++;
-          
+            } else if (arr1[i] > arr2[j]) {
+                j++;
+            } else {
+                i++;
             }
-            int union[] = new int[q.size()];
-            i = 0;
-            while (!q.isEmpty()) {
-                union[i++] = q.removeFirst();
-                
-            }
-            printArray(union);
-        
+        }
+        int union[] = new int[q.size()];
+        i = 0;
+        while (!q.isEmpty()) {
+            union[i++] = q.removeFirst();
+
+        }
+        printArray(union);
     }
 
     public static void main(String[] args) {
@@ -188,5 +214,9 @@ public class array {
         // int arr1[] = { 1, 1, 2, 3, 4, 5 };
         // int arr2[] = { 1, 1, 1, 2, 3, 4, 4, 5, 6, 7, 7 };
         // union_of_two_arrays(arr1, arr2);
+
+        // int arr1[] = { 1, 2, 2, 3, 3, 4, 5, 6 };
+        // int arr2[] = { 2, 3, 3, 5, 6, 6, 7 };
+        // intersection_of_two_arrays(arr1, arr2);
     }
 }
