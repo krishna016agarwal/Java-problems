@@ -335,7 +335,35 @@ public class array {
    return false;
    }
    
-    public static void main(String[] args) {
+   
+   public static void swap(int arr[],int i,int j){
+    int c=arr[i];
+    arr[i]=arr[j];
+    arr[j]=c;
+   }
+   
+   public static void sort_array_of_0_1_2(int arr[]){  //O(n) SC- O(n)
+    int low=0;
+    int high=arr.length-1;
+    int mid=0;
+    while (mid<=high) {
+        if (arr[mid]==0) {
+           
+            swap(arr,low, mid);
+            
+            low++;
+            mid++;
+        }else if(arr[mid]==1){
+            mid++;
+        }else {
+            swap(arr,high, mid);
+            high--;
+        }
+    }
+
+   }
+   
+   public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
 
@@ -384,6 +412,11 @@ public class array {
         //  int nums[]=two_sum(arr, 6);
         //  printArray(nums);
         //System.out.println(two_sum_optimal_solution(arr, -8));
+
+        // int arr[]={0,1,1,0,1,2,1,2,0,0,0};
+        // sort_array_of_0_1_2(arr);
+        // printArray(arr);
         
+       
     }
 }
