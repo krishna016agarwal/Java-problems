@@ -295,6 +295,46 @@ public class array {
         return len;
     }
 
+   
+
+    public static int[] two_sum(int[] nums, int target) { //O(n)  SC-O(n)
+        HashMap<Integer, Integer> s = new HashMap<>();
+   
+
+        for (int i = 0; i < nums.length; i++) {
+            int sub = target-nums[i];
+            if (s.containsKey(sub)) {
+              return new int[]{s.get(sub),i};
+
+            }
+            s.put(nums[i], i);
+        }
+     
+        return new int[]{}; // if no solution is found
+
+    }
+
+   public static boolean two_sum_optimal_solution(int[] nums, int target){ //TC - O(nlogn) SC- O(logn)
+    Arrays.sort(nums); //TC - O(nlogn) SC- O(logn)
+  
+    int i=0,j=nums.length-1;
+    int l=0,k=0;
+    while (i<j) {
+        if (nums[i]+nums[j]==target) {
+            l=i;
+            k=j;
+            return true;
+        }
+        if (nums[i]+nums[j]>target) {
+            j--;
+        }else{
+            i++;
+        }
+        
+    }
+   return false;
+   }
+   
     public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
@@ -339,5 +379,11 @@ public class array {
 
         // int arr[] = { 1,2,3,1,1,1,0,1,3,3};
         // System.out.println(largest_subarray_with_sum_k_Optimal_Solution(arr, 3));
+
+        // int arr[] = { 3,3};
+        //  int nums[]=two_sum(arr, 6);
+        //  printArray(nums);
+        //System.out.println(two_sum_optimal_solution(arr, -8));
+        
     }
 }
