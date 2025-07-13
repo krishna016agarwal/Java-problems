@@ -363,6 +363,26 @@ public class array {
 
    }
    
+    public static int majorityElement(int[] nums) { //Hashing  //O(n) SC- O(n)
+        HashMap<Integer,Integer> s=new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (!s.containsKey(nums[i])) {
+                s.put(nums[i], 1);
+            }else{
+                 s.put(nums[i], (s.get(nums[i]))+1);
+            }
+        }
+        int j=s.size();
+        int i=0;
+       for(Map.Entry<Integer,Integer> q:s.entrySet()){
+        if (q.getValue()>nums.length/2) {
+            return q.getKey();
+        }
+       }
+       return -1;
+        
+    }
+   
    public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
@@ -416,6 +436,9 @@ public class array {
         // int arr[]={0,1,1,0,1,2,1,2,0,0,0};
         // sort_array_of_0_1_2(arr);
         // printArray(arr);
+
+        int arr[]={2,2,1,1,1,2,2,1,1};
+        System.out.println(majorityElement(arr));
         
        
     }
