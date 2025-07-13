@@ -218,16 +218,15 @@ public class array {
         return sum;
     }
 
-     public static int missingNumber_Optimal_Solution_2(int[] nums) {// O(n) SC-O(1)
-    int xor=0;
-    for (int i = 0; i < nums.length; i++) {
-        xor^=i;  //xor=(0^1^2^3^4)^ (0^1^2^4) = 3
-        xor^=nums[i];
-    }   
-    return xor^nums.length; 
-    
-    }
+    public static int missingNumber_Optimal_Solution_2(int[] nums) {// O(n) SC-O(1)
+        int xor = 0;
+        for (int i = 0; i < nums.length; i++) {
+            xor ^= i; // xor=(0^1^2^3^4)^ (0^1^2^4) = 3
+            xor ^= nums[i];
+        }
+        return xor ^ nums.length;
 
+    }
 
     public static int findMaxConsecutiveOnes(int[] nums) {// O(n) SC-O(1)
         int a = 0;
@@ -246,35 +245,56 @@ public class array {
     public static int find_Number_appears_one_time_in_array(int[] nums) { // O(n) SC-O(1)
         int xor = 0;
         for (int i = 0; i < nums.length; i++) {
-            xor ^= nums[i];   //1^1^4^6^4= 0^4^6^4 = 4^6^4 = 4^4^6 = 0^6 = 6
+            xor ^= nums[i]; // 1^1^4^6^4= 0^4^6^4 = 4^6^4 = 4^4^6 = 0^6 = 6
         }
         return xor;
     }
 
-   public static void largest_subarray_with_sum_k(int arr[],int k){
-        int max=-1;
-        int a=0;
-        int j=0;
+    public static int largest_subarray_with_sum_k(int arr[], int k) {// O(n) SC-O(n) //for zeros,positive and negatives
+        HashMap<Integer, Integer> s = new HashMap<>();
+        int l = -1;
+        int sum = 0;
         for (int i = 0; i < arr.length; i++) {
-            a+=arr[i];
-            j++;
-            if (a>k) {
-                a=arr[i];
-                j=1;
+            sum += arr[i];
+
+            if (!s.containsKey(sum)) {
+                s.put(sum, i); // store only first occurrence
             }
-            if (i>0 && arr[i]+arr[i-1]==k) {
-                a=arr[i]+arr[i-1];
-                j=Math.max(2,j);
-                
+            if (sum == k) {
+                l = Math.max(l, i + 1);
             }
-             if(a==k){
-              max=Math.max(max, j);
+
+            if (s.containsKey(sum - k)) {
+                l = Math.max(l, i - s.get(sum - k));
+
             }
         }
-        System.out.println(max);
+        return l;
 
-   }
-   
+    }
+
+    public static int largest_subarray_with_sum_k_Optimal_Solution(int arr[], int k) {// O(n) SC-O(1) //for positive and
+                                                                                      // zeros
+        int len = 0;
+        int sum = 0;
+        int i = 0;
+        int j = 0;
+        while (j < arr.length) {
+            sum += arr[j];
+
+            if (sum > k) {
+                sum -= arr[i];
+                i++;
+            }
+            if (sum == k) {
+                len = Math.max(len, j - i + 1);
+            }
+            j++;
+
+        }
+        return len;
+    }
+
     public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
@@ -306,7 +326,7 @@ public class array {
         // int arr[]={0,1,2,4};
         // System.out.println(missingNumber(arr));
         // System.out.println(missingNumber_Optimal_Solution(arr));
-       //  System.out.println(missingNumber_Optimal_Solution_2(arr));
+        // System.out.println(missingNumber_Optimal_Solution_2(arr));
 
         // int arr[] = { 1, 0, 1, 1, 0, 1, 1, 1 };
         // System.out.println(findMaxConsecutiveOnes(arr));
@@ -314,7 +334,10 @@ public class array {
         // int arr[] = { 1, 1, 4, 6, 7, 2, 6, 2, 7 };
         // System.out.println(find_Number_appears_one_time_in_array(arr));
 
-        int arr[]={1,2,3,1,1,1,1,4,2,3};
-        largest_subarray_with_sum_k(arr, 3);
+        // int arr[] = { 1, -1, 5, -2, 3};
+        // System.out.println(largest_subarray_with_sum_k(arr, 3));
+
+        // int arr[] = { 1,2,3,1,1,1,0,1,3,3};
+        // System.out.println(largest_subarray_with_sum_k_Optimal_Solution(arr, 3));
     }
 }
