@@ -378,7 +378,7 @@ public class array {
 
     }
 
-    public static int majorityElement_optimal_solution(int[] nums) {//O(n)  SC- O(1)
+    public static int majorityElement_optimal_solution(int[] nums) {// O(n) SC- O(1)
         int max = 1;
         int num = nums[0];
         for (int i = 1; i < nums.length; i++) {
@@ -401,6 +401,24 @@ public class array {
             return num;
         }
         return -1;
+    }
+
+    public static int maximum_sum_of_subarray(int nums[]) { //O(n)
+        int sum = nums[0];
+        int helper = 0;
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        for (int i = 0; i < nums.length; i++) {
+            helper += nums[i];
+
+            sum = Math.max(sum, helper);
+            if (helper < 0) {
+                helper = 0;
+            }
+
+        }
+        return sum;
     }
 
     public static void main(String[] args) {
@@ -457,9 +475,12 @@ public class array {
         // sort_array_of_0_1_2(arr);
         // printArray(arr);
 
-        int arr[] = { 2, 2, 1, 1, 1, 2, 2, 1, 1 };
-        System.out.println(majorityElement(arr));
-        System.out.println(majorityElement_optimal_solution(arr));
+        // int arr[] = { 2, 2, 1, 1, 1, 2, 2, 1, 1 };
+        // System.out.println(majorityElement(arr));
+        // System.out.println(majorityElement_optimal_solution(arr));
+
+        // int arr[] = { -2, 1, 1, 1, 2,-3 };
+        // System.out.println(maximum_sum_of_subarray(arr));
 
     }
 }
