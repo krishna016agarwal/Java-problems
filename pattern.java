@@ -213,21 +213,57 @@ public class pattern {
     }
   }
 
- public static void butterfly(int n){
-  int k=2*n;
-  for (int i = 1; i < k; i++) {
-    int spaces= k/2>i ? k-2*i : 2*i-k; //condition
-    int stars=k-spaces;
-    for (int j = 0; j < stars/2; j++) {
-      System.out.print("*");
+  public static void butterfly(int n) {
+    int k = 2 * n;
+    for (int i = 1; i < k; i++) {
+      int spaces = k / 2 > i ? k - 2 * i : 2 * i - k; // condition
+      int stars = k - spaces;
+      for (int j = 0; j < stars / 2; j++) {
+        System.out.print("*");
+      }
+      System.out.print(" ".repeat(spaces));
+      for (int j = 0; j < stars / 2; j++) {
+        System.out.print("*");
+      }
+      System.out.println();
     }
-    System.out.print(" ".repeat(spaces));
-     for (int j = 0; j < stars/2; j++) {
-      System.out.print("*");
-    }
-    System.out.println();
   }
- }
+
+  static class snakePattern {
+    public static void drawtoRight(int arr[][], int i, int j) {
+
+      if (j == arr.length) {
+        return;
+      }
+      System.out.print(arr[i][j] + " ");
+      drawtoRight(arr, i, j + 1);
+    }
+
+    public static void drawtoLeft(int arr[][], int i, int j) {
+      if (j == -1) {
+        return;
+      }
+      System.out.print(arr[i][j] + " ");
+      drawtoLeft(arr, i, j - 1);
+    }
+
+    public static void snakePattern(int arr[][], int i, int j) {
+      if (i == arr.length) {
+        return;
+      }
+
+      if (i % 2 == 0) {
+
+        drawtoRight(arr, i, 0);
+      } else {
+        drawtoLeft(arr, i, arr.length-1);
+      }
+
+      snakePattern(arr, i + 1, j);
+
+    }
+  }
+
   public static void main(String[] args) {
 
     // draw_number_rectangle(3);
@@ -241,7 +277,10 @@ public class pattern {
     // alphabetTriangle(5);
     // alphabetPyramid(5);
     // alphabetInvertedTriangle(5);
-    //diamonFrame(5);
-   // butterfly(5);
+    // diamonFrame(5);
+    // butterfly(5);
+
+    // int arr[][] = { { 10, 20, 30, 40 }, { 50, 60, 70, 80, }, { 27, 29, 47, 48 }, { 32, 33, 39, 50 } };
+    // snakePattern.snakePattern(arr, 0, 0);
   }
 }

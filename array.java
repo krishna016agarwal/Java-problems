@@ -295,95 +295,115 @@ public class array {
         return len;
     }
 
-   
-
-    public static int[] two_sum(int[] nums, int target) { //O(n)  SC-O(n)
+    public static int[] two_sum(int[] nums, int target) { // O(n) SC-O(n)
         HashMap<Integer, Integer> s = new HashMap<>();
-   
 
         for (int i = 0; i < nums.length; i++) {
-            int sub = target-nums[i];
+            int sub = target - nums[i];
             if (s.containsKey(sub)) {
-              return new int[]{s.get(sub),i};
+                return new int[] { s.get(sub), i };
 
             }
             s.put(nums[i], i);
         }
-     
-        return new int[]{}; // if no solution is found
+
+        return new int[] {}; // if no solution is found
 
     }
 
-   public static boolean two_sum_optimal_solution(int[] nums, int target){ //TC - O(nlogn) SC- O(logn)
-    Arrays.sort(nums); //TC - O(nlogn) SC- O(logn)
-  
-    int i=0,j=nums.length-1;
-    int l=0,k=0;
-    while (i<j) {
-        if (nums[i]+nums[j]==target) {
-            l=i;
-            k=j;
-            return true;
+    public static boolean two_sum_optimal_solution(int[] nums, int target) { // TC - O(nlogn) SC- O(logn)
+        Arrays.sort(nums); // TC - O(nlogn) SC- O(logn)
+
+        int i = 0, j = nums.length - 1;
+        int l = 0, k = 0;
+        while (i < j) {
+            if (nums[i] + nums[j] == target) {
+                l = i;
+                k = j;
+                return true;
+            }
+            if (nums[i] + nums[j] > target) {
+                j--;
+            } else {
+                i++;
+            }
+
         }
-        if (nums[i]+nums[j]>target) {
-            j--;
-        }else{
-            i++;
-        }
-        
-    }
-   return false;
-   }
-   
-   
-   public static void swap(int arr[],int i,int j){
-    int c=arr[i];
-    arr[i]=arr[j];
-    arr[j]=c;
-   }
-   
-   public static void sort_array_of_0_1_2(int arr[]){  //O(n) SC- O(n)
-    int low=0;
-    int high=arr.length-1;
-    int mid=0;
-    while (mid<=high) {
-        if (arr[mid]==0) {
-           
-            swap(arr,low, mid);
-            
-            low++;
-            mid++;
-        }else if(arr[mid]==1){
-            mid++;
-        }else {
-            swap(arr,high, mid);
-            high--;
-        }
+        return false;
     }
 
-   }
-   
-    public static int majorityElement(int[] nums) { //Hashing  //O(n) SC- O(n)
-        HashMap<Integer,Integer> s=new HashMap<>();
+    public static void swap(int arr[], int i, int j) {
+        int c = arr[i];
+        arr[i] = arr[j];
+        arr[j] = c;
+    }
+
+    public static void sort_array_of_0_1_2(int arr[]) { // O(n) SC- O(n)
+        int low = 0;
+        int high = arr.length - 1;
+        int mid = 0;
+        while (mid <= high) {
+            if (arr[mid] == 0) {
+
+                swap(arr, low, mid);
+
+                low++;
+                mid++;
+            } else if (arr[mid] == 1) {
+                mid++;
+            } else {
+                swap(arr, high, mid);
+                high--;
+            }
+        }
+
+    }
+
+    public static int majorityElement(int[] nums) { // Hashing //O(n) SC- O(n)
+        HashMap<Integer, Integer> s = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             if (!s.containsKey(nums[i])) {
                 s.put(nums[i], 1);
-            }else{
-                 s.put(nums[i], (s.get(nums[i]))+1);
+            } else {
+                s.put(nums[i], (s.get(nums[i])) + 1);
             }
         }
-        int j=s.size();
-        int i=0;
-       for(Map.Entry<Integer,Integer> q:s.entrySet()){
-        if (q.getValue()>nums.length/2) {
-            return q.getKey();
+
+        for (Map.Entry<Integer, Integer> q : s.entrySet()) {
+            if (q.getValue() > nums.length / 2) {
+                return q.getKey();
+            }
         }
-       }
-       return -1;
-        
+        return -1;
+
     }
-   
-   public static void main(String[] args) {
+
+    public static int majorityElement_optimal_solution(int[] nums) {//O(n)  SC- O(1)
+        int max = 1;
+        int num = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == num) {
+                max++;
+            } else {
+                max--;
+            }
+            if (max == 0 && i != nums.length - 1) {
+                num = nums[i + 1];
+            }
+        }
+        int count = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == num) {
+                count++;
+            }
+        }
+        if (count > nums.length / 2) {
+            return num;
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
 
@@ -429,17 +449,17 @@ public class array {
         // System.out.println(largest_subarray_with_sum_k_Optimal_Solution(arr, 3));
 
         // int arr[] = { 3,3};
-        //  int nums[]=two_sum(arr, 6);
-        //  printArray(nums);
-        //System.out.println(two_sum_optimal_solution(arr, -8));
+        // int nums[]=two_sum(arr, 6);
+        // printArray(nums);
+        // System.out.println(two_sum_optimal_solution(arr, -8));
 
         // int arr[]={0,1,1,0,1,2,1,2,0,0,0};
         // sort_array_of_0_1_2(arr);
         // printArray(arr);
 
-        int arr[]={2,2,1,1,1,2,2,1,1};
+        int arr[] = { 2, 2, 1, 1, 1, 2, 2, 1, 1 };
         System.out.println(majorityElement(arr));
-        
-       
+        System.out.println(majorityElement_optimal_solution(arr));
+
     }
 }
