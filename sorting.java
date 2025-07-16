@@ -188,7 +188,7 @@ public class sorting {
         // int arr[] = { 1, 3, 1, 3, 2, 1, 8, 6,2 }; //time complexity-O(n+k)
         // counting_sort(arr);
 
-        // spiral_matrix();
+        //spiral_matrix();
 //--------------------------------------------------------
         // int arr[] = { 8, 5, 2, 9, -6, 1, -3 };
         // MergeSort.mergeSort(arr, 0, arr.length - 1);

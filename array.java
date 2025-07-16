@@ -1,3 +1,4 @@
+import java.sql.Time;
 import java.util.*;
 
 public class array {
@@ -403,9 +404,10 @@ public class array {
         return -1;
     }
 
-    public static int maximum_sum_of_subarray(int nums[]) { //O(n)
+    public static int maximum_sum_of_subarray(int nums[]) { // O(n)
         int sum = nums[0];
         int helper = 0;
+
         if (nums.length == 1) {
             return nums[0];
         }
@@ -413,12 +415,42 @@ public class array {
             helper += nums[i];
 
             sum = Math.max(sum, helper);
+
             if (helper < 0) {
                 helper = 0;
+
             }
 
         }
+
         return sum;
+    }
+
+    public static int Best_Time_to_Buy_and_Sell_Stock(int nums[]) {
+        int buy = nums[0];
+        int profit = 0;
+        for (int i = 1; i < nums.length; i++) {
+            int selling = nums[i] - buy;
+            profit = Math.max(profit, selling);
+            buy = Math.min(buy, nums[i]);
+        }
+
+        return profit;
+    }
+
+    public static int[] rearrange_Array_by_sign(int[] nums) { // O(n) SC- O(n)
+        int arr[] = new int[nums.length];
+        int k = 0, j = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (nums[i] > 0) {
+                arr[2 * k] = nums[i];
+                k++;
+            } else {
+                arr[2 * j + 1] = nums[i];
+                j++;
+            }
+        }
+        return arr;
     }
 
     public static void main(String[] args) {
@@ -479,8 +511,15 @@ public class array {
         // System.out.println(majorityElement(arr));
         // System.out.println(majorityElement_optimal_solution(arr));
 
-        // int arr[] = { -2, 1, 1, 1, 2,-3 };
+        // int arr[] = { -2, -3, 1, 2, -1 };
         // System.out.println(maximum_sum_of_subarray(arr));
+
+        // int arr[] = { 7, 1, 3, 5, 4, 6 };
+        // System.out.println(Best_Time_to_Buy_and_Sell_Stock(arr));
+
+        // int arr[] = { -1, 1 };
+        // int nums[] = rearrange_Array_by_sign(arr);
+        // printArray(nums);
 
     }
 }
