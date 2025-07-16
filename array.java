@@ -453,7 +453,72 @@ public class array {
         return arr;
     }
 
-    public static void main(String[] args) {
+    public static int[] rearrange_Array_by_sign_unequal_positive_and_negatives(int[] nums) { // O(n) SC- O(n)
+    Deque<Integer> p = new LinkedList<>();
+    Deque<Integer> n = new LinkedList<>();
+
+    for (int num : nums) {
+        if (num > 0) p.add(num);
+        else n.add(num);
+    }
+
+ 
+    int i = 0;
+
+    // Alternate positives and negatives as long as both have elements
+    while (!p.isEmpty() && !n.isEmpty()) {
+        nums[i++] = p.removeFirst();
+        nums[i++] = n.removeFirst();
+    }
+
+    // Add remaining elements from either deque
+    while (!p.isEmpty()) {
+        nums[i++] = p.removeFirst();
+    }
+    while (!n.isEmpty()) {
+        nums[i++] = n.removeFirst();
+    }
+
+    return nums;
+}
+
+public static int[] rearrangeBySignInPlace(int[] nums) {
+    int n = nums.length;
+
+    // Step 1: Partition - move all negative numbers to the end
+    int posIndex = 0;
+    for (int i = 0; i < n; i++) {
+        if (nums[i] > 0) {
+            int temp = nums[i];
+            nums[i] = nums[posIndex];
+            nums[posIndex] = temp;
+            posIndex++;
+        }
+    }
+
+    // Now, 0 to posIndex-1 => all positives
+    // posIndex to n-1 => all negatives
+
+    int positive = 0;        // even indices
+    int negative = posIndex; // first negative index
+
+    // Step 2: Interleave positive and negative numbers
+    while (positive < negative && negative < n && nums[positive] > 0) {
+        // Swap negative number into the next odd index
+        int temp = nums[positive + 1];
+        nums[positive + 1] = nums[negative];
+        nums[negative] = temp;
+
+        positive += 2;
+        negative++;
+    }
+
+    return nums;
+}
+
+    
+
+public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
 
@@ -520,6 +585,10 @@ public class array {
         // int arr[] = { -1, 1 };
         // int nums[] = rearrange_Array_by_sign(arr);
         // printArray(nums);
+
+        // int arr[]={1,2,-4,-5,3,6,-3,9};
+        // rearrange_Array_by_sign_unequal_positive_and_negatives(arr);
+        // printArray(arr);
 
     }
 }
