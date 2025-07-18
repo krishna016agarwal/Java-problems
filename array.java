@@ -482,43 +482,64 @@ public class array {
     return nums;
 }
 
-public static int[] rearrangeBySignInPlace(int[] nums) {
-    int n = nums.length;
+    public static void permutation(int arr[],int idx){
+        if (idx==arr.length) {
+            printArray(arr);
+            System.out.println();
+            return;
+        }
+        for (int i = idx; i < arr.length; i++) {
+            swap(arr, idx, i);
+            permutation(arr, idx+1);
+            swap(arr, idx, i);
+        }
+    }
+   
+    public static int[] next_Permutation(int nums[]){
+        int idx=-1;
+        int n=nums.length;
+        for (int i = n-2; i >=0; i--) {
+            if (nums[i]<nums[i+1]) {
+                idx=i;
+                break;
+            }
+        }
+        if (idx==-1) {
+            reverseArray(nums, 0, n-1);
+            return nums;
+        }
+        for (int i = n-1; i >idx; i--) {
+            if (nums[i]>nums[idx]) {
+                swap(nums, idx, i);
+                break;
+            }
+        }
+        reverseArray(nums, idx+1, n-1);
+        return nums;
+    }
+    
+    public static void leaders_in_array(int arr[]){
 
-    // Step 1: Partition - move all negative numbers to the end
-    int posIndex = 0;
-    for (int i = 0; i < n; i++) {
-        if (nums[i] > 0) {
-            int temp = nums[i];
-            nums[i] = nums[posIndex];
-            nums[posIndex] = temp;
-            posIndex++;
+        Stack<Integer> s=new Stack<>();
+  
+        for (int i = arr.length-1; i>=0; i--) {
+            if (i==arr.length-1) {
+                      s.push(arr[i]);
+            }
+            else if(arr[i]>s.peek()){
+                s.push(arr[i]);
+            }
+
+        }
+        while(!s.isEmpty()){
+            System.out.print(s.pop()+" ");
         }
     }
 
-    // Now, 0 to posIndex-1 => all positives
-    // posIndex to n-1 => all negatives
-
-    int positive = 0;        // even indices
-    int negative = posIndex; // first negative index
-
-    // Step 2: Interleave positive and negative numbers
-    while (positive < negative && negative < n && nums[positive] > 0) {
-        // Swap negative number into the next odd index
-        int temp = nums[positive + 1];
-        nums[positive + 1] = nums[negative];
-        nums[negative] = temp;
-
-        positive += 2;
-        negative++;
-    }
-
-    return nums;
-}
-
+   
     
-
-public static void main(String[] args) {
+    
+    public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
 
@@ -560,8 +581,9 @@ public static void main(String[] args) {
         // int arr[] = { 1, -1, 5, -2, 3};
         // System.out.println(largest_subarray_with_sum_k(arr, 3));
 
-        // int arr[] = { 1,2,3,1,1,1,0,1,3,3};
-        // System.out.println(largest_subarray_with_sum_k_Optimal_Solution(arr, 3));
+        //  int arr[] = { 1,2,3,1,1,1,0,1,3,3};
+        //  System.out.println(largest_subarray_with_sum_k_Optimal_Solution(arr, 6));
+        
 
         // int arr[] = { 3,3};
         // int nums[]=two_sum(arr, 6);
@@ -589,6 +611,15 @@ public static void main(String[] args) {
         // int arr[]={1,2,-4,-5,3,6,-3,9};
         // rearrange_Array_by_sign_unequal_positive_and_negatives(arr);
         // printArray(arr);
+
+        // int arr[]={1,1,5};
+        //  permutation(arr, 0);
+
+        // next_Permutation(arr);
+        // printArray(arr);
+
+        // int arr[]={10,22,12,0,3,6};
+        // leaders_in_array(arr);
 
     }
 }
