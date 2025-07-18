@@ -536,7 +536,24 @@ public class array {
         }
     }
 
-   
+    public static void longest_consecutive_sequence(int arr[]){
+        Arrays.sort(arr);  //O(nlogn)
+        int lastsmallest=arr[0];
+        int maxlength=0;
+        int length=0;
+        for (int i = 0; i < arr.length; i++) {
+        if (arr[i]-1==lastsmallest) {
+            length++;
+            lastsmallest=arr[i];
+        }
+        else if(arr[i]!=lastsmallest){
+            length=1;
+            lastsmallest=arr[i];
+        }
+        maxlength=Math.max(maxlength,length);
+        }
+        System.out.println(maxlength);
+    }
     
     
     public static void main(String[] args) {
@@ -578,7 +595,7 @@ public class array {
         // int arr[] = { 1, 1, 4, 6, 7, 2, 6, 2, 7 };
         // System.out.println(find_Number_appears_one_time_in_array(arr));
 
-        // int arr[] = { 1, -1, 5, -2, 3};
+        // int arr[] = { 3,3,1,0,-2,1,5};
         // System.out.println(largest_subarray_with_sum_k(arr, 3));
 
         //  int arr[] = { 1,2,3,1,1,1,0,1,3,3};
@@ -621,5 +638,8 @@ public class array {
         // int arr[]={10,22,12,0,3,6};
         // leaders_in_array(arr);
 
+
+        int arr[]={1,1,1,2,2,2,3,4,100,101,101,103,102,104,105};
+        longest_consecutive_sequence(arr);
     }
 }
