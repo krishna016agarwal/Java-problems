@@ -536,7 +536,7 @@ public class array {
         }
     }
 
-    public static void longest_consecutive_sequence(int arr[]){
+    public static void longest_consecutive_sequence(int arr[]){//O(nlogn)
         if (arr.length==0) {
             return ;
         }
@@ -559,7 +559,28 @@ public class array {
         System.out.println(maxlength);
     }
     
-    
+    public static int longest_consecutive_sequence_Optimize_Solution(int arr[]){  //O(n)
+        if (arr.length==0) return 0;
+        if (arr.length==1) return 1;
+        int maxlength=0;
+        HashSet<Integer> s=new HashSet<>();
+        for(int i:arr){
+            s.add(i);  //O(n)
+        }
+
+        for(int i:s){
+            if (!s.contains(i-1)) {
+                int currEle=i;
+                int length=1;
+                while (s.contains(currEle+1)) {
+                    length++;
+                    currEle++;
+                }
+                maxlength=Math.max(maxlength,length);
+            }
+        }
+        return maxlength;
+    }
     public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
@@ -643,7 +664,8 @@ public class array {
         // leaders_in_array(arr);
 
 
-        int arr[]={100,4,200,1,3,2};
-        longest_consecutive_sequence(arr);
+        // int arr[]={100,4,200,1,3,2,101,1,103,5};
+        // longest_consecutive_sequence(arr);
+        // System.out.println(longest_consecutive_sequence_Optimize_Solution(arr));
     }
 }
