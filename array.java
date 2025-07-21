@@ -537,10 +537,14 @@ public class array {
     }
 
     public static void longest_consecutive_sequence(int arr[]){
+        if (arr.length==0) {
+            return ;
+        }
         Arrays.sort(arr);  //O(nlogn)
+ 
         int lastsmallest=arr[0];
         int maxlength=0;
-        int length=0;
+        int length=1;
         for (int i = 0; i < arr.length; i++) {
         if (arr[i]-1==lastsmallest) {
             length++;
@@ -639,7 +643,7 @@ public class array {
         // leaders_in_array(arr);
 
 
-        int arr[]={1,1,1,2,2,2,3,4,100,101,101,103,102,104,105};
+        int arr[]={100,4,200,1,3,2};
         longest_consecutive_sequence(arr);
     }
 }
