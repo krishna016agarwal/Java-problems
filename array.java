@@ -454,133 +454,229 @@ public class array {
     }
 
     public static int[] rearrange_Array_by_sign_unequal_positive_and_negatives(int[] nums) { // O(n) SC- O(n)
-    Deque<Integer> p = new LinkedList<>();
-    Deque<Integer> n = new LinkedList<>();
+        Deque<Integer> p = new LinkedList<>();
+        Deque<Integer> n = new LinkedList<>();
 
-    for (int num : nums) {
-        if (num > 0) p.add(num);
-        else n.add(num);
+        for (int num : nums) {
+            if (num > 0)
+                p.add(num);
+            else
+                n.add(num);
+        }
+
+        int i = 0;
+
+        // Alternate positives and negatives as long as both have elements
+        while (!p.isEmpty() && !n.isEmpty()) {
+            nums[i++] = p.removeFirst();
+            nums[i++] = n.removeFirst();
+        }
+
+        // Add remaining elements from either deque
+        while (!p.isEmpty()) {
+            nums[i++] = p.removeFirst();
+        }
+        while (!n.isEmpty()) {
+            nums[i++] = n.removeFirst();
+        }
+
+        return nums;
     }
 
- 
-    int i = 0;
-
-    // Alternate positives and negatives as long as both have elements
-    while (!p.isEmpty() && !n.isEmpty()) {
-        nums[i++] = p.removeFirst();
-        nums[i++] = n.removeFirst();
-    }
-
-    // Add remaining elements from either deque
-    while (!p.isEmpty()) {
-        nums[i++] = p.removeFirst();
-    }
-    while (!n.isEmpty()) {
-        nums[i++] = n.removeFirst();
-    }
-
-    return nums;
-}
-
-    public static void permutation(int arr[],int idx){
-        if (idx==arr.length) {
+    public static void permutation(int arr[], int idx) {
+        if (idx == arr.length) {
             printArray(arr);
             System.out.println();
             return;
         }
         for (int i = idx; i < arr.length; i++) {
             swap(arr, idx, i);
-            permutation(arr, idx+1);
+            permutation(arr, idx + 1);
             swap(arr, idx, i);
         }
     }
-   
-    public static int[] next_Permutation(int nums[]){
-        int idx=-1;
-        int n=nums.length;
-        for (int i = n-2; i >=0; i--) {
-            if (nums[i]<nums[i+1]) {
-                idx=i;
+
+    public static int[] next_Permutation(int nums[]) {
+        int idx = -1;
+        int n = nums.length;
+        for (int i = n - 2; i >= 0; i--) {
+            if (nums[i] < nums[i + 1]) {
+                idx = i;
                 break;
             }
         }
-        if (idx==-1) {
-            reverseArray(nums, 0, n-1);
+        if (idx == -1) {
+            reverseArray(nums, 0, n - 1);
             return nums;
         }
-        for (int i = n-1; i >idx; i--) {
-            if (nums[i]>nums[idx]) {
+        for (int i = n - 1; i > idx; i--) {
+            if (nums[i] > nums[idx]) {
                 swap(nums, idx, i);
                 break;
             }
         }
-        reverseArray(nums, idx+1, n-1);
+        reverseArray(nums, idx + 1, n - 1);
         return nums;
     }
-    
-    public static void leaders_in_array(int arr[]){
 
-        Stack<Integer> s=new Stack<>();
-  
-        for (int i = arr.length-1; i>=0; i--) {
-            if (i==arr.length-1) {
-                      s.push(arr[i]);
-            }
-            else if(arr[i]>s.peek()){
+    public static void leaders_in_array(int arr[]) {
+
+        Stack<Integer> s = new Stack<>();
+
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (i == arr.length - 1) {
+                s.push(arr[i]);
+            } else if (arr[i] > s.peek()) {
                 s.push(arr[i]);
             }
 
         }
-        while(!s.isEmpty()){
-            System.out.print(s.pop()+" ");
+        while (!s.isEmpty()) {
+            System.out.print(s.pop() + " ");
         }
     }
 
-    public static void longest_consecutive_sequence(int arr[]){//O(nlogn)
-        if (arr.length==0) {
-            return ;
+    public static void longest_consecutive_sequence(int arr[]) {// O(nlogn)
+        if (arr.length == 0) {
+            return;
         }
-        Arrays.sort(arr);  //O(nlogn)
- 
-        int lastsmallest=arr[0];
-        int maxlength=0;
-        int length=1;
+        Arrays.sort(arr); // O(nlogn)
+
+        int lastsmallest = arr[0];
+        int maxlength = 0;
+        int length = 1;
         for (int i = 0; i < arr.length; i++) {
-        if (arr[i]-1==lastsmallest) {
-            length++;
-            lastsmallest=arr[i];
-        }
-        else if(arr[i]!=lastsmallest){
-            length=1;
-            lastsmallest=arr[i];
-        }
-        maxlength=Math.max(maxlength,length);
+            if (arr[i] - 1 == lastsmallest) {
+                length++;
+                lastsmallest = arr[i];
+            } else if (arr[i] != lastsmallest) {
+                length = 1;
+                lastsmallest = arr[i];
+            }
+            maxlength = Math.max(maxlength, length);
         }
         System.out.println(maxlength);
     }
-    
-    public static int longest_consecutive_sequence_Optimize_Solution(int arr[]){  //O(n)
-        if (arr.length==0) return 0;
-        if (arr.length==1) return 1;
-        int maxlength=0;
-        HashSet<Integer> s=new HashSet<>();
-        for(int i:arr){
-            s.add(i);  //O(n)
+
+    public static int longest_consecutive_sequence_Optimize_Solution(int arr[]) { // O(n)
+        if (arr.length == 0)
+            return 0;
+        if (arr.length == 1)
+            return 1;
+        int maxlength = 0;
+        HashSet<Integer> s = new HashSet<>();
+        for (int i : arr) {
+            s.add(i); // O(n)
         }
 
-        for(int i:s){
-            if (!s.contains(i-1)) {
-                int currEle=i;
-                int length=1;
-                while (s.contains(currEle+1)) {
+        for (int i : s) {
+            if (!s.contains(i - 1)) {
+                int currEle = i;
+                int length = 1;
+                while (s.contains(currEle + 1)) {
                     length++;
                     currEle++;
                 }
-                maxlength=Math.max(maxlength,length);
+                maxlength = Math.max(maxlength, length);
             }
         }
         return maxlength;
     }
+
+    public static void setZeroes(int[][] matrix) { // O(n*m) //SC- O(m+n)
+        Set<Integer> r = new HashSet<>();
+        Set<Integer> c = new HashSet<>();
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+
+                if (matrix[i][j] == 0) {
+
+                    r.add(i);
+                    c.add(j);
+                }
+            }
+        }
+        for (int i : r) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                matrix[i][j] = 0;
+            }
+        }
+        for (int i : c) {
+            for (int j = 0; j < matrix.length; j++) {
+                matrix[j][i] = 0;
+            }
+        }
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+    }
+
+    public static void setZeroes_optimal(int[][] matrix) {// O(n*m) //SC- O(1)
+        int r = matrix.length;
+        int c = matrix[0].length;
+        boolean firstrow = false;
+        boolean firstcol = false;
+        for (int i = 0; i < r; i++) {
+            if (matrix[i][0] == 0) {
+                firstcol = true;
+                break;
+            }
+
+        }
+        for (int i = 0; i < c; i++) {
+            if (matrix[0][i] == 0) {
+                firstrow = true;
+                break;
+            }
+        }
+        for (int i = 1; i < r; i++) {
+            for (int j = 1; j < c; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+
+        for (int i = 1; i < r; i++) {
+            if (matrix[i][0] == 0) {
+                for (int j = 1; j < c; j++) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        for (int i = 1; i < c; i++) {
+            if (matrix[0][i] == 0) {
+                for (int j = 1; j < r; j++) {
+                    matrix[j][i] = 0;
+                }
+            }
+        }
+        if (firstrow) {
+            for (int i = 0; i < c; i++) {
+                matrix[0][i] = 0;
+            }
+        }
+        if (firstcol) {
+            for (int i = 0; i < r; i++) {
+                matrix[i][0] = 0;
+            }
+        }
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+    }
+
     public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
@@ -623,9 +719,8 @@ public class array {
         // int arr[] = { 3,3,1,0,-2,1,5};
         // System.out.println(largest_subarray_with_sum_k(arr, 3));
 
-        //  int arr[] = { 1,2,3,1,1,1,0,1,3,3};
-        //  System.out.println(largest_subarray_with_sum_k_Optimal_Solution(arr, 6));
-        
+        // int arr[] = { 1,2,3,1,1,1,0,1,3,3};
+        // System.out.println(largest_subarray_with_sum_k_Optimal_Solution(arr, 6));
 
         // int arr[] = { 3,3};
         // int nums[]=two_sum(arr, 6);
@@ -655,7 +750,7 @@ public class array {
         // printArray(arr);
 
         // int arr[]={1,1,5};
-        //  permutation(arr, 0);
+        // permutation(arr, 0);
 
         // next_Permutation(arr);
         // printArray(arr);
@@ -663,9 +758,12 @@ public class array {
         // int arr[]={10,22,12,0,3,6};
         // leaders_in_array(arr);
 
-
         // int arr[]={100,4,200,1,3,2,101,1,103,5};
         // longest_consecutive_sequence(arr);
         // System.out.println(longest_consecutive_sequence_Optimize_Solution(arr));
+
+        int matrix[][] = { { 0, 1, 2, 0 }, { 3, 4, 5, 2 }, { 1, 3, 1, 5 } };
+       // setZeroes(matrix);
+        setZeroes_optimal(matrix);
     }
 }
