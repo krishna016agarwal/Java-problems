@@ -677,26 +677,62 @@ public class array {
 
     }
 
-    public static void subarray_sum_k_brute_case(int arr[],int k){  //O(n^2)
-        int max=0;
+    public static void subarray_sum_k_brute_case(int arr[], int k) { // O(n^2)
+        int max = 0;
+        int total = 0;
         for (int i = 0; i < arr.length; i++) {
-            int c=0;
-            int l=0;
+            int c = 0;
+            int l = 0;
             for (int j = i; j < arr.length; j++) {
-                
-                c+=arr[j];
-                if (c>k) {
-                    c-=arr[j];
-                    break;
+
+                c += arr[j];
+
+                l++;
+                if (c == k) {
+                    total++;
+                    max = Math.max(max, l);
                 }
-                 l++;
             }
-            if (c==k) {
-                max=Math.max(max,l);
-            }
-            
+
         }
-        System.out.println(max);
+        System.out.println("Toatal subarray who sum " + k + " is " + total);
+        System.out.println("longest subarray who sum " + k + " is " + max);
+    }
+
+    public static void total_subattay_with_sum_k_and_longest_subarry(int arr[], int k) { //O(n) SC- O(n)
+        HashMap<Integer, Integer> s = new HashMap<>();
+        HashMap<Integer, Integer> r = new HashMap<>();
+        int count = 0;
+        int max = 0;
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+            if (!s.containsKey(sum)) {
+                s.put(sum, 1);
+            } else if (s.containsKey(sum)) {
+                s.put(sum, (s.get(sum)) + 1);
+            }
+            if (!r.containsKey(sum)) {
+                r.put(sum, i);
+            }
+            if (s.containsKey((sum - k))) {
+                count += s.get(sum - k);
+            } else if (sum == k) {
+                count++;
+            }
+            if (r.containsKey(sum - k)) {
+
+                int len = (i - r.get(sum - k));
+                max = Math.max(max, len);
+            } else if (sum == k) {
+                max = Math.max(max, i + 1);
+            }
+
+        }
+   
+        System.out.println("longest subarray who sum " + k + " is " + max);
+        System.out.println("Total subarray who sum " + k + " is " + count);
+
     }
 
     public static void main(String[] args) {
@@ -788,7 +824,8 @@ public class array {
         // setZeroes(matrix);
         // setZeroes_optimal(matrix);
 
-        // int arr[]={9,4,0,20,3,10,0,0,5};
+        // int arr[] = { 9, 4, 0, 20, 3, 13, -3, 0, 5 };
         // subarray_sum_k_brute_case(arr, 33);
+        // total_subattay_with_sum_k_and_longest_subarry(arr, 33);
     }
 }
