@@ -677,6 +677,28 @@ public class array {
 
     }
 
+    public static void subarray_sum_k_brute_case(int arr[],int k){  //O(n^2)
+        int max=0;
+        for (int i = 0; i < arr.length; i++) {
+            int c=0;
+            int l=0;
+            for (int j = i; j < arr.length; j++) {
+                
+                c+=arr[j];
+                if (c>k) {
+                    c-=arr[j];
+                    break;
+                }
+                 l++;
+            }
+            if (c==k) {
+                max=Math.max(max,l);
+            }
+            
+        }
+        System.out.println(max);
+    }
+
     public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
@@ -762,8 +784,11 @@ public class array {
         // longest_consecutive_sequence(arr);
         // System.out.println(longest_consecutive_sequence_Optimize_Solution(arr));
 
-        int matrix[][] = { { 0, 1, 2, 0 }, { 3, 4, 5, 2 }, { 1, 3, 1, 5 } };
-       // setZeroes(matrix);
-        setZeroes_optimal(matrix);
+        // int matrix[][] = { { 0, 1, 2, 0 }, { 3, 4, 5, 2 }, { 1, 3, 1, 5 } };
+        // setZeroes(matrix);
+        // setZeroes_optimal(matrix);
+
+        // int arr[]={9,4,0,20,3,10,0,0,5};
+        // subarray_sum_k_brute_case(arr, 33);
     }
 }
