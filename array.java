@@ -699,7 +699,7 @@ public class array {
         System.out.println("longest subarray who sum " + k + " is " + max);
     }
 
-    public static void total_subattay_with_sum_k_and_longest_subarry(int arr[], int k) { //O(n) SC- O(n)
+    public static void total_subattay_with_sum_k_and_longest_subarry(int arr[], int k) { // O(n) SC- O(n)
         HashMap<Integer, Integer> s = new HashMap<>();
         HashMap<Integer, Integer> r = new HashMap<>();
         int count = 0;
@@ -729,10 +729,34 @@ public class array {
             }
 
         }
-   
+
         System.out.println("longest subarray who sum " + k + " is " + max);
         System.out.println("Total subarray who sum " + k + " is " + count);
 
+    }
+
+    public static void print_2d_array(int matrix[][]) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public static void rotate_array_by_90_degree(int matrix[][]) {
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = i; j < matrix[0].length; j++) {
+               swap(matrix[i], i, j);
+            }
+        }
+
+        for (int i = 0; i < matrix.length; i++) {
+            reverseArray(matrix[i], 0, matrix[i].length - 1);
+        }
+        print_2d_array(matrix);
     }
 
     public static void main(String[] args) {
@@ -827,5 +851,8 @@ public class array {
         // int arr[] = { 9, 4, 0, 20, 3, 13, -3, 0, 5 };
         // subarray_sum_k_brute_case(arr, 33);
         // total_subattay_with_sum_k_and_longest_subarry(arr, 33);
+
+        int arr[][] = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
+        rotate_array_by_90_degree(arr);
     }
 }
