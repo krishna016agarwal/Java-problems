@@ -699,38 +699,23 @@ public class array {
         System.out.println("longest subarray who sum " + k + " is " + max);
     }
 
-    public static void total_subattay_with_sum_k_and_longest_subarry(int arr[], int k) { // O(n) SC- O(n)
+    public static void total_subarray_with_sum_k(int arr[], int k) { // O(n) SC- O(n)
         HashMap<Integer, Integer> s = new HashMap<>();
-        HashMap<Integer, Integer> r = new HashMap<>();
+
         int count = 0;
-        int max = 0;
+
         int sum = 0;
+        s.put(0, 1);
         for (int i = 0; i < arr.length; i++) {
             sum += arr[i];
-            if (!s.containsKey(sum)) {
-                s.put(sum, 1);
-            } else if (s.containsKey(sum)) {
-                s.put(sum, (s.get(sum)) + 1);
-            }
-            if (!r.containsKey(sum)) {
-                r.put(sum, i);
-            }
+
             if (s.containsKey((sum - k))) {
                 count += s.get(sum - k);
-            } else if (sum == k) {
-                count++;
             }
-            if (r.containsKey(sum - k)) {
-
-                int len = (i - r.get(sum - k));
-                max = Math.max(max, len);
-            } else if (sum == k) {
-                max = Math.max(max, i + 1);
-            }
+            s.put(sum, s.getOrDefault(sum, 0) + 1);
 
         }
 
-        System.out.println("longest subarray who sum " + k + " is " + max);
         System.out.println("Total subarray who sum " + k + " is " + count);
 
     }
@@ -759,7 +744,7 @@ public class array {
         print_2d_array(matrix);
     }
 
-    public static List<Integer> spiralOrder(int[][] matrix) { //O(m*n) SC- O(m*n)
+    public static List<Integer> spiralOrder(int[][] matrix) { // O(m*n) SC- O(m*n)
         ArrayList<Integer> s = new ArrayList<>();
         int top = 0, left = 0, right = matrix[0].length - 1, bottom = matrix.length - 1;
         while (left <= right && top <= bottom) {
@@ -878,15 +863,15 @@ public class array {
         // setZeroes(matrix);
         // setZeroes_optimal(matrix);
 
-        // int arr[] = { 9, 4, 0, 20, 3, 13, -3, 0, 5 };
-        // subarray_sum_k_brute_case(arr, 33);
-        // total_subattay_with_sum_k_and_longest_subarry(arr, 33);
+        int arr[] = { 1 };
+        // subarray_sum_k_brute_case(arr, 0);
+        total_subarray_with_sum_k(arr, 0);
 
         // int arr[][] = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14,
         // 15, 16 } };
         // rotate_array_by_90_degree(arr);
 
-        int arr[][] = { { 1, 2, 3 }, { 5, 6, 7 }, { 9, 10, 11 } };
-        System.out.println(spiralOrder(arr));
+        // int arr[][] = { { 1, 2, 3 }, { 5, 6, 7 }, { 9, 10, 11 } };
+        // System.out.println(spiralOrder(arr));
     }
 }
