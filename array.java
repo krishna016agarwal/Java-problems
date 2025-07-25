@@ -774,7 +774,7 @@ public class array {
         return s;
     }
 
-    public static int nCr(int n, int r) {
+    public static int nCr(int n, int r) { // O(r)
         int res = 1;
 
         for (int i = 0; i < r; i++) {
@@ -784,16 +784,28 @@ public class array {
         return res;
     }
 
-    public static List<List<Integer>> pascalsTriangle(int numRows) {
-        List<List<Integer>> c = new ArrayList<>();
-        for (int i = 1; i <= numRows; i++) {
+    static class pascalsTriangle {
+        public static List<Integer> generateRow(int r) {
             List<Integer> s = new ArrayList<>();
-            for (int j = 1; j <= i; j++) {
-                s.add(nCr(i - 1, j - 1));
+            int res = 1;
+            s.add(1);
+            for (int i = 1; i < r; i++) {
+                res = res * (r - i);
+                res = res / (i);
+                s.add(res);
             }
-            c.add(s);
+            return s;
         }
-        return c;
+
+        public static List<List<Integer>> pascalsTriangle(int numRows) { // O(n*r)
+            List<List<Integer>> c = new ArrayList<>();
+            for (int i = 1; i <= numRows; i++) {
+
+                c.add(generateRow(i));
+            }
+            return c;
+        }
+
     }
 
     public static void main(String[] args) {
@@ -896,8 +908,8 @@ public class array {
         // int arr[][] = { { 1, 2, 3 }, { 5, 6, 7 }, { 9, 10, 11 } };
         // System.out.println(spiralOrder(arr));
 
-        // System.out.println(pascalsTriangle(5));
+        // System.out.println(pascalsTriangle.pascalsTriangle(5));
 
-        //System.out.println(nCr(3, 1));
+        // System.out.println(nCr(3, 1));
     }
 }
