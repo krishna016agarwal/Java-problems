@@ -774,6 +774,28 @@ public class array {
         return s;
     }
 
+    public static int nCr(int n, int r) {
+        int res = 1;
+
+        for (int i = 0; i < r; i++) {
+            res = res * (n - i);
+            res = res / (i + 1);
+        }
+        return res;
+    }
+
+    public static List<List<Integer>> pascalsTriangle(int numRows) {
+        List<List<Integer>> c = new ArrayList<>();
+        for (int i = 1; i <= numRows; i++) {
+            List<Integer> s = new ArrayList<>();
+            for (int j = 1; j <= i; j++) {
+                s.add(nCr(i - 1, j - 1));
+            }
+            c.add(s);
+        }
+        return c;
+    }
+
     public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
@@ -863,9 +885,9 @@ public class array {
         // setZeroes(matrix);
         // setZeroes_optimal(matrix);
 
-        int arr[] = { 1 };
+        // int arr[] = { 1 };
         // subarray_sum_k_brute_case(arr, 0);
-        total_subarray_with_sum_k(arr, 0);
+        // total_subarray_with_sum_k(arr, 0);
 
         // int arr[][] = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14,
         // 15, 16 } };
@@ -873,5 +895,9 @@ public class array {
 
         // int arr[][] = { { 1, 2, 3 }, { 5, 6, 7 }, { 9, 10, 11 } };
         // System.out.println(spiralOrder(arr));
+
+        // System.out.println(pascalsTriangle(5));
+
+        //System.out.println(nCr(3, 1));
     }
 }
