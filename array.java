@@ -18,32 +18,7 @@ public class array {
 
     }
 
-    public static int remove_duplicate_in_sorted_array(int arr[]) {
-        // Deque<Integer> q = new LinkedList<>();
-        // for (int i = 0; i < arr.length; i++) {
-
-        // if (q.peek()!=null && q.peekLast() != arr[i]) {
-        // q.add(arr[i]);
-        // }else if(q.peek()==null){
-        // q.add(arr[i]);
-        // }
-
-        // }
-        // int size=q.size();
-        // for (int i = 0; i < arr.length; i++) {
-        // if (!q.isEmpty()) {
-        // arr[i] = q.remove();
-        // } else {
-        // arr[i] = 0;
-        // }
-
-        // }
-        // for (int i = 0; i < size; i++) {
-        // System.out.print(arr[i]+" ");
-        // }
-        // return size;
-
-        // ------------------------------------------
+    public static int remove_duplicate_in_sorted_array(int arr[]) { // O(n)
 
         int j = 0;
         if (arr.length == 0)
@@ -71,32 +46,6 @@ public class array {
 
     public static void rotateArray(int arr[], int k) { // O(n)
 
-        // if (arr.length == 0 || arr.length == 1 || k == 0) {
-        // return;
-        // }
-        // int n = arr.length;
-        // k = k % n;
-
-        // int j = 0;
-        // for (int i = n - k; i <= (n - 1 + n - k) / 2; i++) {
-        // int temp = arr[i];
-        // arr[i] = arr[n - (++j)];
-        // arr[n - (j)] = temp;
-        // }
-
-        // for (int i = 0; i <= (n - k - 1) / 2; i++) {
-        // int temp = arr[i];
-        // arr[i] = arr[n - k - 1 - i];
-        // arr[n - k - 1 - i] = temp;
-        // }
-
-        // for (int i = 0; i < n / 2 ; i++) {
-        // int temp = arr[i];
-        // arr[i] = arr[n - i-1];
-        // arr[n - i-1] = temp;
-        // }
-
-        // ----------------------------------------------------------
         int n = arr.length;
         k = k % n;
         reverseArray(arr, n - k, n - 1);
@@ -210,7 +159,7 @@ public class array {
         return a;
     }
 
-    public static int missingNumber_Optimal_Solution(int[] nums) {// O(n) SC-O(1)
+    public static int missingNumber_Optimal_Solution(int[] nums) {// O(n) SC-O(1)   SUM METHOD
         int n = nums.length;
         int sum = n * (n + 1) / 2;
         for (int i = 0; i < nums.length; i++) {
@@ -219,7 +168,7 @@ public class array {
         return sum;
     }
 
-    public static int missingNumber_Optimal_Solution_2(int[] nums) {// O(n) SC-O(1)
+    public static int missingNumber_Optimal_Solution_2(int[] nums) {// O(n) SC-O(1)  ZOR METHOD
         int xor = 0;
         for (int i = 0; i < nums.length; i++) {
             xor ^= i; // xor=(0^1^2^3^4)^ (0^1^2^4) = 3
@@ -243,7 +192,7 @@ public class array {
         return max;
     }
 
-    public static int find_Number_appears_one_time_in_array(int[] nums) { // O(n) SC-O(1)
+    public static int find_Number_appears_one_time_in_array(int[] nums) { // O(n) SC-O(1) ZOR METHOD
         int xor = 0;
         for (int i = 0; i < nums.length; i++) {
             xor ^= nums[i]; // 1^1^4^6^4= 0^4^6^4 = 4^6^4 = 4^4^6 = 0^6 = 6
@@ -251,7 +200,8 @@ public class array {
         return xor;
     }
 
-    public static int largest_subarray_with_sum_k(int arr[], int k) {// O(n) SC-O(n) //for zeros,positive and negatives
+    public static int largest_subarray_with_sum_k(int arr[], int k) {// O(n) SC-O(n) //PREFIX SUM   //for zeros,positive and negatives
+        
         HashMap<Integer, Integer> s = new HashMap<>();
         int l = -1;
         int sum = 0;
@@ -380,26 +330,26 @@ public class array {
     }
 
     public static int majorityElement_optimal_solution(int[] nums) {// O(n) SC- O(1)
-        int max = 1;
-        int num = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] == num) {
-                max++;
-            } else {
-                max--;
+        int fre = 0;
+        int ans = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (fre==0) {
+                ans=nums[i];
             }
-            if (max == 0 && i != nums.length - 1) {
-                num = nums[i + 1];
+            if (nums[i]==ans) {
+                fre++;
+            }else{
+                fre--;
             }
         }
         int count = 0;
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == num) {
+            if (nums[i] == ans) {
                 count++;
             }
         }
         if (count > nums.length / 2) {
-            return num;
+            return ans;
         }
         return -1;
     }
@@ -428,14 +378,16 @@ public class array {
 
     public static int Best_Time_to_Buy_and_Sell_Stock(int nums[]) {
         int buy = nums[0];
-        int profit = 0;
+        int maxprofit = 0;
         for (int i = 1; i < nums.length; i++) {
-            int selling = nums[i] - buy;
-            profit = Math.max(profit, selling);
+            if (nums[i]>buy) {
+                maxprofit=Math.max(maxprofit,nums[i]-buy);
+            }
+          
             buy = Math.min(buy, nums[i]);
         }
 
-        return profit;
+        return maxprofit;
     }
 
     public static int[] rearrange_Array_by_sign(int[] nums) { // O(n) SC- O(n)
@@ -853,23 +805,23 @@ public class array {
         // int arr[] = { 1,2,3,1,1,1,0,1,3,3};
         // System.out.println(largest_subarray_with_sum_k_Optimal_Solution(arr, 6));
 
-        // int arr[] = { 3,3};
-        // int nums[]=two_sum(arr, 6);
+        // int arr[] = { 3,3,8,1};
+        // int nums[]=two_sum(arr, 4);
         // printArray(nums);
-        // System.out.println(two_sum_optimal_solution(arr, -8));
+        // System.out.println(two_sum_optimal_solution(arr, 4));
 
         // int arr[]={0,1,1,0,1,2,1,2,0,0,0};
         // sort_array_of_0_1_2(arr);
         // printArray(arr);
 
-        // int arr[] = { 2, 2, 1, 1, 1, 2, 2, 1, 1 };
+        // int arr[] = { 2, 2, 1, 2,2,1, 1, 2, 2, 1,1 };
         // System.out.println(majorityElement(arr));
         // System.out.println(majorityElement_optimal_solution(arr));
 
         // int arr[] = { -2, -3, 1, 2, -1 };
         // System.out.println(maximum_sum_of_subarray(arr));
 
-        // int arr[] = { 7, 1, 3, 5, 4, 6 };
+        // int arr[] = { 7, 2, 3, 5 };
         // System.out.println(Best_Time_to_Buy_and_Sell_Stock(arr));
 
         // int arr[] = { -1, 1 };
