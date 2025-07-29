@@ -435,7 +435,7 @@ public class array {
         return nums;
     }
 
-    public static void permutation(int arr[], int idx) {
+    public static void permutation(int arr[], int idx) { //O(n*n!)  //O(n)
         if (idx == arr.length) {
             printArray(arr);
             System.out.println();
@@ -832,7 +832,7 @@ public class array {
         // rearrange_Array_by_sign_unequal_positive_and_negatives(arr);
         // printArray(arr);
 
-        // int arr[]={1,1,5};
+        // int arr[]={1,2,3,4};
         // permutation(arr, 0);
 
         // next_Permutation(arr);
