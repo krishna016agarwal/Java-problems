@@ -461,7 +461,7 @@ public class array {
             reverseArray(nums, 0, n - 1);
             return nums;
         }
-        for (int i = n - 1; i > idx; i--) {
+        for (int i = n - 1; i > idx; i--) {  //swap pivot point with the little greater element 
             if (nums[i] > nums[idx]) {
                 swap(nums, idx, i);
                 break;
