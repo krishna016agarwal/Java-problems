@@ -560,12 +560,7 @@ public class array {
             }
         }
 
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                System.out.print(matrix[i][j] + " ");
-            }
-            System.out.println();
-        }
+     print_2d_array(matrix);
 
     }
 
@@ -620,35 +615,30 @@ public class array {
                 matrix[i][0] = 0;
             }
         }
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                System.out.print(matrix[i][j] + " ");
-            }
-            System.out.println();
-        }
+       print_2d_array(matrix);
 
     }
 
     public static void subarray_sum_k_brute_case(int arr[], int k) { // O(n^2)
-        int max = 0;
-        int total = 0;
+        int maxLength = 0;
+        int totalSubarray = 0;
         for (int i = 0; i < arr.length; i++) {
-            int c = 0;
-            int l = 0;
+            int sum = 0;
+            int length = 0;
             for (int j = i; j < arr.length; j++) {
 
-                c += arr[j];
+                sum += arr[j];
 
-                l++;
-                if (c == k) {
-                    total++;
-                    max = Math.max(max, l);
+                length++;
+                if (sum == k) {
+                    totalSubarray++;
+                    maxLength = Math.max(maxLength, length);
                 }
             }
 
         }
-        System.out.println("Toatal subarray who sum " + k + " is " + total);
-        System.out.println("longest subarray who sum " + k + " is " + max);
+        System.out.println("Toatal subarray who sum " + k + " is " + totalSubarray);
+        System.out.println("longest subarray who sum " + k + " is " + maxLength);
     }
 
     public static void total_subarray_with_sum_k(int arr[], int k) { // O(n) SC- O(n)
@@ -760,6 +750,40 @@ public class array {
 
     }
 
+     public static List<Integer> majorityElement_n_by_3(int[] nums) { //O(n)
+        ArrayList<Integer> s=new ArrayList<>();
+        int count1=0,count2=0;
+        int ele1=Integer.MIN_VALUE,ele2=Integer.MIN_VALUE;
+        for (int i :nums) {
+            if(i==ele1) count1++;
+            else if(i==ele2)count2++;
+            else if(count1==0){
+                ele1=i;
+                count1=1;
+            }
+            else if(count2==0){
+                ele2=i;
+                count2=1;
+            }
+            else{
+                count1--;
+                count2--;
+            }
+        }
+        
+        
+        count1=0;
+        count2=0;
+        for (int i :nums) {
+            if(i==ele1) count1++;
+            if (i==ele2) count2++;
+        }
+      
+        if(count1 >nums.length/3) s.add(ele1);
+         if(count2 >nums.length/3) s.add(ele2);
+        return s;
+        
+    }
     public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
@@ -863,5 +887,9 @@ public class array {
         // System.out.println(pascalsTriangle.pascalsTriangle(5));
 
         // System.out.println(nCr(3, 1));
+
+        int arr[]={1,1,1,3,3,2,2,2};
+         List<Integer>s=majorityElement_n_by_3(arr);
+         System.out.println(s);
     }
 }
