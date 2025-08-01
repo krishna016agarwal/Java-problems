@@ -1,4 +1,5 @@
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class array {
@@ -159,7 +160,7 @@ public class array {
         return a;
     }
 
-    public static int missingNumber_Optimal_Solution(int[] nums) {// O(n) SC-O(1)   SUM METHOD
+    public static int missingNumber_Optimal_Solution(int[] nums) {// O(n) SC-O(1) SUM METHOD
         int n = nums.length;
         int sum = n * (n + 1) / 2;
         for (int i = 0; i < nums.length; i++) {
@@ -168,7 +169,7 @@ public class array {
         return sum;
     }
 
-    public static int missingNumber_Optimal_Solution_2(int[] nums) {// O(n) SC-O(1)  ZOR METHOD
+    public static int missingNumber_Optimal_Solution_2(int[] nums) {// O(n) SC-O(1) ZOR METHOD
         int xor = 0;
         for (int i = 0; i < nums.length; i++) {
             xor ^= i; // xor=(0^1^2^3^4)^ (0^1^2^4) = 3
@@ -200,8 +201,9 @@ public class array {
         return xor;
     }
 
-    public static int largest_subarray_with_sum_k(int arr[], int k) {// O(n) SC-O(n) //PREFIX SUM   //for zeros,positive and negatives
-        
+    public static int largest_subarray_with_sum_k(int arr[], int k) {// O(n) SC-O(n) //PREFIX SUM //for zeros,positive
+                                                                     // and negatives
+
         HashMap<Integer, Integer> s = new HashMap<>();
         int l = -1;
         int sum = 0;
@@ -333,12 +335,12 @@ public class array {
         int fre = 0;
         int ans = 0;
         for (int i = 0; i < nums.length; i++) {
-            if (fre==0) {
-                ans=nums[i];
+            if (fre == 0) {
+                ans = nums[i];
             }
-            if (nums[i]==ans) {
+            if (nums[i] == ans) {
                 fre++;
-            }else{
+            } else {
                 fre--;
             }
         }
@@ -380,10 +382,10 @@ public class array {
         int buy = nums[0];
         int maxprofit = 0;
         for (int i = 1; i < nums.length; i++) {
-            if (nums[i]>buy) {
-                maxprofit=Math.max(maxprofit,nums[i]-buy);
+            if (nums[i] > buy) {
+                maxprofit = Math.max(maxprofit, nums[i] - buy);
             }
-          
+
             buy = Math.min(buy, nums[i]);
         }
 
@@ -435,7 +437,7 @@ public class array {
         return nums;
     }
 
-    public static void permutation(int arr[], int idx) { //O(n*n!)  //O(n)
+    public static void permutation(int arr[], int idx) { // O(n*n!) //O(n)
         if (idx == arr.length) {
             printArray(arr);
             System.out.println();
@@ -461,7 +463,7 @@ public class array {
             reverseArray(nums, 0, n - 1);
             return nums;
         }
-        for (int i = n - 1; i > idx; i--) {  //swap pivot point with the little greater element 
+        for (int i = n - 1; i > idx; i--) { // swap pivot point with the little greater element
             if (nums[i] > nums[idx]) {
                 swap(nums, idx, i);
                 break;
@@ -560,7 +562,7 @@ public class array {
             }
         }
 
-     print_2d_array(matrix);
+        print_2d_array(matrix);
 
     }
 
@@ -615,7 +617,7 @@ public class array {
                 matrix[i][0] = 0;
             }
         }
-       print_2d_array(matrix);
+        print_2d_array(matrix);
 
     }
 
@@ -750,40 +752,80 @@ public class array {
 
     }
 
-     public static List<Integer> majorityElement_n_by_3(int[] nums) { //O(n)
-        ArrayList<Integer> s=new ArrayList<>();
-        int count1=0,count2=0;
-        int ele1=Integer.MIN_VALUE,ele2=Integer.MIN_VALUE;
-        for (int i :nums) {
-            if(i==ele1) count1++;
-            else if(i==ele2)count2++;
-            else if(count1==0){
-                ele1=i;
-                count1=1;
-            }
-            else if(count2==0){
-                ele2=i;
-                count2=1;
-            }
-            else{
+    public static List<Integer> majorityElement_n_by_3(int[] nums) { // O(n)
+        ArrayList<Integer> s = new ArrayList<>();
+        int count1 = 0, count2 = 0;
+        int ele1 = Integer.MIN_VALUE, ele2 = Integer.MIN_VALUE;
+        for (int i : nums) {
+            if (i == ele1)
+                count1++;
+            else if (i == ele2)
+                count2++;
+            else if (count1 == 0) {
+                ele1 = i;
+                count1 = 1;
+            } else if (count2 == 0) {
+                ele2 = i;
+                count2 = 1;
+            } else {
                 count1--;
                 count2--;
             }
         }
-        
-        
-        count1=0;
-        count2=0;
-        for (int i :nums) {
-            if(i==ele1) count1++;
-            if (i==ele2) count2++;
+
+        count1 = 0;
+        count2 = 0;
+        for (int i : nums) {
+            if (i == ele1)
+                count1++;
+            if (i == ele2)
+                count2++;
         }
-      
-        if(count1 >nums.length/3) s.add(ele1);
-         if(count2 >nums.length/3) s.add(ele2);
+
+        if (count1 > nums.length / 3)
+            s.add(ele1);
+        if (count2 > nums.length / 3)
+            s.add(ele2);
         return s;
-        
+
     }
+
+    public static List<List<Integer>> three_sum(int nums[]) { //O(n^2)  SC- O(n^2)
+        List<List<Integer>> s = new ArrayList<>();
+        HashMap<Integer, Integer> q = new HashMap<>();
+        HashSet<List<Integer>> l = new HashSet<>(); // SC- O(n^2)
+
+        for (int i = 0; i < nums.length; i++) { // O(n)
+            q.put(nums[i], i);
+        }
+
+        for (int i = 0; i < nums.length; i++) { // o(n^2)
+            for (int j = i+1; j < nums.length; j++) {
+                int thirdnum = -(nums[i] + nums[j]);
+                if ( q.containsKey(thirdnum) && q.get(thirdnum)!=i && q.get(thirdnum)!=j) { // O(1)
+                    
+                    ArrayList<Integer> a = new ArrayList<>();
+                    a.add(nums[i]);
+                    a.add(nums[j]);
+
+                    a.add(thirdnum);
+
+                    Collections.sort(a); // (nlogn)
+
+                    l.add(a); // O(1)
+
+                }
+            }
+        }
+        for (List<Integer> i : l) {
+            s.add(i);
+        }
+        if (s.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return s;
+    }
+
     public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
@@ -888,8 +930,12 @@ public class array {
 
         // System.out.println(nCr(3, 1));
 
-        int arr[]={1,1,1,3,3,2,2,2};
-         List<Integer>s=majorityElement_n_by_3(arr);
-         System.out.println(s);
+        // int arr[] = { 1, 1, 1, 3, 3, 2, 2, 2 };
+        // List<Integer> s = majorityElement_n_by_3(arr);
+        // System.out.println(s);
+
+        int arr[] = { 0,0,0};
+        List<List<Integer>> a = three_sum(arr);
+        System.out.println(a);
     }
 }
