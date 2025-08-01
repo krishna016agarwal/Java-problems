@@ -790,7 +790,7 @@ public class array {
 
     }
 
-    public static List<List<Integer>> three_sum(int nums[]) { //O(n^2)  SC- O(n^2)
+    public static List<List<Integer>> three_sum(int nums[]) { // O(n^2) SC- O(n^2)
         List<List<Integer>> s = new ArrayList<>();
         HashMap<Integer, Integer> q = new HashMap<>();
         HashSet<List<Integer>> l = new HashSet<>(); // SC- O(n^2)
@@ -800,10 +800,10 @@ public class array {
         }
 
         for (int i = 0; i < nums.length; i++) { // o(n^2)
-            for (int j = i+1; j < nums.length; j++) {
+            for (int j = i + 1; j < nums.length; j++) {
                 int thirdnum = -(nums[i] + nums[j]);
-                if ( q.containsKey(thirdnum) && q.get(thirdnum)!=i && q.get(thirdnum)!=j) { // O(1)
-                    
+                if (q.containsKey(thirdnum) && q.get(thirdnum) != i && q.get(thirdnum) != j) { // O(1)
+
                     ArrayList<Integer> a = new ArrayList<>();
                     a.add(nums[i]);
                     a.add(nums[j]);
@@ -824,6 +824,43 @@ public class array {
             return new ArrayList<>();
         }
         return s;
+    }
+
+    public static List<List<Integer>> three_sum_optimal_solution(int nums[]) { //O(nlogn + n^2) SC- O(n^2)
+        List<List<Integer>> l = new ArrayList<>();
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+            int j = i + 1;
+            int k = nums.length - 1;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum < 0) {
+                    j++;
+                } else if (sum > 0) {
+                    k--;
+                } else {
+                    List<Integer> a = new ArrayList<>();
+                    a.add(nums[i]);
+                    a.add(nums[j]);
+                    a.add(nums[k]);
+                    l.add(a);
+                    j++;
+                    k--;
+                    while (j < k && nums[j] == nums[j - 1])
+                        j++;
+                    while (j < k && nums[k] == nums[k + 1])
+                        k--;
+                }
+
+            }
+
+        }
+        if (l.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return l;
     }
 
     public static void main(String[] args) {
@@ -934,8 +971,9 @@ public class array {
         // List<Integer> s = majorityElement_n_by_3(arr);
         // System.out.println(s);
 
-        int arr[] = { 0,0,0};
-        List<List<Integer>> a = three_sum(arr);
-        System.out.println(a);
+        // int arr[] = { -1,0,1,2,-1,-4};
+        // List<List<Integer>> a = three_sum(arr);
+        // List<List<Integer>> a = three_sum_optimal_solution(arr);
+        // System.out.println(a);
     }
 }
