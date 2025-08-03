@@ -1,5 +1,3 @@
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class array {
@@ -826,7 +824,7 @@ public class array {
         return s;
     }
 
-    public static List<List<Integer>> three_sum_optimal_solution(int nums[]) { //O(nlogn + n^2) SC- O(n^2)
+    public static List<List<Integer>> three_sum_optimal_solution(int nums[]) { // O(nlogn + n^2) SC- O(n^2)
         List<List<Integer>> l = new ArrayList<>();
         Arrays.sort(nums);
         for (int i = 0; i < nums.length; i++) {
@@ -863,6 +861,54 @@ public class array {
         return l;
     }
 
+    public static List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> p = new ArrayList<>();
+        Arrays.sort(nums);
+        if (nums.length<4) {
+            return p;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            for (int j = i+1; j < nums.length; j++) {
+                if (j > i+1 && nums[j] == nums[j - 1]) {
+                continue;
+            }
+            int k=j+1;
+            int l=nums.length-1;
+            while (k<l) {
+                long sum=(long)nums[i]+(long)nums[j]+(long)nums[k]+(long)nums[l];
+                
+                if (sum<target) {
+                    k++;
+                }else if(sum>target){
+                    l--;
+                }else{
+                    ArrayList<Integer> a=new ArrayList<>();
+                    a.add(nums[i]);
+                    a.add(nums[j]);
+                    a.add(nums[k]);
+                    a.add(nums[l]);
+                    p.add(a);
+                    k++;
+                    l--;
+                    while (k<l && nums[k]==nums[k-1]) {
+                        k++;
+                    }
+                    while (k<l && nums[l]==nums[l+1]) {
+                        l--;
+                    }
+                }
+            }
+            }
+
+        }
+        
+        return p;
+    }
+
+  
     public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
@@ -971,9 +1017,13 @@ public class array {
         // List<Integer> s = majorityElement_n_by_3(arr);
         // System.out.println(s);
 
-        // int arr[] = { -1,0,1,2,-1,-4};
-        // List<List<Integer>> a = three_sum(arr);
+        // int arr[] = { -2,0,2,1,-1};
+        //  List<List<Integer>> a = three_sum(arr);
         // List<List<Integer>> a = three_sum_optimal_solution(arr);
         // System.out.println(a);
+
+        int arr[] = { 1000000000,1000000000,1000000000,1000000000};
+        List<List<Integer>> s = fourSum(arr, -294967296);
+        System.out.println(s);
     }
 }
