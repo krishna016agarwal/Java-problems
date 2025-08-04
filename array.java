@@ -863,7 +863,7 @@ public class array {
 
     public static List<List<Integer>> fourSum(int[] nums, int target) {
         List<List<Integer>> p = new ArrayList<>();
-        Arrays.sort(nums);
+        Arrays.sort(nums); //O(nlogn)
         if (nums.length<4) {
             return p;
         }
@@ -908,7 +908,35 @@ public class array {
         return p;
     }
 
-  
+    public static int largest_subarray_with_sum_zero(int arr[]){ //O(n)  SC - O(n)
+        if (arr.length==0 ) {
+            return 0;
+        }
+        else if(arr.length==1 && arr[0]!=0) return 0;
+        HashMap<Integer,Integer> s=new HashMap<>();
+        int sum=0;
+        int maxLength=0;
+        int length=0;
+
+        for (int i = 0; i < arr.length; i++) {
+            sum+=arr[i];
+            if (!s.containsKey(sum)) {
+                 s.put(sum, i);
+            }
+           
+            if (arr[i]==0) {
+                length=1;
+            }
+            else if(s.containsKey(sum)){
+               length=i-s.get(sum);
+         
+            }
+            
+            maxLength=Math.max(maxLength,length);
+        }
+        return maxLength;
+    }
+    
     public static void main(String[] args) {
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
@@ -1022,8 +1050,11 @@ public class array {
         // List<List<Integer>> a = three_sum_optimal_solution(arr);
         // System.out.println(a);
 
-        int arr[] = { 1000000000,1000000000,1000000000,1000000000};
-        List<List<Integer>> s = fourSum(arr, -294967296);
-        System.out.println(s);
+        // int arr[] = { 1000000000,1000000000,1000000000,1000000000};
+        // List<List<Integer>> s = fourSum(arr, -294967296);
+        // System.out.println(s);
+
+        // int arr[]={15,-2,2,1,-8,7,10,23};
+        // System.out.println(largest_subarray_with_sum_zero(arr));
     }
 }
