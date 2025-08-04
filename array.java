@@ -863,81 +863,100 @@ public class array {
 
     public static List<List<Integer>> fourSum(int[] nums, int target) {
         List<List<Integer>> p = new ArrayList<>();
-        Arrays.sort(nums); //O(nlogn)
-        if (nums.length<4) {
+        Arrays.sort(nums); // O(nlogn)
+        if (nums.length < 4) {
             return p;
         }
         for (int i = 0; i < nums.length; i++) {
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
-            for (int j = i+1; j < nums.length; j++) {
-                if (j > i+1 && nums[j] == nums[j - 1]) {
-                continue;
-            }
-            int k=j+1;
-            int l=nums.length-1;
-            while (k<l) {
-                long sum=(long)nums[i]+(long)nums[j]+(long)nums[k]+(long)nums[l];
-                
-                if (sum<target) {
-                    k++;
-                }else if(sum>target){
-                    l--;
-                }else{
-                    ArrayList<Integer> a=new ArrayList<>();
-                    a.add(nums[i]);
-                    a.add(nums[j]);
-                    a.add(nums[k]);
-                    a.add(nums[l]);
-                    p.add(a);
-                    k++;
-                    l--;
-                    while (k<l && nums[k]==nums[k-1]) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (j > i + 1 && nums[j] == nums[j - 1]) {
+                    continue;
+                }
+                int k = j + 1;
+                int l = nums.length - 1;
+                while (k < l) {
+                    long sum = (long) nums[i] + (long) nums[j] + (long) nums[k] + (long) nums[l];
+
+                    if (sum < target) {
                         k++;
-                    }
-                    while (k<l && nums[l]==nums[l+1]) {
+                    } else if (sum > target) {
                         l--;
+                    } else {
+                        ArrayList<Integer> a = new ArrayList<>();
+                        a.add(nums[i]);
+                        a.add(nums[j]);
+                        a.add(nums[k]);
+                        a.add(nums[l]);
+                        p.add(a);
+                        k++;
+                        l--;
+                        while (k < l && nums[k] == nums[k - 1]) {
+                            k++;
+                        }
+                        while (k < l && nums[l] == nums[l + 1]) {
+                            l--;
+                        }
                     }
                 }
             }
-            }
 
         }
-        
+
         return p;
     }
 
-    public static int largest_subarray_with_sum_zero(int arr[]){ //O(n)  SC - O(n)
-        if (arr.length==0 ) {
+    public static int largest_subarray_with_sum_zero(int arr[]) { // O(n) SC - O(n)
+        if (arr.length == 0) {
             return 0;
-        }
-        else if(arr.length==1 && arr[0]!=0) return 0;
-        HashMap<Integer,Integer> s=new HashMap<>();
-        int sum=0;
-        int maxLength=0;
-        int length=0;
+        } else if (arr.length == 1 && arr[0] != 0)
+            return 0;
+        HashMap<Integer, Integer> s = new HashMap<>();
+        int sum = 0;
+        int maxLength = 0;
+        int length = 0;
 
         for (int i = 0; i < arr.length; i++) {
-            sum+=arr[i];
+            sum += arr[i];
             if (!s.containsKey(sum)) {
-                 s.put(sum, i);
+                s.put(sum, i);
             }
-           
-            if (arr[i]==0) {
-                length=1;
+
+            if (arr[i] == 0) {
+                length = 1;
+            } else if (s.containsKey(sum)) {
+                length = i - s.get(sum);
+
             }
-            else if(s.containsKey(sum)){
-               length=i-s.get(sum);
-         
-            }
-            
-            maxLength=Math.max(maxLength,length);
+
+            maxLength = Math.max(maxLength, length);
         }
         return maxLength;
     }
-    
+
+    public static int Count_number_of_subarrays_with_given_xor_K(int arr[], int target) {
+        int xor = 0;
+        int count = 0;
+        HashMap<Integer, Integer> s = new HashMap<>();
+        s.put(0, 1);
+        for (int i = 0; i < arr.length; i++) {
+            xor ^= arr[i];
+            int x = xor ^ target;
+
+            s.put(xor, s.getOrDefault(s.get(xor), 0) + 1);
+            if (s.containsKey(x)) {
+                count+=s.get(x);
+            }
+
+
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
+
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
         // System.out.println(secondLargest(arr));
 
@@ -1046,7 +1065,7 @@ public class array {
         // System.out.println(s);
 
         // int arr[] = { -2,0,2,1,-1};
-        //  List<List<Integer>> a = three_sum(arr);
+        // List<List<Integer>> a = three_sum(arr);
         // List<List<Integer>> a = three_sum_optimal_solution(arr);
         // System.out.println(a);
 
@@ -1056,5 +1075,8 @@ public class array {
 
         // int arr[]={15,-2,2,1,-8,7,10,23};
         // System.out.println(largest_subarray_with_sum_zero(arr));
+
+        // int arr[]={4,2,2,6,4};
+        // System.out.println(Count_number_of_subarrays_with_given_xor_K(arr, 6));
     }
 }
