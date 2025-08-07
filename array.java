@@ -936,7 +936,7 @@ public class array {
         return maxLength;
     }
 
-    public static int Count_number_of_subarrays_with_given_xor_K(int arr[], int target) {
+    public static int Count_number_of_subarrays_with_given_xor_K(int arr[], int target) {// O(n) SC - O(n)
         int xor = 0;
         int count = 0;
         HashMap<Integer, Integer> s = new HashMap<>();
@@ -947,12 +947,46 @@ public class array {
 
             s.put(xor, s.getOrDefault(s.get(xor), 0) + 1);
             if (s.containsKey(x)) {
-                count+=s.get(x);
+                count += s.get(x);
             }
-
 
         }
         return count;
+    }
+
+    public static int[][] merge_Intervals(int[][] intervals) { // O(nlogn) //SC- O(n)
+        ArrayList<ArrayList<Integer>> a = new ArrayList<>();
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0])); // O(nlongn)
+
+        for (int i = 0; i < intervals.length; i++) {
+            ArrayList<Integer> s = new ArrayList<>();
+            if (i == 0) {
+                s.add(intervals[0][0]);
+                s.add(intervals[0][1]);
+                a.add(s);
+                continue;
+            }
+            if (a.get(a.size() - 1).get(1) >= intervals[i][0] && a.get(a.size() - 1).get(1) >= intervals[i][1]) {
+                continue;
+            }
+            if (a.get(a.size() - 1).get(1) >= intervals[i][0] && a.get(a.size() - 1).get(1) <= intervals[i][1]) {
+                a.get(a.size() - 1).set(0, a.get(a.size() - 1).get(0));
+                a.get(a.size() - 1).set(1, intervals[i][1]);
+            } else {
+                s.add(intervals[i][0]);
+                s.add(intervals[i][1]);
+                a.add(s);
+            }
+
+        }
+
+        int arr[][] = new int[a.size()][2];
+        for (int i = 0; i < a.size(); i++) {
+            arr[i][0] = a.get(i).get(0);
+            arr[i][1] = a.get(i).get(1);
+        }
+        print_2d_array(arr);
+        return arr;
     }
 
     public static void main(String[] args) {
@@ -1078,5 +1112,9 @@ public class array {
 
         // int arr[]={4,2,2,6,4};
         // System.out.println(Count_number_of_subarrays_with_given_xor_K(arr, 6));
+
+        // int arr[][] = { { 1, 4 }, { 0, 2 }, { 3, 5 }, { 1, 5 } };
+        // merge_Intervals(arr);
+
     }
 }
