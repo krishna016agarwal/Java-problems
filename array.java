@@ -1101,6 +1101,19 @@ public class array {
 
     }
 
+    public static int count_inversions(int arr[]){ //O(n^2) SC - O(1)
+        int count=0;
+         for (int i = 0; i < arr.length; i++) {
+            for (int j = i+1; j < arr.length; j++) {
+                if (arr[i]>arr[j]) {
+                    count++;
+                }
+            }
+         }
+
+        return count;
+
+    }
     public static void main(String[] args) {
 
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
@@ -1238,7 +1251,10 @@ public class array {
         // printArray(nums2);
         // printArray(nums);
 
-        int arr[] = { 0,2,2,1,1};
-        System.out.println(firstMissingPositive(arr));
+        // int arr[] = { 0,2,2,1,1};
+        // System.out.println(firstMissingPositive(arr));
+
+        // int arr[]={6,3,5,2,7};
+        // System.out.println(count_inversions(arr));
     }
 }
