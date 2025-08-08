@@ -1045,29 +1045,49 @@ public class array {
         printArray(nums1);
     }
 
-    public static int[] findMissingAndRepeatedValues(int[][] grid) {
-        HashMap<Integer,Integer> s=new HashMap<>();
-        for(int i=1;i<=grid.length*grid.length;i++){
-            s.put(i,0);
+    public static int[] findMissingAndRepeatedValues(int[][] grid) { // O(n^2) SC- O(n)
+        HashMap<Integer, Integer> s = new HashMap<>();
+        for (int i = 1; i <= grid.length * grid.length; i++) {
+            s.put(i, 0);
         }
-        for(int i=0;i<grid.length;i++){
-            for(int j=0;j<grid.length;j++){
-                s.put(grid[i][j],s.get(grid[i][j])+1);
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid.length; j++) {
+                s.put(grid[i][j], s.get(grid[i][j]) + 1);
             }
         }
-        int a=0;
-        int b=0;
-         for(int i=1;i<=grid.length*grid.length;i++){
-            if(s.get(i)==0){
-                b=i;
+        int a = 0;
+        int b = 0;
+        for (int i = 1; i <= grid.length * grid.length; i++) {
+            if (s.get(i) == 0) {
+                b = i;
             }
-            if(s.get(i)==2){
-                a=i;
+            if (s.get(i) == 2) {
+                a = i;
             }
         }
-        return new int[]{a,b};
+        return new int[] { a, b };
     }
-    
+
+    public static int[] findMissingAndRepeatedValues_optimalSolution(int[][] grid) { //O(n^2) SC-O(1)
+
+        long a = 0, b = 0;
+        long n = grid.length * grid.length;
+        long sum = (n * (n + 1)) / 2;
+        long sq_sum = (n * (n + 1) * (2 * n + 1)) / 6;
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid.length; j++) {
+                sum -= grid[i][j];
+                sq_sum -= grid[i][j] * grid[i][j];
+            }
+        }
+
+        b = (((sq_sum / sum) + sum) / 2);
+        a = (b - sum);
+
+        return new int[] { (int)a, (int)b };
+    }
+
     public static void main(String[] args) {
 
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
@@ -1199,9 +1219,10 @@ public class array {
         // int arr2[] = { 2, 5, 6 };
         // merge_sorted_arrays(arr1, 3, arr2, 3);
 
-
-        // int arr[][]={{9,1,3},{6,9,2},{4,7,8}};
+        // int arr[][] = { { 9, 1, 3 }, { 2, 4, 6 }, { 7, 8, 9 } };
         // int nums[]=findMissingAndRepeatedValues(arr);
+        // int nums2[] = findMissingAndRepeatedValues_optimalSolution(arr);
+        // printArray(nums2);
         // printArray(nums);
     }
 }
