@@ -989,6 +989,62 @@ public class array {
         return arr;
     }
 
+    public static int[][] merge(int[][] intervals) {
+
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
+        int arr[][] = new int[intervals.length][2];
+        int j = -1;
+        for (int i = 0; i < intervals.length; i++) {
+
+            if (i == 0 || intervals[i][0] > arr[j][1]) {
+                j++;
+                arr[j][0] = intervals[i][0];
+                arr[j][1] = intervals[i][1];
+            } else {
+
+                arr[j][1] = Math.max(arr[j][1], intervals[i][1]);
+            }
+
+        }
+
+        return Arrays.copyOfRange(arr, 0, j + 1);
+    }
+
+    public static void merge_sorted_arrays(int[] nums1, int m, int[] nums2, int n) {
+        int k = 0;
+        int l = 0;
+        int a[] = new int[m + n];
+        int i = 0;
+        while (l < n && k < m) {
+            if (nums1[k] <= nums2[l]) {
+                a[i] = nums1[k];
+                k++;
+            } else if (nums1[k] > nums2[l]) {
+                a[i] = nums2[l];
+                l++;
+
+            }
+
+            i++;
+        }
+        while (k < m) {
+
+            a[i++] = nums1[k];
+
+            k++;
+        }
+        while (l < n) {
+            a[i++] = nums2[l++];
+        }
+        i = 0;
+        k = 0;
+        while (k < nums1.length) {
+            nums1[k++] = a[i++];
+        }
+
+        printArray(nums1);
+    }
+
     public static void main(String[] args) {
 
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
@@ -1113,8 +1169,12 @@ public class array {
         // int arr[]={4,2,2,6,4};
         // System.out.println(Count_number_of_subarrays_with_given_xor_K(arr, 6));
 
-        // int arr[][] = { { 1, 4 }, { 0, 2 }, { 3, 5 }, { 1, 5 } };
+        // int arr[][] = { { 1, 3 }, { 2,6 }, { 8,10 }, { 15,18 } };
         // merge_Intervals(arr);
+
+        // int arr1[] = { 1, 2, 3, 0, 0, 0 };
+        // int arr2[] = { 2, 5, 6 };
+        // merge_sorted_arrays(arr1, 3, arr2, 3);
 
     }
 }
