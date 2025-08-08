@@ -1045,6 +1045,29 @@ public class array {
         printArray(nums1);
     }
 
+    public static int[] findMissingAndRepeatedValues(int[][] grid) {
+        HashMap<Integer,Integer> s=new HashMap<>();
+        for(int i=1;i<=grid.length*grid.length;i++){
+            s.put(i,0);
+        }
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid.length;j++){
+                s.put(grid[i][j],s.get(grid[i][j])+1);
+            }
+        }
+        int a=0;
+        int b=0;
+         for(int i=1;i<=grid.length*grid.length;i++){
+            if(s.get(i)==0){
+                b=i;
+            }
+            if(s.get(i)==2){
+                a=i;
+            }
+        }
+        return new int[]{a,b};
+    }
+    
     public static void main(String[] args) {
 
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
@@ -1176,5 +1199,9 @@ public class array {
         // int arr2[] = { 2, 5, 6 };
         // merge_sorted_arrays(arr1, 3, arr2, 3);
 
+
+        // int arr[][]={{9,1,3},{6,9,2},{4,7,8}};
+        // int nums[]=findMissingAndRepeatedValues(arr);
+        // printArray(nums);
     }
 }
