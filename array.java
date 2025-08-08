@@ -1068,7 +1068,7 @@ public class array {
         return new int[] { a, b };
     }
 
-    public static int[] findMissingAndRepeatedValues_optimalSolution(int[][] grid) { //O(n^2) SC-O(1)
+    public static int[] findMissingAndRepeatedValues_optimalSolution(int[][] grid) { // O(n^2) SC-O(1)
 
         long a = 0, b = 0;
         long n = grid.length * grid.length;
@@ -1085,7 +1085,20 @@ public class array {
         b = (((sq_sum / sum) + sum) / 2);
         a = (b - sum);
 
-        return new int[] { (int)a, (int)b };
+        return new int[] { (int) a, (int) b };
+    }
+
+    public static int firstMissingPositive(int[] nums) {
+
+        Arrays.sort(nums);
+        int smallest = 1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == smallest) {
+                smallest += 1;
+            }
+        }
+        return smallest;
+
     }
 
     public static void main(String[] args) {
@@ -1224,5 +1237,8 @@ public class array {
         // int nums2[] = findMissingAndRepeatedValues_optimalSolution(arr);
         // printArray(nums2);
         // printArray(nums);
+
+        int arr[] = { 0,2,2,1,1};
+        System.out.println(firstMissingPositive(arr));
     }
 }
