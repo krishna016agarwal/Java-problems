@@ -1115,7 +1115,7 @@ public class array {
 
     }
 
-    static class count_inversion_optimal_solution {
+    static class count_inversion_optimal_solution { // O(nlogn) SC - O(n)
 
         public static int divide(int arr[], int si, int ei) {
             if (si >= ei) {
@@ -1157,6 +1157,91 @@ public class array {
 
         }
 
+    }
+
+    public int reversePairs(int[] nums) { // O(n^2)
+        long count = 0;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if ((long) nums[j] * 2 < nums[i])
+                    count++;
+            }
+        }
+        return (int) count;
+    }
+
+    static class reversePairs_optimal { // O(nlogn) SC - O(n)
+
+        public static int divide(int arr[], int si, int ei) {
+            if (si >= ei) {
+                return 0;
+            }
+            int mid = si + (ei - si) / 2;
+
+            int left = divide(arr, si, mid);
+            int right = divide(arr, mid + 1, ei);
+            int count = merge(arr, si, ei, mid);
+            return left + right + count;
+        }
+
+        public static int merge(int arr[], int si, int ei, int mid) {
+
+            int temp[] = new int[ei - si + 1];
+
+            int i = si, j = mid + 1, k = 0;
+            int count = 0;
+            while (i <= mid && j <= ei) {
+
+                if (arr[i] < arr[j]) {
+                    temp[k++] = arr[i++];
+                } else {
+                    temp[k++] = arr[j++];
+
+                }
+
+            }
+            while (i <= mid) {
+                temp[k++] = arr[i++];
+            }
+            while (j <= ei) {
+                temp[k++] = arr[j++];
+            }
+            i = si;
+            j = mid + 1;
+            while (i <= mid && j <= ei) {
+                if (arr[i] > (long) arr[j] * 2) {
+                    count += mid - i + 1;
+                    j++;
+                } else {
+                    i++;
+                }
+            }
+
+            for (k = 0, i = si; k < temp.length; k++, i++) {
+                arr[i] = temp[k];
+            }
+
+            return count;
+
+        }
+
+    }
+
+    public static int maxProduct(int[] nums) {
+        int pre = 1;
+        int suf = 1;
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+
+            if (pre == 0)
+                pre = 1;
+            if (suf == 0)
+                suf = 1;
+            pre *= nums[i];
+            suf *= nums[nums.length - i - 1];
+            max = Math.max(max, Math.max(pre, suf));
+        }
+        return max;
     }
 
     public static void main(String[] args) {
@@ -1303,8 +1388,16 @@ public class array {
         // System.out.println(count_inversions(arr));
 
         // int arr[] = { 9, 8, 5, 7, 2, 1, 6 };
-        // array.count_inversion_optimal_solution count = new array.count_inversion_optimal_solution();
+        // array.count_inversion_optimal_solution count = new
+        // array.count_inversion_optimal_solution();
         // System.out.println(count.divide(arr, 0, arr.length - 1));
+
+        // int arr[] = { 5, 4, 3, 2, 1 };
+        // array.reversePairs_optimal count = new array.reversePairs_optimal();
+        // System.out.println(count.divide(arr, 0, arr.length - 1));
+
+        // int arr[]={2,0,-1,3};
+        // System.out.println(maxProduct(arr));
 
     }
 }
