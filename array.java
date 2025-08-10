@@ -1101,19 +1101,64 @@ public class array {
 
     }
 
-    public static int count_inversions(int arr[]){ //O(n^2) SC - O(1)
-        int count=0;
-         for (int i = 0; i < arr.length; i++) {
-            for (int j = i+1; j < arr.length; j++) {
-                if (arr[i]>arr[j]) {
+    public static int count_inversions(int arr[]) { // O(n^2) SC - O(1)
+        int count = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] > arr[j]) {
                     count++;
                 }
             }
-         }
+        }
 
         return count;
 
     }
+
+    static class count_inversion_optimal_solution {
+
+        public static int divide(int arr[], int si, int ei) {
+            if (si >= ei) {
+                return 0;
+            }
+            int mid = si + (ei - si) / 2;
+
+            int left = divide(arr, si, mid);
+            int right = divide(arr, mid + 1, ei);
+            int count = merge(arr, si, ei, mid);
+            return left + right + count;
+        }
+
+        public static int merge(int arr[], int si, int ei, int mid) {
+
+            int temp[] = new int[ei - si + 1];
+
+            int i = si, j = mid + 1, k = 0;
+            int count = 0;
+            while (i <= mid && j <= ei) {
+                if (arr[i] < arr[j]) {
+                    temp[k++] = arr[i++];
+                } else {
+                    temp[k++] = arr[j++];
+                    count += mid - i + 1;
+                }
+            }
+            while (i <= mid) {
+                temp[k++] = arr[i++];
+            }
+            while (j <= ei) {
+                temp[k++] = arr[j++];
+            }
+
+            for (k = 0, i = si; k < temp.length; k++, i++) {
+                arr[i] = temp[k];
+            }
+            return count;
+
+        }
+
+    }
+
     public static void main(String[] args) {
 
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
@@ -1256,5 +1301,10 @@ public class array {
 
         // int arr[]={6,3,5,2,7};
         // System.out.println(count_inversions(arr));
+
+        // int arr[] = { 9, 8, 5, 7, 2, 1, 6 };
+        // array.count_inversion_optimal_solution count = new array.count_inversion_optimal_solution();
+        // System.out.println(count.divide(arr, 0, arr.length - 1));
+
     }
 }

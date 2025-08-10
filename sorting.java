@@ -217,9 +217,9 @@ public class sorting {
 
 class MergeSort {
 
-    public static void mergeSort(int arr[], int i, int e) {
-        if (i >= e)
-            return;
+    public static void mergeSort(int arr[], int i, int e){
+        if (i >= e) return;
+        
         int mid = i + (e - i) / 2;
 
         mergeSort(arr, i, mid);
