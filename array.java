@@ -1245,23 +1245,40 @@ public class array {
     }
 
     public static int searchInsert(int[] nums, int target) {
-        int si=0;
-        int ei=nums.length-1;
-       
-        while(si<=ei){
-            int mid=si+(ei-ei)/2;
-            if(nums[mid]==target) return mid;
-            else if(nums[mid]>target) {
-                ei=mid-1;
-              
+        int si = 0;
+        int ei = nums.length - 1;
+
+        while (si <= ei) {
+            int mid = si + (ei - ei) / 2;
+            if (nums[mid] == target)
+                return mid;
+            else if (nums[mid] > target) {
+                ei = mid - 1;
+
+            } else {
+                si = mid + 1;
+
             }
-            else {si=mid+1;
-        
-            }
-          
+
         }
         return si;
-    
+
+    }
+
+    public static int findFloor(int[] arr, int x) {
+        int ans = -1;
+        int si = 0;
+        int ei = arr.length - 1;
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
+            if (arr[mid] <= x) {
+                ans = mid;
+                si = mid + 1;
+            } else {
+                ei = mid - 1;
+            }
+        }
+        return ans;
     }
 
     public static void main(String[] args) {
@@ -1421,6 +1438,9 @@ public class array {
 
         // int arr[]={1,2,3,4,5,6};
         // System.out.println(searchInsert(arr, 7));
+
+        // int arr[]={1,2,4,4,5,8,9};
+        // System.out.println(findFloor(arr, 7));
 
     }
 }
