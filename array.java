@@ -1281,6 +1281,36 @@ public class array {
         return ans;
     }
 
+    public static int[] search_first_and_last_index_of_element(int[] nums, int target) {
+        int si = 0;
+        int ei = nums.length - 1;
+        int arr[] = { -1, -1 };
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
+            if (nums[mid] == target) {
+                arr[0] = mid;
+                ei = mid - 1;
+            } else if (nums[mid] > target)
+                ei = mid - 1;
+            else
+                si = mid + 1;
+        }
+        si = 0;
+        ei = nums.length - 1;
+
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
+            if (nums[mid] == target) {
+                arr[1] = mid;
+                si = mid + 1;
+            } else if (nums[mid] > target)
+                ei = mid - 1;
+            else
+                si = mid + 1;
+        }
+        return arr;
+    }
+
     public static void main(String[] args) {
 
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
@@ -1441,6 +1471,10 @@ public class array {
 
         // int arr[]={1,2,4,4,5,8,9};
         // System.out.println(findFloor(arr, 7));
+
+        // int arr[]={2,5,5,6,8,8,9};
+        // int nums[]=search_first_and_last_index_of_element(arr, 8);
+        // printArray(nums);
 
     }
 }
