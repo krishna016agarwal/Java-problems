@@ -1311,6 +1311,41 @@ public class array {
         return arr;
     }
 
+    public static int countFreq_in_sorted_array(int[] arr, int target) {
+        int si = 0;
+        int ei = arr.length - 1;
+        int firstindex = -1;
+        int lastindex = -1;
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
+            if (arr[mid] == target) {
+                firstindex = mid;
+                ei = mid - 1;
+            } else if (arr[mid] > target)
+                ei = mid - 1;
+            else
+                si = mid + 1;
+        }
+        si = 0;
+        ei = arr.length - 1;
+
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
+            if (arr[mid] == target) {
+                lastindex = mid;
+                si = mid + 1;
+            } else if (arr[mid] > target)
+                ei = mid - 1;
+            else
+                si = mid + 1;
+        }
+        if (lastindex==-1&&firstindex==-1) {
+            return 0;
+        }
+        return lastindex - firstindex + 1;
+
+    }
+
     public static void main(String[] args) {
 
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
@@ -1475,6 +1510,9 @@ public class array {
         // int arr[]={2,5,5,6,8,8,9};
         // int nums[]=search_first_and_last_index_of_element(arr, 8);
         // printArray(nums);
+
+        int arr[] = { 1, 1, 2, 2, 2, 2, 3 };
+        System.out.println(countFreq_in_sorted_array(arr, 2));
 
     }
 }
