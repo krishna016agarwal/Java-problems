@@ -1439,7 +1439,10 @@ public class array {
         while (si <= ei) {
             int mid = si + (ei - si) / 2;
 
-            if (nums[si] <= nums[mid]) {
+            if (nums[si] <= nums[ei]) {
+                ans = Math.min(nums[si], ans);
+                break;
+            } else if (nums[si] <= nums[mid]) {
                 ans = Math.min(nums[si], ans);
                 si = mid + 1;
             } else {
