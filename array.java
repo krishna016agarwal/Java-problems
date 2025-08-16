@@ -1432,6 +1432,25 @@ public class array {
         return false;
     }
 
+    public static int find_minimum_in_rotated_sorted_array(int[] nums) {
+        int si = 0;
+        int ei = nums.length - 1;
+        int ans = Integer.MAX_VALUE;
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
+
+            if (nums[si] <= nums[mid]) {
+                ans = Math.min(nums[si], ans);
+                si = mid + 1;
+            } else {
+                ans = Math.min(nums[mid], ans);
+                ei = mid - 1;
+            }
+
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
 
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
@@ -1600,11 +1619,14 @@ public class array {
         // int arr[] = { 1, 1, 2, 2, 2, 2, 3 };
         // System.out.println(countFreq_in_sorted_array(arr, 2));
 
-        // int arr[]={7,8,9,1,2,3,4};
-        // System.out.println(search_in_rotated_array(arr,3));
+        // int arr[] = { 6, 7, 1, 2, 3, 4, 5 };
+        // System.out.println(search_in_rotated_array(arr, 2));
 
         // int arr[]={3,3,1,2,3,3,3};
         // System.out.println(search_in_rotated_array_with_dulpicates(arr, 1));
+
+        // int arr[]={4,5,6,1,2,3};
+        // System.out.println(find_minimum_in_rotated_sorted_array(arr));
 
     }
 }
