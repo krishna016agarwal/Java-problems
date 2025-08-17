@@ -1454,31 +1454,30 @@ public class array {
         return ans;
     }
 
-    
     public static int findKRotation(int nums[]) {
-       int si = 0;
+        int si = 0;
         int ei = nums.length - 1;
-        int index=-1;
+        int index = -1;
         int ans = Integer.MAX_VALUE;
         while (si <= ei) {
             int mid = si + (ei - si) / 2;
 
             if (nums[si] <= nums[ei]) {
-                if(nums[si]<ans){
-                    ans=nums[si];
-                    index=si;
+                if (nums[si] < ans) {
+                    ans = nums[si];
+                    index = si;
                 }
                 break;
             } else if (nums[si] <= nums[mid]) {
-                if(nums[si]<ans){
-                    ans=nums[si];
-                    index=si;
+                if (nums[si] < ans) {
+                    ans = nums[si];
+                    index = si;
                 }
                 si = mid + 1;
             } else {
-                if(nums[mid]<ans){
-                    ans=nums[mid];
-                    index=mid;
+                if (nums[mid] < ans) {
+                    ans = nums[mid];
+                    index = mid;
                 }
                 ei = mid - 1;
             }
@@ -1487,7 +1486,37 @@ public class array {
         return index;
     }
 
-    
+    public static int singleNonDuplicate_in_sorted_array(int[] nums) {
+        if (nums.length == 1)
+            return nums[0];
+        int si = 0;
+        int ei = nums.length - 1;
+        int n = nums.length;
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
+            if (mid == 0 && nums[0] != nums[1])
+                return nums[mid];
+            if (mid == n - 1 && nums[n - 1] != nums[n - 2])
+                return nums[n - 1];
+            if (nums[mid - 1] != nums[mid] && nums[mid] != nums[mid + 1])
+                return nums[mid];
+            if (mid % 2 == 0) {
+                if (nums[mid - 1] == nums[mid]) {
+                    ei = mid - 1;
+                } else {
+                    si = mid + 1;
+                }
+            } else {
+                if (nums[mid - 1] == nums[mid]) {
+                    si = mid + 1;
+                } else {
+                    ei = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
 
         // int arr[] = { 1,1,2,2,2, 2, 7, 7 };
@@ -1665,8 +1694,11 @@ public class array {
         // int arr[]={4,5,6,1,2,3};
         // System.out.println(find_minimum_in_rotated_sorted_array(arr));
 
-        //  int arr[]={5,6,1,2,3,4};
-        //  System.out.println(findKRotation(arr));
+        // int arr[]={5,6,1,2,3,4};
+        // System.out.println(findKRotation(arr));
+
+        int arr[]={1,2,2,3,3,4,4,7,7};
+        System.out.println(singleNonDuplicate_in_sorted_array(arr));
 
     }
 }
