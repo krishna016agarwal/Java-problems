@@ -1346,7 +1346,7 @@ public class array {
 
     }
 
-    public static int search_in_rotated_array(int[] nums, int target) { // )(logn)
+    public static int search_in_rotated_array(int[] nums, int target) { // O(logn)
         int si = 0;
         int ei = nums.length - 1;
         while (si <= ei) {
@@ -1396,7 +1396,7 @@ public class array {
         return span;
     }
 
-    public static boolean search_in_rotated_array_with_dulpicates(int[] nums, int target) {
+    public static boolean search_in_rotated_array_with_dulpicates(int[] nums, int target) { //O(logn)
         int si = 0, ei = nums.length - 1;
 
         while (si <= ei) {
@@ -1432,7 +1432,7 @@ public class array {
         return false;
     }
 
-    public static int find_minimum_in_rotated_sorted_array(int[] nums) {
+    public static int find_minimum_in_rotated_sorted_array(int[] nums) { //O(logn)
         int si = 0;
         int ei = nums.length - 1;
         int ans = Integer.MAX_VALUE;
@@ -1454,7 +1454,7 @@ public class array {
         return ans;
     }
 
-    public static int findKRotation(int nums[]) {
+    public static int findKRotation(int nums[]) { //O(logn)
         int si = 0;
         int ei = nums.length - 1;
         int index = -1;
@@ -1486,7 +1486,7 @@ public class array {
         return index;
     }
 
-    public static int singleNonDuplicate_in_sorted_array(int[] nums) {
+    public static int singleNonDuplicate_in_sorted_array(int[] nums) { //O(logn)
         if (nums.length == 1)
             return nums[0];
         int si = 0;
@@ -1513,6 +1513,30 @@ public class array {
                     ei = mid - 1;
                 }
             }
+        }
+        return -1;
+    }
+
+    public static int findPeakElement(int[] nums) {  //O(logn)
+        int si = 1;
+        int ei = nums.length - 2;
+        if (nums.length == 1)
+            return 0;
+
+        if (nums[0] > nums[1])
+            return 0;
+        else if (nums[nums.length - 1] > nums[nums.length - 2])
+            return nums.length - 1;
+
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
+
+            if (nums[mid] >= nums[mid + 1] && nums[mid] >= nums[mid - 1])
+                return mid;
+            else if (nums[mid] >= nums[mid - 1] && nums[mid] <= nums[mid + 1])
+                si = mid + 1;
+            else
+                ei = mid - 1;
         }
         return -1;
     }
@@ -1697,8 +1721,11 @@ public class array {
         // int arr[]={5,6,1,2,3,4};
         // System.out.println(findKRotation(arr));
 
-        int arr[]={1,2,2,3,3,4,4,7,7};
-        System.out.println(singleNonDuplicate_in_sorted_array(arr));
+        // int arr[] = { 1, 2, 2, 3, 3, 4, 4, 7, 7 };
+        // System.out.println(singleNonDuplicate_in_sorted_array(arr));
+
+        // int arr[]={1,2,3,4,6,3,2,1};
+        // System.out.println(findPeakElement(arr));
 
     }
 }
