@@ -316,6 +316,22 @@ public class binarySearch {
         return -1;
     }
 
+     public static int nthRoot(int n, int m) {
+    
+        int si=1;
+        int ei=m;
+        while(si<=ei){
+            int mid=(si+ei)/2;
+            
+            if(Math.pow(mid,n)==m){
+                return mid;
+            }else if(Math.pow(mid,n)>m) ei=mid-1;
+            else{
+                si=mid+1;
+            }
+        }
+        return -1;
+    }
 
     public static void main(String args[]){
 
@@ -351,5 +367,7 @@ public class binarySearch {
         // System.out.println(findPeakElement(arr));
 
         // System.out.println(square_root(16));
+
+        // System.out.println(nthRoot(4, 625));
     }
 }
