@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class binarySearch {
-    
+
     public static int square_root(int n) { // O(logn)
         int si = 1;
         int ei = n;
@@ -316,26 +316,54 @@ public class binarySearch {
         return -1;
     }
 
-     public static int nthRoot(int n, int m) {
-    
-        int si=1;
-        int ei=m;
-        while(si<=ei){
-            int mid=(si+ei)/2;
-            
-            if(Math.pow(mid,n)==m){
+    public static int nthRoot(int n, int m) { // O(logn)
+
+        int si = 1;
+        int ei = m;
+        while (si <= ei) {
+            int mid = (si + ei) / 2;
+
+            if (Math.pow(mid, n) == m) {
                 return mid;
-            }else if(Math.pow(mid,n)>m) ei=mid-1;
-            else{
-                si=mid+1;
+            } else if (Math.pow(mid, n) > m)
+                ei = mid - 1;
+            else {
+                si = mid + 1;
             }
         }
         return -1;
     }
 
-    public static void main(String args[]){
+    public static int minEatingSpeed_koko_monkey(int[] piles, int h) {  //O(nlogm)
+        int si = 1;
+        int ei = -1;
+        for (int i : piles) {
+            ei = Math.max(ei, i);
+        }
+        int ans = Integer.MAX_VALUE;
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
 
-         // int arr[]={1,2,3,4,5,6};
+            int ans2 = 0;
+            for (int i : piles) {
+                ans2 += Math.ceil((double) i / mid);
+
+            }
+
+            if (ans2 > h) {
+                si = mid + 1;
+            } else if (ans2 <= h) {
+                ei = mid - 1;
+                ans = Math.min(ans, mid);
+
+            }
+        }
+        return ans;
+    }
+
+    public static void main(String args[]) {
+
+        // int arr[]={1,2,3,4,5,6};
         // System.out.println(searchInsert(arr, 7));
 
         // int arr[]={1,2,4,4,5,8,9};
@@ -369,5 +397,8 @@ public class binarySearch {
         // System.out.println(square_root(16));
 
         // System.out.println(nthRoot(4, 625));
+
+        // int arr[] = { 30, 11, 23, 4, 20 };
+        // System.out.println(minEatingSpeed_koko_monkey(arr, 5));
     }
 }
