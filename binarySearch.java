@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Stack;
+import java.util.*;
 
 public class binarySearch {
 
@@ -334,7 +333,7 @@ public class binarySearch {
         return -1;
     }
 
-    public static int minEatingSpeed_koko_monkey(int[] piles, int h) {  //O(nlogm)
+    public static int minEatingSpeed_koko_monkey(int[] piles, int h) { // O(nlogm)
         int si = 1;
         int ei = -1;
         for (int i : piles) {
@@ -359,6 +358,51 @@ public class binarySearch {
             }
         }
         return ans;
+    }
+
+    public static int minDays_to_make_flower_bloom(int[] bloomDay, int m, int k) { //O(nlog(Max−Min))
+        if ((long) m * k > bloomDay.length)
+            return -1;
+        int ans = Integer.MAX_VALUE;
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        for (int i : bloomDay) {
+            min = Math.min(min, i);
+            max = Math.max(max, i);
+        }
+
+        while (min <= max) {
+            int bouque = m;
+            int adjacent = k;
+            int mid = min + (max - min) / 2;
+            for (int j : bloomDay) {
+                if (j <= mid) {
+                    adjacent--;
+                } else {
+                    adjacent = k;
+                }
+                if (adjacent == 0) {
+                    bouque--;
+                    adjacent = k;
+                }
+                if (bouque == 0)
+                    break;
+            }
+
+            if (bouque == 0) {
+                max = mid - 1;
+                ans = Math.min(ans, mid);
+            } else {
+                min = mid + 1;
+            }
+
+        }
+        if (ans == Integer.MAX_VALUE) {
+            return -1;
+        } else {
+            return ans;
+        }
+
     }
 
     public static void main(String args[]) {
@@ -400,5 +444,8 @@ public class binarySearch {
 
         // int arr[] = { 30, 11, 23, 4, 20 };
         // System.out.println(minEatingSpeed_koko_monkey(arr, 5));
+
+        // int arr[]={1,10,3,10,2};
+        // System.out.println(minDays_to_make_flower_bloom(arr, 3, 1));
     }
 }
