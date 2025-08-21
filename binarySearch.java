@@ -405,7 +405,7 @@ public class binarySearch {
 
     }
 
-    public static int smallestDivisor(int[] nums, int threshold) { //O(nlog(max))
+    public static int smallestDivisor(int[] nums, int threshold) { // O(nlog(max))
         int si = 1;
         int ei = Integer.MIN_VALUE;
         for (int i : nums) {
@@ -427,6 +427,41 @@ public class binarySearch {
             }
         }
         return ans2;
+    }
+
+    public static int shipWithinDays(int[] weights, int days) {
+        int si = 0;
+        int ei = 0;
+        int finalans = 0;
+        for (int i : weights) {
+            si = Math.max(si, i);
+            ei += i;
+        }
+
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
+            int daysneeded = 1;
+            int currentLoad = 0;
+
+            for (int i : weights) {
+                if (currentLoad + i > mid) {
+                    daysneeded++;
+                    currentLoad = 0;
+
+                }
+
+                currentLoad += i;
+
+            }
+
+            if (daysneeded <= days) {
+                finalans = mid;
+                ei = mid - 1;
+            } else {
+                si = mid + 1;
+            }
+        }
+        return finalans;
     }
 
     public static void main(String args[]) {
@@ -474,5 +509,8 @@ public class binarySearch {
 
         // int arr[] = { 44, 22, 33, 11, 1 };
         // System.out.println(smallestDivisor(arr, 5));
+
+        int arr[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        System.out.println(shipWithinDays(arr, 5));
     }
 }
