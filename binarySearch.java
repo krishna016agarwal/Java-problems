@@ -360,7 +360,7 @@ public class binarySearch {
         return ans;
     }
 
-    public static int minDays_to_make_flower_bloom(int[] bloomDay, int m, int k) { //O(nlog(Max−Min))
+    public static int minDays_to_make_flower_bloom(int[] bloomDay, int m, int k) { // O(nlog(Max−Min))
         if ((long) m * k > bloomDay.length)
             return -1;
         int ans = Integer.MAX_VALUE;
@@ -405,6 +405,30 @@ public class binarySearch {
 
     }
 
+    public static int smallestDivisor(int[] nums, int threshold) { //O(nlog(max))
+        int si = 1;
+        int ei = Integer.MIN_VALUE;
+        for (int i : nums) {
+
+            ei = Math.max(ei, i);
+        }
+        int ans2 = 0;
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
+            int ans = 0;
+            for (int i : nums) {
+                ans += Math.ceil((double) i / mid);
+            }
+            if (ans <= threshold) {
+                ans2 = mid;
+                ei = mid - 1;
+            } else {
+                si = mid + 1;
+            }
+        }
+        return ans2;
+    }
+
     public static void main(String args[]) {
 
         // int arr[]={1,2,3,4,5,6};
@@ -447,5 +471,8 @@ public class binarySearch {
 
         // int arr[]={1,10,3,10,2};
         // System.out.println(minDays_to_make_flower_bloom(arr, 3, 1));
+
+        // int arr[] = { 44, 22, 33, 11, 1 };
+        // System.out.println(smallestDivisor(arr, 5));
     }
 }
