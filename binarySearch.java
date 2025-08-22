@@ -495,6 +495,42 @@ public class binarySearch {
         return si + k;
     }
 
+     class AggressiveCows {
+
+        public static boolean isPossible(int[] stalls, int mid, int k) {
+            int cows = 1;
+            int lastcowpostion = 0;
+            for (int i = 1; i < stalls.length; i++) {
+                if (stalls[i] - stalls[lastcowpostion] >= mid) {
+                    cows++;
+                    lastcowpostion = i;
+                }
+            }
+            if (cows >= k) {
+                return true;
+            }
+            return false;
+        }
+
+        public static int aggressiveCows(int[] stalls, int k) {
+            Arrays.sort(stalls);
+            int si = 1;
+            int ei = stalls[stalls.length - 1] - stalls[0];
+            int ans = 0;
+            while (si <= ei) {
+                int mid = si + (ei - si) / 2;
+                if (isPossible(stalls, mid, k)) {
+                    si = mid + 1;
+                    ans = mid;
+                } else {
+                    ei = mid - 1;
+                }
+            }
+            return ans;
+
+        }
+    }
+
     public static void main(String args[]) {
 
         // int arr[]={1,2,3,4,5,6};
@@ -547,5 +583,8 @@ public class binarySearch {
         // int arr[]={2,3,4,7,11};
         // System.out.println(findKthPositive(arr, 5));
         // System.out.println(findKthPositive_optimal(arr, 5));
+
+        // int arr[] = { 1, 2, 8, 4, 9 };
+        // System.out.println(binarySearch.AggressiveCows.aggressiveCows(arr, 2));
     }
 }
