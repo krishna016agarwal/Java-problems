@@ -464,6 +464,37 @@ public class binarySearch {
         return finalans;
     }
 
+    public static int findKthPositive(int[] arr, int k) { // O(n)
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] <= k)
+                k++;
+
+            else
+                break;
+        }
+        return k;
+    }
+
+    public static int findKthPositive_optimal(int arr[], int k) { // O(logn)
+
+        int si = 0;
+        int ei = arr.length - 1;
+
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
+            if (arr[mid] - mid - 1 < k) {
+                si = mid + 1;
+            } else {
+
+                ei = mid - 1;
+            }
+
+        }
+
+        return si + k;
+    }
+
     public static void main(String args[]) {
 
         // int arr[]={1,2,3,4,5,6};
@@ -510,7 +541,11 @@ public class binarySearch {
         // int arr[] = { 44, 22, 33, 11, 1 };
         // System.out.println(smallestDivisor(arr, 5));
 
-        int arr[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        System.out.println(shipWithinDays(arr, 5));
+        // int arr[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // System.out.println(shipWithinDays(arr, 5));
+
+        // int arr[]={2,3,4,7,11};
+        // System.out.println(findKthPositive(arr, 5));
+        // System.out.println(findKthPositive_optimal(arr, 5));
     }
 }
