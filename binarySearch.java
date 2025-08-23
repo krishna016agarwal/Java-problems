@@ -495,9 +495,9 @@ public class binarySearch {
         return si + k;
     }
 
-     class AggressiveCows {
+    class AggressiveCows {
 
-        public static boolean isPossible(int[] stalls, int mid, int k) {
+        public static boolean isPossible(int[] stalls, int mid, int k) { // O(n)
             int cows = 1;
             int lastcowpostion = 0;
             for (int i = 1; i < stalls.length; i++) {
@@ -513,11 +513,11 @@ public class binarySearch {
         }
 
         public static int aggressiveCows(int[] stalls, int k) {
-            Arrays.sort(stalls);
+            Arrays.sort(stalls); // O(nlogn)
             int si = 1;
             int ei = stalls[stalls.length - 1] - stalls[0];
             int ans = 0;
-            while (si <= ei) {
+            while (si <= ei) { // O(log(Range) * N)
                 int mid = si + (ei - si) / 2;
                 if (isPossible(stalls, mid, k)) {
                     si = mid + 1;
@@ -528,6 +528,49 @@ public class binarySearch {
             }
             return ans;
 
+        }
+    }
+
+    class BookAllocation {
+        public static boolean isvalid(int[] arr, int mid, int k) {
+            int student = 1;
+            int pages = 0;
+            for (int i : arr) {
+                if (i > mid)
+                    return false;
+                if (pages + i > mid) {
+                    student++;
+                    pages = i;
+                    if (student > k)
+                        return false;
+
+                } else {
+                    pages += i;
+                }
+            }
+            return true;
+
+        }
+
+        public static int findPages(int[] arr, int k) {
+            if (arr.length < k)
+                return -1;
+            int si = 0;
+            int ei = 0;
+            for (int i : arr) {
+                ei += i;
+            }
+            int ans = 0;
+            while (si <= ei) {
+                int mid = si + (ei - si) / 2;
+                if (isvalid(arr, mid, k)) {
+                    ei = mid - 1;
+                    ans = mid;
+                } else {
+                    si = mid + 1;
+                }
+            }
+            return ans;
         }
     }
 
@@ -586,5 +629,8 @@ public class binarySearch {
 
         // int arr[] = { 1, 2, 8, 4, 9 };
         // System.out.println(binarySearch.AggressiveCows.aggressiveCows(arr, 2));
+
+        // int arr[]={2,1,3,4};
+        // System.out.println(binarySearch.BookAllocation.findPages(arr, 2));
     }
 }
