@@ -535,7 +535,7 @@ public class binarySearch {
         public static boolean isvalid(int[] arr, int mid, int k) {
             int student = 1;
             int pages = 0;
-            for (int i : arr) {
+            for (int i : arr) {  //O(n)
                 if (i > mid)
                     return false;
                 if (pages + i > mid) {
@@ -557,13 +557,13 @@ public class binarySearch {
                 return -1;
             int si = 0;
             int ei = 0;
-            for (int i : arr) {
+            for (int i : arr) {  //O(n)
                 ei += i;
             }
             int ans = 0;
-            while (si <= ei) {
+            while (si <= ei) {         //O(logn * n )
                 int mid = si + (ei - si) / 2;
-                if (isvalid(arr, mid, k)) {
+                if (isvalid(arr, mid, k)) {  //O(n)
                     ei = mid - 1;
                     ans = mid;
                 } else {
@@ -574,6 +574,47 @@ public class binarySearch {
         }
     }
 
+    class PainterPartition {
+   
+   public static boolean isValid(int[] arr,int mid,int k){
+       int painter=1;
+       int length=0;
+       for(int i:arr){
+           if(i>mid) return false;
+           if(length+i>mid){
+               painter++;
+               length=i;
+           }else{
+                length+=i;   
+           }
+           if(painter>k) return false;
+       
+       }
+       return true;
+   }
+   
+    public static int minTime(int[] arr, int k) {
+      int si=0;
+      int ei=0;
+      for(int i:arr){
+          ei+=i;
+      }
+      int ans=0;
+      while(si<=ei){
+          int mid=si+(ei-si)/2;
+          if(isValid(arr,mid,k)){
+              ans=mid;
+              ei=mid-1;
+          }else{
+              si=mid+1;
+          }
+      }
+      return ans;
+        
+    }
+}
+
+    
     public static void main(String args[]) {
 
         // int arr[]={1,2,3,4,5,6};
@@ -630,7 +671,10 @@ public class binarySearch {
         // int arr[] = { 1, 2, 8, 4, 9 };
         // System.out.println(binarySearch.AggressiveCows.aggressiveCows(arr, 2));
 
-        // int arr[]={2,1,3,4};
+        // int arr[]={15,17,20};
         // System.out.println(binarySearch.BookAllocation.findPages(arr, 2));
+
+        // int arr[]={10,10,10,11};
+        // System.out.println(binarySearch.PainterPartition.minTime(arr, 2));
     }
 }
