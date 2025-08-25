@@ -531,7 +531,7 @@ public class binarySearch {
         }
     }
 
-    class BookAllocation {
+    class BookAllocation { // O(n*log(sum(nums)))
         public static boolean isvalid(int[] arr, int mid, int k) {
             int student = 1;
             int pages = 0;
@@ -574,7 +574,7 @@ public class binarySearch {
         }
     }
 
-    class PainterPartition {
+    class PainterPartition { // O(n*log(sum(nums)))
 
         public static boolean isValid(int[] arr, int mid, int k) {
             int painter = 1;
@@ -616,7 +616,7 @@ public class binarySearch {
         }
     }
 
-    class SplitArrayLargestSum {
+    class SplitArrayLargestSum { // O(n*log(sum(nums)))
         public static boolean isValid(int[] arr, int mid, int k) {
             int split = 1;
             int sum = 0;
@@ -654,6 +654,29 @@ public class binarySearch {
             }
             return ans;
         }
+    }
+
+    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int arr[] = new int[nums1.length + nums2.length];
+        int i = 0, j = 0, k = 0;
+        while (i < nums1.length && j < nums2.length) {
+            if (nums1[i] <= nums2[j]) {
+                arr[k++] = nums1[i++];
+            } else {
+                arr[k++] = nums2[j++];
+            }
+        }
+        while (i < nums1.length) {
+            arr[k++] = nums1[i++];
+        }
+        while (j < nums2.length) {
+            arr[k++] = nums2[j++];
+        }
+        int h = nums1.length + nums2.length;
+        if ((h) % 2 != 0) {
+            return arr[h / 2];
+        }
+        return (arr[h / 2] + arr[(h / 2) - 1]) / 2.0;
     }
 
     public static void main(String args[]) {
@@ -720,5 +743,9 @@ public class binarySearch {
 
         // int arr[]={7,2,5,10,8};
         // System.out.println(binarySearch.SplitArrayLargestSum.splitArray(arr, 2));
+
+        // int arr1[]={1,2};
+        // int arr2[]={3,4};
+        // System.out.println(findMedianSortedArrays(arr1, arr2));
     }
 }
