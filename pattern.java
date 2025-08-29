@@ -256,12 +256,44 @@ public class pattern {
 
         drawtoRight(arr, i, 0);
       } else {
-        drawtoLeft(arr, i, arr.length-1);
+        drawtoLeft(arr, i, arr.length - 1);
       }
 
       snakePattern(arr, i + 1, j);
 
     }
+  }
+
+  public static int[] matrixDiagonally(int[][] mat) {
+    int i = 0;
+    int j = 0;
+    int arr[] = new int[mat.length * mat[0].length];
+    int k = 0;
+    arr[k++] = mat[i][j++];
+    
+    while (k < mat.length * mat[0].length) {
+      if (j  < mat[0].length && arr[k-1]!=mat[i][j]) {
+        arr[k++] = mat[i][j];// right
+      } else{
+         arr[k++] = mat[++i][j];
+      }
+      while (i < mat.length-1 && j > 0) {// diagonal down
+        arr[k++] = mat[++i][--j];
+      }
+      if (i + 1 < mat.length) {
+        arr[k++] = mat[++i][j]; // down
+      } else {
+        arr[k++] = mat[i][++j];
+      }
+      while (i > 0 && j < mat[0].length-1) { // diagonal up
+        arr[k++] = mat[--i][++j];
+      }
+      if (k==mat.length * mat[0].length) {
+        break;
+      }
+    }
+    // array.printArray(arr);
+    return arr;
   }
 
   public static void main(String[] args) {
@@ -280,7 +312,11 @@ public class pattern {
     // diamonFrame(5);
     // butterfly(5);
 
-    // int arr[][] = { { 10, 20, 30, 40 }, { 50, 60, 70, 80, }, { 27, 29, 47, 48 }, { 32, 33, 39, 50 } };
+    // int arr[][] = { { 10, 20, 30, 40 }, { 50, 60, 70, 80, }, { 27, 29, 47, 48 },
+    // { 32, 33, 39, 50 } };
     // snakePattern.snakePattern(arr, 0, 0);
+
+    int arr[][] = { { 1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+    matrixDiagonally(arr);
   }
 }
