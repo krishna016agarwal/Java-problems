@@ -724,6 +724,36 @@ public class binarySearch {
         return -1; // should never reach here
     }
 
+    public static int rowWithMax1s(int mat[][]) { //O(m*log(n))
+
+        int ans = 0;
+        int ind = 0;
+        for (int i = 0; i < mat.length; i++) {
+            int si = 0;
+            int ei = mat[0].length - 1;
+            while (si <= ei) {
+                int mid = si + (ei - si) / 2;
+                if (mat[i][mid] == 1) {
+                    ei = mid - 1;
+                } else {
+                    si = mid + 1;
+                }
+            }
+            if (ans < mat[0].length - si) {
+                if (ans == mat[0].length - si) {
+                    continue;
+                } else {
+                    ans = mat[0].length - si;
+
+                    ind = i;
+                }
+
+            }
+
+        }
+        return ind;
+    }
+
     public static void main(String args[]) {
 
         // int arr[]={1,2,3,4,5,6};
@@ -796,6 +826,9 @@ public class binarySearch {
         // int arr1[]={1,2,3,6};
         // int arr2[]={3,4};
         // System.out.println(kthElement(arr1, arr2,5));
+
+        // int arr[][]={{0,1,1},{1,1,1},{0,0,1}};
+        // System.out.println(rowWithMax1s(arr));
 
     }
 }
