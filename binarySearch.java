@@ -791,25 +791,39 @@ public class binarySearch {
         return false;
     }
 
-     public boolean searchMatrix_optimal(int[][] matrix, int target) {  //O(log(n*m))
-        int si=0;
-        int ei=matrix.length*matrix[0].length-1;
-        while(si<=ei){
-            int mid=si+(ei-si)/2;
-            int row=mid/matrix[0].length;
-            int col=mid%matrix[0].length;
-            if(matrix[row][col]==target) return true;
-            else if(matrix[row][col]<target){
-                si=mid+1;
-            }else{
-                ei=mid-1;
+    public boolean searchMatrix_optimal(int[][] matrix, int target) { // O(log(n*m))
+        int si = 0;
+        int ei = matrix.length * matrix[0].length - 1;
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
+            int row = mid / matrix[0].length;
+            int col = mid % matrix[0].length;
+            if (matrix[row][col] == target)
+                return true;
+            else if (matrix[row][col] < target) {
+                si = mid + 1;
+            } else {
+                ei = mid - 1;
             }
         }
-        
-        
+
         return false;
     }
-    
+
+    public static boolean searchMatrix_inc_row_and_inc_col(int[][] matrix, int target) {
+        int row = 0;
+        int col = matrix[0].length - 1;
+        while (row < matrix.length && col >= 0) {
+            if (matrix[row][col] == target)
+                return true;
+            else if (matrix[row][col] < target)
+                row++;
+            else
+                col--;
+        }
+        return false;
+    }
+
     public static void main(String args[]) {
 
         // int arr[]={1,2,3,4,5,6};
