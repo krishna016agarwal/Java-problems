@@ -724,7 +724,7 @@ public class binarySearch {
         return -1; // should never reach here
     }
 
-    public static int rowWithMax1s(int mat[][]) { //O(m*log(n))
+    public static int rowWithMax1s(int mat[][]) { // O(m*log(n))
 
         int ans = 0;
         int ind = 0;
@@ -754,6 +754,62 @@ public class binarySearch {
         return ind;
     }
 
+    public static boolean searchMatrix(int[][] matrix, int target) { // O(logn+logm)
+        int si = 0;
+        int ei = matrix.length - 1;
+
+        // Binary search to find the row
+        while (si <= ei) {
+            int mid = si + (ei - si) / 2;
+            if (matrix[mid][0] == target)
+                return true;
+            else if (matrix[mid][0] < target) {
+                si = mid + 1;
+            } else {
+                ei = mid - 1;
+            }
+        }
+
+        // Row index is ei (largest row whose first element <= target)
+        int row = ei;
+        if (row < 0)
+            return false; // target is smaller than all first elements
+
+        // Binary search inside the row
+        int si2 = 0;
+        int ei2 = matrix[row].length - 1;
+        while (si2 <= ei2) {
+            int mid2 = si2 + (ei2 - si2) / 2;
+            if (matrix[row][mid2] == target)
+                return true;
+            else if (matrix[row][mid2] < target) {
+                si2 = mid2 + 1;
+            } else {
+                ei2 = mid2 - 1;
+            }
+        }
+        return false;
+    }
+
+     public boolean searchMatrix_optimal(int[][] matrix, int target) {  //O(log(n*m))
+        int si=0;
+        int ei=matrix.length*matrix[0].length-1;
+        while(si<=ei){
+            int mid=si+(ei-si)/2;
+            int row=mid/matrix[0].length;
+            int col=mid%matrix[0].length;
+            if(matrix[row][col]==target) return true;
+            else if(matrix[row][col]<target){
+                si=mid+1;
+            }else{
+                ei=mid-1;
+            }
+        }
+        
+        
+        return false;
+    }
+    
     public static void main(String args[]) {
 
         // int arr[]={1,2,3,4,5,6};
@@ -829,6 +885,9 @@ public class binarySearch {
 
         // int arr[][]={{0,1,1},{1,1,1},{0,0,1}};
         // System.out.println(rowWithMax1s(arr));
+
+        // int arr[][]={{1,2,3},{4,5,6}};
+        // System.out.println(searchMatrix(arr, 2));
 
     }
 }
