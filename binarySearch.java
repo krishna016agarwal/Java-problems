@@ -824,6 +824,43 @@ public class binarySearch {
         return false;
     }
 
+    class FindPeakGrid {
+
+        public static int max(int[] arr) {
+            int k = Integer.MIN_VALUE;
+            int j = -1;
+            for (int i = 0; i < arr.length; i++) {
+                if (k < arr[i]) {
+                    k = arr[i];
+                    j = i;
+                }
+            }
+            return j;
+        }
+
+        public static int[] findPeakGrid(int[][] mat) {
+            int si = 0;
+            int ei = mat.length - 1;
+            while (si <= ei) {
+                int mid = si + (ei - si) / 2;
+                int col = max(mat[mid]);
+
+                int top = mid - 1 >= 0 ? mat[mid - 1][col] : -1;
+                int bottom = mid + 1 < mat.length ? mat[mid + 1][col] : -1;
+
+                if (mat[mid][col] > top && mat[mid][col] > bottom)
+                    return new int[] { mid, col };
+                else if (mat[mid][col] < top) {
+                    ei = mid - 1;
+                } else {
+                    si = mid + 1;
+                }
+            }
+            return new int[] { -1, -1 };
+        }
+
+    }
+
     public static void main(String args[]) {
 
         // int arr[]={1,2,3,4,5,6};
@@ -902,6 +939,10 @@ public class binarySearch {
 
         // int arr[][]={{1,2,3},{4,5,6}};
         // System.out.println(searchMatrix(arr, 2));
+
+        // int arr[][] = { { 1, 2, 6 }, { 3, 4, 5 } };
+        // int nums[] = binarySearch.FindPeakGrid.findPeakGrid(arr);
+        // array.printArray(nums);
 
     }
 }
