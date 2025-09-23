@@ -810,6 +810,20 @@ public class binarySearch {
         return false;
     }
 
+    public boolean searchMatrix_(int[][] matrix, int target) { //O(m+n)
+        int row = 0;
+        int col = matrix[0].length - 1;
+        while (col != -1 && col != matrix[0].length && row != -1 && row != matrix.length) {
+            if (matrix[row][col] == target)
+                return true;
+            else if (matrix[row][col] > target)
+                col--;
+            else
+                row++;
+        }
+        return false;
+    }
+
     public static boolean searchMatrix_inc_row_and_inc_col(int[][] matrix, int target) {
         int row = 0;
         int col = matrix[0].length - 1;
@@ -824,7 +838,7 @@ public class binarySearch {
         return false;
     }
 
-    class FindPeakGrid {
+    class FindPeakGrid { // O(n*logm)
 
         public static int max(int[] arr) {
             int k = Integer.MIN_VALUE;
@@ -843,7 +857,7 @@ public class binarySearch {
             int ei = mat.length - 1;
             while (si <= ei) {
                 int mid = si + (ei - si) / 2;
-                int col = max(mat[mid]);
+                int col = max(mat[mid]); // O(n)
 
                 int top = mid - 1 >= 0 ? mat[mid - 1][col] : -1;
                 int bottom = mid + 1 < mat.length ? mat[mid + 1][col] : -1;
