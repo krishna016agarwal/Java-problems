@@ -50,11 +50,25 @@ public class string {
         return sb.toString();
     }
 
+    public static String largestOddNumber(String num) {
+        // Start from the end of the string
+        for (int i = num.length() - 1; i >= 0; i--) {
+            // Check if the digit is odd
+            if ((num.charAt(i) - '0') % 2 != 0) {
+                // Return substring from start to this index (inclusive)
+                return num.substring(0, i + 1);
+            }
+        }
+        // No odd digit found
+        return "";
+    }
+
     public static void main(String[] args) {
         // palindrome("abaa");
         // String s = "((()())(()()))";
         // System.out.print(removeOuterParentheses(s));
-        // System.out.println(reverseWords("  hello world  "));
+        // System.out.println(reverseWords(" hello world "));
+        // System.out.println(largestOddNumber("52"));
 
     }
 }
