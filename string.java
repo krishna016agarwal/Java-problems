@@ -35,10 +35,26 @@ public class string {
         return p;
     }
 
+    public static String reverseWords(String s) {
+        // Trim the string and split by one or more spaces
+        String[] words = s.trim().split("\\s+");
+        StringBuilder sb = new StringBuilder();
+
+        // Traverse from the end
+        for (int i = words.length - 1; i >= 0; i--) {
+            sb.append(words[i]);
+            if (i != 0)
+                sb.append(" "); // add space between words
+        }
+
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
         // palindrome("abaa");
-        String s = "((()())(()()))";
-        System.out.print(removeOuterParentheses(s));
+        // String s = "((()())(()()))";
+        // System.out.print(removeOuterParentheses(s));
+        // System.out.println(reverseWords("  hello world  "));
 
     }
 }
