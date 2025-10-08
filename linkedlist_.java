@@ -147,6 +147,102 @@ public class linkedlist_ {
 
     }
 
+    public static Node removeNthFromEnd(Node head, int n) {
+        int count = -1;
+        Node temp = head;
+        while (temp != null) {
+            count++;
+            temp = temp.next;
+        }
+        int l = count - n;
+        if (l < -1)
+            return head;
+        else if (l == -1) {
+            head = head.next;
+        } else {
+            int k = 0;
+            temp = head;
+            while (k != l) {
+                k++;
+                temp = temp.next;
+            }
+            if (temp.next.next == null) {
+                temp.next = null;
+            } else {
+                temp.next = temp.next.next;
+            }
+        }
+        return head;
+    }
+
+    class Reverse { // O(n) SC- O(n)
+        static int k = 0;
+        static Node b = null;
+
+        public static Node reverseList(Node head) {
+
+            // base case
+            if (head == null || head.next == null) {
+                b = head;
+
+                return head;
+            }
+            k++;
+            Node temp = reverseList(head.next); // recursive call
+
+            k--;
+            temp.next = head;
+
+            if (k == 0) {
+                head.next = null;
+                return b;
+            }
+            return head;
+        }
+
+    }
+
+    public static Node reverse(Node head) {
+        if (head == null || head.next == null)
+            return head;
+        Node pre = null;
+        Node curr = head;
+        Node next = null;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = pre;
+            pre = curr;
+            curr = next;
+        }
+        head = pre;
+        return head;
+    }
+
+    public static boolean isPalindrome(Node head) { //O(n)
+     
+ 
+                    
+          Node fast=head;
+          Node slow=head;
+          while(fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+          }
+          Node rev=reverse(slow);
+          Node temp=rev;
+          Node start=head;
+          while(temp!=null){
+                     if(start.data!=temp.data) return false;
+                     start=start.next;
+                     temp=temp.next;
+          }
+          return true;
+          
+        
+    
+
+    }
+
     public static void main(String args[]) {
         // int arr[] = { 1, 2, 3, 4, 5 };
         // print(odd_even(createList(arr)));
@@ -154,6 +250,15 @@ public class linkedlist_ {
         // int arr2[] = { 1, 1, 2, 0, 2, 1, 2, 0 };
         // print(sort_0_1_2(createList(arr2)));
         // print(sort_0_1_2_optimal(createList(arr2)));
+
+        // int arr3[]={1,2,3,4,5,6};
+        // print(removeNthFromEnd(createList(arr3), 6));
+
+        // int arr4[] = { 1, 2, 3, 4, 5, 6,7 };
+        // print(linkedlist_.Reverse.reverseList(createList(arr4)));
+
+        // int arr5[] = {8,0,7,0,8};
+        // System.out.println(isPalindrome(createList(arr5)));
 
     }
 }
