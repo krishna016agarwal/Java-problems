@@ -316,7 +316,7 @@ public class pattern {
     // { 32, 33, 39, 50 } };
     // snakePattern.snakePattern(arr, 0, 0);
 
-    int arr[][] = { { 1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
-    matrixDiagonally(arr);
+    // int arr[][] = { { 1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+    // matrixDiagonally(arr);
   }
 }

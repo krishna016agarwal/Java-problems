@@ -374,12 +374,12 @@ public class linkedList {
     }
 
     public static void main(String args[]) {
-        // linkedList ll = new linkedList();
+        linkedList ll = new linkedList();
 
-        // ll.addFirst(2);
-        // ll.addFirst(1);
-        // ll.addLast(1);
-        // ll.addLast(2);
+        ll.addFirst(2);
+        ll.addFirst(1);
+        ll.addLast(1);
+        ll.addLast(2);
 
         // ll.addAtIndex(4, 12);
 
