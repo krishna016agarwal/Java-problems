@@ -63,12 +63,37 @@ public class string {
         return "";
     }
 
+    public static String frequencySort(String s) {
+        // Step 1: Count frequencies
+        HashMap<Character, Integer> freq = new HashMap<>();
+        for (char c : s.toCharArray()) {
+            freq.put(c, freq.getOrDefault(c, 0) + 1);
+        }
+
+        // Step 2: Sort characters by frequency using a list
+        List<Map.Entry<Character, Integer>> list = new ArrayList<>(freq.entrySet());
+        list.sort((a, b) -> b.getValue().compareTo(a.getValue())); // descending by frequency
+
+        // Step 3: Build output string
+        StringBuilder result = new StringBuilder();
+        for (Map.Entry<Character, Integer> entry : list) {
+            char ch = entry.getKey();
+            int count = entry.getValue();
+            for (int i = 0; i < count; i++) {
+                result.append(ch);
+            }
+        }
+
+        return result.toString();
+    }
+
     public static void main(String[] args) {
         // palindrome("abaa");
         // String s = "((()())(()()))";
         // System.out.print(removeOuterParentheses(s));
         // System.out.println(reverseWords(" hello world "));
         // System.out.println(largestOddNumber("52"));
+        // System.out.println(frequencySort("etteuiii"));
 
     }
 }
