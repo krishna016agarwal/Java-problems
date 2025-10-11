@@ -425,6 +425,80 @@ public class linkedlist_ {
 
     }
 
+    public int lengthOfLoop(Node head) {
+
+        Node slow = head;
+        Node fast = head;
+        if (head == null || head.next == null)
+            return 0;
+
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                break;
+            }
+        }
+        int len = 1;
+        if (fast != slow)
+            return 0;
+        slow = slow.next;
+        while (fast != slow) {
+            len++;
+
+            slow = slow.next;
+        }
+        return len;
+
+    }
+
+    public static Node deleteMiddle(Node head) {
+        if (head.next == null) {
+            head = null;
+            return head;
+        }
+        int k = 0;
+        Node temp = head;
+        while (temp.next != null) {
+            k++;
+            temp = temp.next;
+        }
+        int mid = k % 2 == 0 ? k / 2 - 1 : k / 2;
+        temp = head;
+        k = 0;
+        while (k != mid) {
+            k++;
+            temp = temp.next;
+        }
+        temp.next = temp.next.next;
+        return head;
+    }
+
+    public static Node detectCycle(Node head) {
+        if (head == null || head.next == null)
+            return null;
+
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+
+                fast = head;
+                while (fast != slow) {
+                    fast = fast.next;
+                    slow = slow.next;
+                }
+                return slow;
+            }
+        }
+
+        return null;
+    }
+
     public static void main(String args[]) {
         // int arr[] = { 1, 2, 3, 4, 5 };
         // print(odd_even(createList(arr)));
@@ -448,6 +522,9 @@ public class linkedlist_ {
 
         // int arr8[]={4,5,6,9};
         // print(linkedlist_.AddOne.addOne_recurvive(createList(arr8)));
+
+        // int arr9[]={1,2,3,4,5,6};
+        // print(deleteMiddle(createList(arr9)));
 
     }
 }
