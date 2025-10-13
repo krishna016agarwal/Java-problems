@@ -97,14 +97,48 @@ public class doublyLinkedlist {
         return a;
     }
 
+    public static Node removeDuplicates(Node head) { //O(n)
+        if (head == null || head.next == null)
+            return head;
 
-    
+        Node temp = head;
+        Node right = head.next;
+
+        while (right != null && temp.next != null) {
+            if (temp.data == right.data) {
+                // Skip all duplicate nodes
+                while (right != null && temp.data == right.data) {
+                    right = right.next;
+                }
+
+                // Link to next unique node
+                temp.next = right;
+                if (right != null)
+                    right.prev = temp;
+
+                // Move pointers forward
+                temp = right;
+                if (right != null)
+                    right = temp.next;
+            } else {
+                temp = right;
+                right = right.next;
+            }
+        }
+
+        return head;
+    }
+
     public static void main(String args[]) {
 
         // int arr[] = { 2, 2, 1, 3, 4, 2, 6, 2 };
         // print(deleteAllOccurOfX(createList(arr), 2));
 
-    //     int arr2[]={1,2,3,4,5,6};
-    //    ArrayList<ArrayList<Integer>> arr3=findPairsWithGivenSum(5, createList(arr2));
+        // int arr2[]={1,2,3,4,5,6};
+        // ArrayList<ArrayList<Integer>> arr3=findPairsWithGivenSum(5,
+        // createList(arr2));
+
+        // int arr3[]={1,1,2,2,2,3,4,5,6,6,7};
+        // print(removeDuplicates(createList(arr3)));
     }
 }

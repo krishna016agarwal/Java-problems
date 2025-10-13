@@ -499,7 +499,46 @@ public class linkedlist_ {
         return null;
     }
 
- 
+    public static Node deleteDuplicates(Node head) { //O(n)
+        if (head == null || head.next == null)
+            return head;
+        Node pre = null;
+        Node curr = head;
+        Node nex = curr.next;
+        while (curr.next != null && curr != null) {
+            if (nex != null && curr.data == nex.data) {
+                while (nex != null && curr.data == nex.data) {
+                    nex = nex.next;
+                }
+                if (pre == null || (pre == head && pre == curr)) {
+                    head = nex;
+                    pre = nex;
+                    curr = nex;
+                    if (curr == null) {
+                        return head;
+                    }
+                    nex = curr.next;
+                } else {  // pre == head but pre != curr 
+                    pre.next = nex;
+                    curr = nex;
+                    if (curr == null) {
+                        return head;
+                    }
+                    nex = nex.next;
+                }
+            } else {
+                pre = curr;
+                curr = nex;
+                if (curr == null) {
+                    return head;
+                }
+                nex = curr.next;
+            }
+        }
+
+        return head;
+
+    }
 
     public static void main(String args[]) {
         // int arr[] = { 1, 2, 3, 4, 5 };
@@ -527,6 +566,9 @@ public class linkedlist_ {
 
         // int arr9[]={1,2,3,4,5,6};
         // print(deleteMiddle(createList(arr9)));
+
+        // int arr10[]={1,1,2,3,4,5,5,7,7,7,8};
+        // print(deleteDuplicates(createList(arr10)));
 
     }
 }
