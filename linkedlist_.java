@@ -499,7 +499,7 @@ public class linkedlist_ {
         return null;
     }
 
-    public static Node deleteDuplicates(Node head) { //O(n)
+    public static Node deleteDuplicates(Node head) { // O(n)
         if (head == null || head.next == null)
             return head;
         Node pre = null;
@@ -518,7 +518,7 @@ public class linkedlist_ {
                         return head;
                     }
                     nex = curr.next;
-                } else {  // pre == head but pre != curr 
+                } else { // pre == head but pre != curr
                     pre.next = nex;
                     curr = nex;
                     if (curr == null) {
@@ -538,6 +538,147 @@ public class linkedlist_ {
 
         return head;
 
+    }
+
+    public static Node reverseKGroup(Node head, int k) {
+        if (head == null || head.next == null)
+            return head;
+        Node temp = head;
+        Node knode = head;
+        Node nextnode = head;
+        Node pre = null;
+        if (k == 1)
+            return head;
+        while (temp != null) {
+            int n = 1;
+            // Node first=temp;
+            while (knode.next != null && temp != null && n != k) {
+                n++;
+                knode = knode.next;
+            }
+            if (n != k && (knode.next == null || knode == null)) {
+                nextnode.next = temp;
+
+            }
+            if (knode == null)
+                return head;
+
+            pre = knode.next;
+            knode.next = null;
+            Node revhead = reverse(temp);
+            if (temp == head) {
+                head = revhead;
+            }
+            print(revhead);
+            if (knode == head && knode.next == null) {
+                return head;
+            }
+            nextnode.next = knode;
+            nextnode = temp;
+            temp = pre;
+            knode = pre;
+
+        }
+        return head;
+    }
+
+    public static Node rotate(Node head) {
+        Node temp = head;
+        Node helper = head;
+
+        while (temp.next != null) {
+            if (temp != head) {
+                int rev = temp.data;
+                temp.data = helper.data;
+                helper.data = rev;
+            }
+            temp = temp.next;
+
+        }
+        int rev = temp.data;
+        temp.data = helper.data;
+        helper.data = rev;
+
+        return head;
+    }
+
+    public static Node rotateRight_by_k(Node head, int k) { // O(n*k)
+        if (head == null || head.next == null)
+            return head;
+        int n = 0;
+        Node temp = head;
+
+        while (temp != null) {
+            n++;
+            temp = temp.next;
+
+        }
+        System.out.println(n);
+        k = k % n;
+
+        while (k > 0) {
+            head = rotate(head);
+            k--;
+        }
+        return head;
+
+    }
+
+    public static Node rotateRight_by_k_optimal(Node head, int k) { // O(n)
+        if (head == null || head.next == null)
+            return head;
+        int n = 0;
+        Node temp = head;
+
+        while (temp != null) {
+            n++;
+            if (temp.next == null) {
+                temp.next = head;
+                break;
+            }
+            temp = temp.next;
+
+        }
+        k = k % n;
+        int len = n - k - 1;
+        temp = head;
+        while (len > 0) {
+            temp = temp.next;
+            len--;
+        }
+        head = temp.next;
+        temp.next = null;
+        return head;
+
+    }
+
+    public static Node mergeTwoLists(Node list1, Node list2) {
+        if (list1 == null && list2 == null)
+            return list1;
+        if (list1 == null)
+            return list2;
+        if (list2 == null)
+            return list1;
+        Node dummy = new Node(-1);
+        Node tail = dummy;
+
+        while (list1 != null && list2 != null) {
+            if (list1.data < list2.data) {
+                tail.next = list1;
+                list1 = list1.next;
+            } else {
+                tail.next = list2;
+                list2 = list2.next;
+            }
+            tail = tail.next;
+        }
+
+        if (list1 != null)
+            tail.next = list1;
+        else
+            tail.next = list2;
+
+        return dummy.next;
     }
 
     public static void main(String args[]) {
@@ -569,6 +710,16 @@ public class linkedlist_ {
 
         // int arr10[]={1,1,2,3,4,5,5,7,7,7,8};
         // print(deleteDuplicates(createList(arr10)));
+
+        // int arr11[] = { 1, 2 };
+        // print(reverseKGroup(createList(arr11), 2));
+
+        // int arr12[] = { 1, 2, 3, 4, 5, 6 };
+        // print(rotateRight_by_k(createList(arr12), 7));
+
+        // int arr13[] = { -9, 3 };
+        // int arr14[] = { 5, 7 };
+        // print(mergeTwoLists(createList(arr13), createList(arr14)));
 
     }
 }
