@@ -681,6 +681,61 @@ public class linkedlist_ {
         return dummy.next;
     }
 
+    class Flattern {
+        
+        private class Node {
+            int data;
+            Node next;
+            Node bottom;
+
+            public Node(int data) {
+                this.data = data;
+                this.next = null;
+                this.bottom = null;
+            }
+        }
+
+        public Node compare(Node list1, Node list2) {
+            Node dummy = new Node(-1);
+            Node temp = dummy;
+            while (list1 != null && list2 != null) {
+                if (list1.data < list2.data) {
+                    temp.bottom = list1;
+                    temp = list1;
+                    list1 = list1.bottom;
+                } else {
+                    temp.bottom = list2;
+                    temp = list2;
+                    list2 = list2.bottom;
+                }
+                temp.next = null;
+            }
+            if (list1 == null) {
+                temp.bottom = list2;
+            } else {
+                temp.bottom = list1;
+            }
+            return dummy.bottom;
+        }
+
+        public Node flatten(Node root) {
+            // code here
+            Node head = root;
+            if (head == null || head.next == null)
+                return head;
+
+            Node temp = head;
+            Node pre = head;
+            while (temp.next != null && pre != null) {
+                pre = temp.next.next;
+                temp = compare(temp, temp.next);
+                temp.next = pre;
+
+            }
+            return temp;
+        }
+    }
+
     public static void main(String args[]) {
         // int arr[] = { 1, 2, 3, 4, 5 };
         // print(odd_even(createList(arr)));
