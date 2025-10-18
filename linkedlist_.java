@@ -736,7 +736,7 @@ public class linkedlist_ {
         }
     }
 
-    class MergeList { //O(n*k)
+    class MergeList { // O(n*k)
         public static Node merge(Node list1, Node list2) {
             Node dummy = new Node(-1);
             Node temp = dummy;
@@ -775,6 +775,24 @@ public class linkedlist_ {
             return lists[lists.length - 1];
 
         }
+    }
+
+    public static Node sortList(Node head) {
+        if (head == null || head.next == null)
+            return head;
+        Node slow = head;
+        Node fast = head;
+        Node pre = null;
+        while (fast != null && fast.next != null) {
+            pre = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        pre.next = null;
+        Node right = sortList(slow);
+        Node left = sortList(head);
+        return MergeList.merge(left, right);
+
     }
 
     public static void main(String args[]) {
@@ -817,7 +835,8 @@ public class linkedlist_ {
         // int arr14[] = { 5, 7 };
         // print(mergeTwoLists(createList(arr13), createList(arr14)));
 
-        
+        // int arr15[]={5,9,-1,3,0};
+        // print(sortList(createList(arr15)));
 
     }
 }
