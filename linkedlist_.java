@@ -682,7 +682,7 @@ public class linkedlist_ {
     }
 
     class Flattern {
-        
+
         private class Node {
             int data;
             Node next;
@@ -736,6 +736,47 @@ public class linkedlist_ {
         }
     }
 
+    class MergeList { //O(n*k)
+        public static Node merge(Node list1, Node list2) {
+            Node dummy = new Node(-1);
+            Node temp = dummy;
+            while (list1 != null && list2 != null) {
+                if (list1.data < list2.data) {
+                    temp.next = list1;
+                    temp = list1;
+                    list1 = list1.next;
+                } else {
+                    temp.next = list2;
+                    temp = list2;
+                    list2 = list2.next;
+                }
+                temp.next = null;
+            }
+            if (list1 == null) {
+                temp.next = list2;
+            } else {
+                temp.next = list1;
+            }
+            return dummy.next;
+
+        }
+
+        public static Node mergeKLists(Node[] lists) {
+            if (lists.length == 0)
+                return null;
+            if (lists.length == 1)
+                return lists[0];
+            int k = 0;
+
+            while (k < lists.length - 1) {
+                lists[k + 1] = linkedlist_.MergeList.merge(lists[k], lists[k + 1]);
+                k++;
+            }
+            return lists[lists.length - 1];
+
+        }
+    }
+
     public static void main(String args[]) {
         // int arr[] = { 1, 2, 3, 4, 5 };
         // print(odd_even(createList(arr)));
@@ -775,6 +816,8 @@ public class linkedlist_ {
         // int arr13[] = { -9, 3 };
         // int arr14[] = { 5, 7 };
         // print(mergeTwoLists(createList(arr13), createList(arr14)));
+
+        
 
     }
 }
