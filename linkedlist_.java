@@ -777,7 +777,7 @@ public class linkedlist_ {
         }
     }
 
-    public static Node sortList(Node head) {
+    public static Node sortList(Node head) { // O(nlogn) SC- O(logn)
         if (head == null || head.next == null)
             return head;
         Node slow = head;
@@ -793,6 +793,40 @@ public class linkedlist_ {
         Node left = sortList(head);
         return MergeList.merge(left, right);
 
+    }
+
+    class copyRandomList {
+        public static class Node {
+            int val;
+            Node next;
+            Node random;
+
+            public Node(int data) {
+                val = data;
+                this.next = null;
+                this.random = null;
+            }
+        }
+
+        public static Node copyRandomList(Node head) {
+            if (head == null) {
+                return null;
+            }
+
+            HashMap<Node, Node> a = new HashMap<>();
+            Node temp = head;
+            while (temp != null) {
+                a.put(temp, new Node(temp.val));
+                temp = temp.next;
+            }
+            temp = head;
+            while (temp != null) {
+                a.get(temp).next = a.get(temp.next);
+                a.get(temp).random = a.get(temp.random);
+                temp = temp.next;
+            }
+            return a.get(head);
+        }
     }
 
     public static void main(String args[]) {
