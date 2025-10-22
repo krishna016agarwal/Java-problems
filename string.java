@@ -87,6 +87,39 @@ public class string {
         return result.toString();
     }
 
+    public static boolean rotateString(String s, String goal) {
+        // Step 1: Lengths must be equal
+        if (s.length() != goal.length())
+            return false;
+
+        // Step 2: Concatenate string with itself
+        String doubled = s + s;
+
+        // Step 3: Check if goal exists inside doubled string
+        return doubled.contains(goal);
+
+    }
+
+    public static boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        int[] freq = new int[26];
+
+        for (int i = 0; i < s.length(); i++) {
+            freq[s.charAt(i) - 'a']++;
+            freq[t.charAt(i) - 'a']--;
+
+        }
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] != 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public static void main(String[] args) {
         // palindrome("abaa");
         // String s = "((()())(()()))";
