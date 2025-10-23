@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class recursion {
@@ -68,9 +70,36 @@ public class recursion {
         }
     }
 
+    class PowerSet { //O(n × 2ⁿ) SC- O(n × 2ⁿ)
+        public static List<List<Integer>> subsets(int[] nums) {
+            List<List<Integer>> result = new ArrayList<>();
+            generateSubsets(nums, 0, new ArrayList<>(), result);
+            return result;
+        }
+
+        private static void generateSubsets(int[] nums, int index, List<Integer> current, List<List<Integer>> result) {
+            // Base case: reached end of array
+            if (index == nums.length) {
+                result.add(new ArrayList<>(current)); // add copy of current subset
+                return;
+            }
+
+            // 1️⃣ Include current element
+            current.add(nums[index]);
+            generateSubsets(nums, index + 1, current, result);
+
+            // 2️⃣ Exclude current element
+            current.remove(current.size() - 1);
+            generateSubsets(nums, index + 1, current, result);
+        }
+    }
+
     public static void main(String[] args) {
 
         // System.out.println(myPow(2, 3));
+
+        // int arr[]={1,2,3};
+        // System.out.println(recursion.PowerSet.subsets(arr));
 
     }
 }

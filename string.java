@@ -120,6 +120,62 @@ public class string {
         return true;
     }
 
+    public static boolean isIsomorphic(String s, String t) {
+        if (s.length() != t.length())
+            return false;
+
+        HashMap<Character, Character> mapST = new HashMap<>();
+        HashMap<Character, Character> mapTS = new HashMap<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char c1 = s.charAt(i);
+            char c2 = t.charAt(i);
+
+            // s → t mapping
+            if (mapST.containsKey(c1)) {
+                if (mapST.get(c1) != c2)
+                    return false;
+            } else {
+                mapST.put(c1, c2);
+            }
+
+            // t → s mapping (to ensure one-to-one)
+            if (mapTS.containsKey(c2)) {
+                if (mapTS.get(c2) != c1)
+                    return false;
+            } else {
+                mapTS.put(c2, c1);
+            }
+        }
+
+        return true;
+    }
+
+    class GenerateParenthesis {
+
+        public List<String> generateParenthesis(int n) {
+            ArrayList<String> result = new ArrayList<>();
+            generate(result, n, 0, 0, "");
+            return result;
+        }
+
+        public void generate(ArrayList<String> result, int n, int open, int close, String s) {
+
+            if (open == n && close == n) {
+                result.add(s);
+                return;
+            }
+
+            if (open < n) {
+                generate(result, n, open + 1, close, s + "(");
+            }
+
+            if (close < open) {
+                generate(result, n, open, close + 1, s + ")");
+            }
+        }
+    }
+
     public static void main(String[] args) {
         // palindrome("abaa");
         // String s = "((()())(()()))";
@@ -127,6 +183,8 @@ public class string {
         // System.out.println(reverseWords(" hello world "));
         // System.out.println(largestOddNumber("52"));
         // System.out.println(frequencySort("etteuiii"));
+
+        // System.out.println(isIsomorphic("egg", "add"));
 
     }
 }
