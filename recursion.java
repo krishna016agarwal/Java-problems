@@ -127,6 +127,37 @@ public class recursion {
         }
     }
 
+    class GoodNumbers {
+    static final long MOD = 1000000007;
+
+    public int countGoodNumbers(long n) {
+        long even = (n + 1) / 2; // number of even indices
+        long odd = n / 2;        // number of odd indices
+
+        long pow5 = power(5, even);
+        long pow4 = power(4, odd);
+
+        return (int)((pow5 * pow4) % MOD);
+    }
+
+    // Fast exponentiation: O(log n)
+    private long power(long x, long y) {
+        long result = 1;
+        x = x % MOD;
+
+        while (y > 0) {
+            if (y % 2 == 1)
+                result = (result * x) % MOD;
+            x = (x * x) % MOD;
+            y /= 2;
+        }
+
+        return result;
+    }
+}
+
+    
+    
     public static void main(String[] args) {
 
         // System.out.println(myPow(2, 3));
