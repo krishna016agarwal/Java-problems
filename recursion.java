@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -70,7 +71,7 @@ public class recursion {
         }
     }
 
-    class PowerSet { //O(n × 2ⁿ) SC- O(n × 2ⁿ)
+    class PowerSet { // O(n × 2ⁿ) SC- O(n × 2ⁿ)
         public static List<List<Integer>> subsets(int[] nums) {
             List<List<Integer>> result = new ArrayList<>();
             generateSubsets(nums, 0, new ArrayList<>(), result);
@@ -91,6 +92,38 @@ public class recursion {
             // 2️⃣ Exclude current element
             current.remove(current.size() - 1);
             generateSubsets(nums, index + 1, current, result);
+        }
+    }
+
+    class Min_Max_Subsequences {
+        static final int MOD = 1000000007;
+
+        void power(int arr[], int n) {
+            arr[0] = 1;
+            for (int i = 1; i < n; i++) {
+                arr[i] = (int) ((arr[i - 1] * 2L) % MOD);
+            }
+        }
+
+        public int numSubseq(int[] nums, int target) {
+            int len = nums.length;
+            int[] arr = new int[len];
+            power(arr, len);
+            Arrays.sort(nums);
+
+            int l = 0, r = len - 1;
+            int subsequences = 0;
+
+            while (l <= r) {
+                if (nums[l] + nums[r] > target) {
+                    r--;
+                } else {
+                    subsequences = (subsequences + arr[r - l]) % MOD;
+                    l++;
+                }
+            }
+
+            return subsequences;
         }
     }
 
