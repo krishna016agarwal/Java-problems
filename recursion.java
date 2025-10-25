@@ -127,43 +127,107 @@ public class recursion {
         }
     }
 
-    class GoodNumbers {
-    static final long MOD = 1000000007;
+    class countGoodNumbers { // O(logn)
 
-    public int countGoodNumbers(long n) {
-        long even = (n + 1) / 2; // number of even indices
-        long odd = n / 2;        // number of odd indices
+        static long MOD = 1000000007;
 
-        long pow5 = power(5, even);
-        long pow4 = power(4, odd);
+        public long power(long a, long b) {
+            long ref = 1;
+            while (b > 0) {
+                if (b % 2 != 0) {
+                    ref = (ref * a) % MOD;
 
-        return (int)((pow5 * pow4) % MOD);
-    }
+                }
+                a = (a * a) % MOD;
+                b /= 2;
 
-    // Fast exponentiation: O(log n)
-    private long power(long x, long y) {
-        long result = 1;
-        x = x % MOD;
-
-        while (y > 0) {
-            if (y % 2 == 1)
-                result = (result * x) % MOD;
-            x = (x * x) % MOD;
-            y /= 2;
+            }
+            return ref;
         }
 
-        return result;
-    }
-}
+        public int countGood(long n) {
 
-    
-    
+            return (int) ((power(4, n / 2) * power(5, n - n / 2)) % MOD);
+        }
+
+    }
+
+    public static int power(int a, int b) { // O(logn)
+        int ref = 1;
+        while (b > 0) {
+            if (b % 2 != 0) {
+                ref = ref * a;
+
+            }
+            a = (a * a);
+            b /= 2;
+
+        }
+        return ref;
+    }
+
+    class CheckSubsequenceSum {
+        public static boolean checkSubsequenceSum(int N, int[] arr, int K) {
+            return helper(0, 0, arr, K);
+        }
+
+        private static boolean helper(int i, int sum, int[] arr, int target) {
+            // Base Case: reached end of array
+            if (i == arr.length) {
+                return sum == target;
+            }
+
+            // Choose current element
+            if (helper(i + 1, sum + arr[i], arr, target))
+                return true;
+
+            // Skip current element
+            if (helper(i + 1, sum, arr, target))
+                return true;
+
+            return false;
+        }
+    }
+
+    class CombinationSum { // O(2(T/min(arr))) SC - O(T/min(arr))
+        static List<List<Integer>> a;
+
+        public List<List<Integer>> combinationSum(int[] candidates, int target) {
+            a = new ArrayList<>();
+            add(0, 0, candidates, target, new ArrayList<>());
+            return a;
+        }
+
+        public void add(int i, int s, int[] arr, int target, List<Integer> l) {
+            if (s == target) {
+                a.add(new ArrayList<>(l));
+                return;
+            }
+
+            if (i >= arr.length || s > target)
+                return;
+
+            // Include current element (can be reused)
+            l.add(arr[i]);
+            add(i, s + arr[i], arr, target, l);
+            l.remove(l.size() - 1); // backtrack
+
+            // Exclude current element and move forward
+            add(i + 1, s, arr, target, l);
+        }
+    }
+
     public static void main(String[] args) {
 
         // System.out.println(myPow(2, 3));
 
         // int arr[]={1,2,3};
         // System.out.println(recursion.PowerSet.subsets(arr));
+
+        // System.out.println(power(2, 5));
+
+        // int arr[] = { 5, 1, 2, 7, 6, 1, 5 };
+        // System.out.println(recursion.Solution.checkSubsequenceSum(7, arr, 8));
 
     }
 }
