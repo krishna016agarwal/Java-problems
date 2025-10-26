@@ -189,7 +189,7 @@ public class recursion {
         }
     }
 
-    class CombinationSum { // O(2(T/min(arr))) SC - O(T/min(arr))
+    class CombinationSum { // O(2^(T/min(arr))) SC - O(T/min(arr))
         static List<List<Integer>> a;
 
         public List<List<Integer>> combinationSum(int[] candidates, int target) {
@@ -215,6 +215,36 @@ public class recursion {
             // Exclude current element and move forward
             add(i + 1, s, arr, target, l);
         }
+    }
+
+    class CombinationSum2 {
+
+        public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+            List<List<Integer>> l = new ArrayList<>();
+
+            Arrays.sort(candidates);
+            sum(candidates, target, new ArrayList<>(), 0, l);
+            return l;
+        }
+
+        public void sum(int[] arr, int target, List<Integer> a, int i, List<List<Integer>> l) {
+            if (target == 0) {
+                l.add(new ArrayList<>(a));
+                return;
+            }
+
+            for (int j = i; j < arr.length; j++) {
+                if (j > i && arr[j] == arr[j - 1])
+                    continue; // skip duplicates
+                if (arr[j] > target)
+                    break;
+
+                a.add(arr[j]);
+                sum(arr, target - arr[j], a, j + 1, l);
+                a.remove(a.size() - 1);
+            }
+        }
+
     }
 
     public static void main(String[] args) {
