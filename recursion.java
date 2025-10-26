@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class recursion {
 
@@ -217,7 +214,7 @@ public class recursion {
         }
     }
 
-    class CombinationSum2 {
+    class CombinationSum2 { // O(2^N×N) SC- O(2^N×N)
 
         public List<List<Integer>> combinationSum2(int[] candidates, int target) {
             List<List<Integer>> l = new ArrayList<>();
@@ -245,6 +242,47 @@ public class recursion {
             }
         }
 
+    }
+
+    class SubsetSum {
+        public ArrayList<Integer> subsetSums(int[] arr) {
+
+            ArrayList<Integer> a = new ArrayList<>();
+
+            sum(0, arr, a, 0);
+            return a;
+        }
+
+        public void sum(int i, int arr[], List<Integer> a, int s) {
+            if (i == arr.length) {
+                a.add(s);
+                return;
+            }
+
+            sum(i + 1, arr, a, s + arr[i]);
+            sum(i + 1, arr, a, s);
+        }
+    }
+
+    class Subset_without_duplicate { // O(n * 2^n)
+        public List<List<Integer>> subsetsWithDup(int[] nums) {
+            Set<List<Integer>> a = new HashSet<>();
+            Arrays.sort(nums);
+            subset(0, nums, a, new ArrayList<>());
+            return new ArrayList<>(a);
+        }
+
+        public void subset(int i, int arr[], Set<List<Integer>> a, List<Integer> s) {
+            if (i == arr.length) {
+
+                a.add(new ArrayList<>(s));
+                return;
+            }
+            s.add(arr[i]);
+            subset(i + 1, arr, a, s);
+            s.remove(s.size() - 1);
+            subset(i + 1, arr, a, s);
+        }
     }
 
     public static void main(String[] args) {
