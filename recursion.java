@@ -361,10 +361,10 @@ public class recursion {
         }
     }
 
-    class LetterCombinations { //O(4^n * n) SC- O(n)
+    class LetterCombinations { // O(4^n * n) SC- O(n)
         public static List<String> letterCombinations(String digits) {
             String arr[] = { "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
-          
+
             List<String> s = new ArrayList<>();
             print(digits, s, new StringBuilder(""), arr, 0);
             return s;
@@ -384,6 +384,35 @@ public class recursion {
         }
     }
 
+    class GenerateBinaryStrings_no_alternate_0 {
+
+        public static List<String> validStrings(int n) {
+            List<String> a = new ArrayList<>();
+            print(a, new StringBuilder(""), n);
+            return a;
+        }
+
+        public static void print(List<String> a, StringBuilder d, int n) {
+            if (n == 0) {
+                a.add(new String(d));
+                return;
+            }
+
+            // 1 choice
+            d.append('1');
+            print(a, d, n - 1);
+            d.deleteCharAt(d.length() - 1); //back tracking step
+
+            // 0 choice
+            if (d.length() == 0 || d.charAt(d.length() - 1) != '0') {
+                d.append('0');
+                print(a, d, n - 1);
+                d.deleteCharAt(d.length() - 1);  //back tracking step
+            }
+
+        }
+    }
+
     public static void main(String[] args) {
 
         // System.out.println(myPow(2, 3));
@@ -398,6 +427,8 @@ public class recursion {
 
         // System.out.println(recursion.Solution.combinationSum3(3, 9));
         // System.out.println(recursion.LetterCombinations.letterCombinations("23"));
+
+        //System.out.println(recursion.GenerateBinaryStrings_no_alternate_0.validStrings(4));
 
     }
 }
