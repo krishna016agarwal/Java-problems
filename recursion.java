@@ -361,24 +361,25 @@ public class recursion {
         }
     }
 
-    class LetterCombinations {
+    class LetterCombinations { //O(4^n * n) SC- O(n)
         public static List<String> letterCombinations(String digits) {
             String arr[] = { "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
-
+          
             List<String> s = new ArrayList<>();
-            print(digits, s, "", arr, 0);
+            print(digits, s, new StringBuilder(""), arr, 0);
             return s;
 
         }
 
-        public static void print(String d, List<String> s, String a, String arr[], int i) {
+        public static void print(String d, List<String> s, StringBuilder a, String arr[], int i) {
             if (i >= d.length()) {
                 s.add(new String(a));
                 return;
             }
             for (int j = 0; j < arr[d.charAt(i) - '2'].length(); j++) {
-
-                print(d, s, a + arr[d.charAt(i) - '2'].charAt(j), arr, i + 1);
+                a.append(arr[d.charAt(i) - '2'].charAt(j));
+                print(d, s, a, arr, i + 1);
+                a.deleteCharAt(a.length() - 1);
             }
         }
     }
