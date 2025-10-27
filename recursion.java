@@ -264,7 +264,7 @@ public class recursion {
         }
     }
 
-    class Subset_without_duplicate { // O(n * 2^n)
+    class Subset_without_duplicate { // O(n^2 * 2^n)
         public List<List<Integer>> subsetsWithDup(int[] nums) {
             Set<List<Integer>> a = new HashSet<>();
             Arrays.sort(nums);
@@ -285,6 +285,57 @@ public class recursion {
         }
     }
 
+    class Subset_without_duplicate_optimal { // O(n * 2^n) SC- o(2^n)
+        public List<List<Integer>> subsetsWithDup(int[] nums) {
+            List<List<Integer>> a = new ArrayList<>();
+            Arrays.sort(nums);
+            subset(0, nums, a, new ArrayList<>());
+            return a;
+        }
+
+        public void subset(int i, int arr[], List<List<Integer>> a, List<Integer> s) {
+
+            a.add(new ArrayList<>(s));
+            for (int j = i; j < arr.length; j++) {
+                if (j != i && arr[j] == arr[j - 1])
+                    continue;
+                s.add(arr[j]);
+                subset(j + 1, arr, a, s);
+                s.remove(s.size() - 1);
+
+            }
+        }
+    }
+
+    class CombinationSum_III {
+        public static List<List<Integer>> combinationSum3(int k, int n) {
+            List<List<Integer>> l = new ArrayList<>();
+            int arr[] = new int[9];
+            for (int i = 1; i < 10; i++) {
+                arr[i - 1] = i;
+            }
+            sum(0, k, arr, n, new ArrayList<Integer>(), 0, l);
+            return l;
+        }
+
+        public static void sum(int i, int k, int arr[], int n, ArrayList<Integer> a, int s, List<List<Integer>> l) {
+            if (a.size() == k && s == n) {
+                l.add(new ArrayList<>(a));
+                return;
+            }
+            if (i == arr.length || a.size() > k)
+                return;
+
+            for (int j = i; j < arr.length; j++) {
+                a.add(arr[j]);
+                s += arr[j];
+                sum(j + 1, k, arr, n, a, s, l);
+                a.remove(a.size() - 1);
+                s -= arr[j];
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
         // System.out.println(myPow(2, 3));
@@ -296,6 +347,8 @@ public class recursion {
 
         // int arr[] = { 5, 1, 2, 7, 6, 1, 5 };
         // System.out.println(recursion.Solution.checkSubsequenceSum(7, arr, 8));
+
+        // System.out.println(recursion.Solution.combinationSum3(3, 9));
 
     }
 }
