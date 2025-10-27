@@ -323,15 +323,62 @@ public class recursion {
                 l.add(new ArrayList<>(a));
                 return;
             }
-            if (i == arr.length || a.size() > k)
+            if (i == arr.length || a.size() > k || s > n)
                 return;
 
             for (int j = i; j < arr.length; j++) {
+                if (arr[j] > n)
+                    return;
                 a.add(arr[j]);
                 s += arr[j];
                 sum(j + 1, k, arr, n, a, s, l);
                 a.remove(a.size() - 1);
                 s -= arr[j];
+            }
+        }
+    }
+
+    class CombinationSum_III_optimal {
+        public List<List<Integer>> combinationSum3(int k, int n) {
+            List<List<Integer>> result = new ArrayList<>();
+            findCombination(k, 1, n, new ArrayList<>(), result);
+            return result;
+        }
+
+        public static void findCombination(int k, int num, int target, ArrayList<Integer> lst,
+                List<List<Integer>> result) {
+            if (k == 0 && target == 0) {
+                result.add(new ArrayList<>(lst));
+                return;
+            }
+            for (int i = num; i < 10; i++) {
+                if (i > target || k <= 0)
+                    break;
+                lst.add(i);
+                findCombination(k - 1, i + 1, target - i, lst, result);
+                lst.remove(lst.size() - 1);
+            }
+        }
+    }
+
+    class LetterCombinations {
+        public static List<String> letterCombinations(String digits) {
+            String arr[] = { "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+
+            List<String> s = new ArrayList<>();
+            print(digits, s, "", arr, 0);
+            return s;
+
+        }
+
+        public static void print(String d, List<String> s, String a, String arr[], int i) {
+            if (i >= d.length()) {
+                s.add(new String(a));
+                return;
+            }
+            for (int j = 0; j < arr[d.charAt(i) - '2'].length(); j++) {
+
+                print(d, s, a + arr[d.charAt(i) - '2'].charAt(j), arr, i + 1);
             }
         }
     }
@@ -349,6 +396,7 @@ public class recursion {
         // System.out.println(recursion.Solution.checkSubsequenceSum(7, arr, 8));
 
         // System.out.println(recursion.Solution.combinationSum3(3, 9));
+        // System.out.println(recursion.LetterCombinations.letterCombinations("23"));
 
     }
 }
