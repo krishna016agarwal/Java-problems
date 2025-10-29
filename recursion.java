@@ -401,13 +401,132 @@ public class recursion {
             // 1 choice
             d.append('1');
             print(a, d, n - 1);
-            d.deleteCharAt(d.length() - 1); //back tracking step
+            d.deleteCharAt(d.length() - 1); // back tracking step
 
             // 0 choice
             if (d.length() == 0 || d.charAt(d.length() - 1) != '0') {
                 d.append('0');
                 print(a, d, n - 1);
-                d.deleteCharAt(d.length() - 1);  //back tracking step
+                d.deleteCharAt(d.length() - 1); // back tracking step
+            }
+
+        }
+    }
+
+    class Palindrome_Partition { // O(n* 2^n)
+        public static List<List<String>> partition(String s) {
+            List<List<String>> a = new ArrayList<>();
+            List<String> b = new ArrayList<>();
+            helper(a, b, s);
+            return a;
+
+        }
+
+        static boolean isPalindrone(String a) {
+            if (a.length() == 0)
+                return false;
+            int len = a.length() / 2;
+            for (int i = 0; i < len; i++) {
+                if (a.charAt(i) != a.charAt(a.length() - i - 1))
+                    return false;
+            }
+            return true;
+        }
+
+        public static void helper(List<List<String>> a, List<String> l, String s) {
+            if (s.length() == 0) {
+                a.add(new ArrayList(l));
+                return;
+            }
+            for (int i = 0; i < s.length(); i++) {
+                String part = s.substring(0, i + 1);
+                if (isPalindrone(part)) {
+                    l.add(part);
+                    helper(a, l, s.substring(i + 1));
+                    l.remove(l.size() - 1);
+                }
+            }
+        }
+    }
+
+    class WordSearch {
+
+        public static boolean exist(char[][] board, String word) {
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board[0].length; j++) {
+                    if (board[i][j] == word.charAt(0) && helper(board, word, i, j, 0)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static boolean helper(char[][] board, String word, int i, int j, int k) {
+            if (k == word.length())
+                return true;
+            if (i < 0 || j < 0 || i >= board.length || j >= board[0].length)
+                return false;
+            if (board[i][j] != word.charAt(k))
+                return false;
+
+            char temp = board[i][j];
+            board[i][j] = '0'; // mark visited
+
+            boolean found = helper(board, word, i + 1, j, k + 1) ||
+                    helper(board, word, i - 1, j, k + 1) ||
+                    helper(board, word, i, j + 1, k + 1) ||
+                    helper(board, word, i, j - 1, k + 1);
+
+            board[i][j] = temp; // backtrack
+            return found;
+        }
+    }
+
+    class RatInMaze {
+        public static ArrayList<String> ratInMaze(int[][] maze) {
+
+            if (maze[0][0] == 0 || maze[maze.length - 1][maze.length - 1] == 0)
+                return new ArrayList<String>();
+            ArrayList<String> a = new ArrayList<String>();
+            helper(maze, a, 0, 0, new StringBuilder(""));
+            Collections.sort(a);
+            return a;
+
+        }
+
+        public static void helper(int[][] maze, ArrayList<String> s, int i, int j, StringBuilder a) {
+            if (i < 0 || j < 0 || i == maze.length || j == maze[0].length || maze[i][j] == 0) {
+                return;
+            }
+
+            if (i == maze.length - 1 && j == maze[0].length - 1) {
+                s.add(a.toString());
+                return;
+            }
+
+            if (maze[i][j] == 1) {
+
+                maze[i][j] = 0;
+
+                a.append("D");
+                helper(maze, s, i + 1, j, a);
+                a.deleteCharAt(a.length() - 1);
+
+                a.append("R");
+                helper(maze, s, i, j + 1, a);
+                a.deleteCharAt(a.length() - 1);
+
+                a.append("U");
+                helper(maze, s, i - 1, j, a);
+                a.deleteCharAt(a.length() - 1);
+
+                a.append("L");
+                helper(maze, s, i, j - 1, a);
+                a.deleteCharAt(a.length() - 1);
+
+                maze[i][j] = 1;
+
             }
 
         }
@@ -428,7 +547,16 @@ public class recursion {
         // System.out.println(recursion.Solution.combinationSum3(3, 9));
         // System.out.println(recursion.LetterCombinations.letterCombinations("23"));
 
-        //System.out.println(recursion.GenerateBinaryStrings_no_alternate_0.validStrings(4));
+        // System.out.println(recursion.GenerateBinaryStrings_no_alternate_0.validStrings(4));
+
+        // System.out.println(recursion.Palindrome_Partition.partition("aabcaabb"));
+        // char arr[][] = { { 'A', 'B', 'C', 'E' }, { 'S', 'F', 'C', 'S' }, { 'A', 'D',
+        // 'E', 'E' } };
+        // System.out.println(recursion.WordSearch.exist(arr, "ABCB"));
+
+        // int
+        // arr[][]={{1,0,0,0,0,0,0},{1,1,1,0,0,0,0},{0,0,1,0,1,1,1},{0,1,1,0,1,0,1},{0,1,1,1,1,0,1}};
+        // System.out.println(recursion.Solution.ratInMaze(arr));
 
     }
 }
