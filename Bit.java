@@ -90,6 +90,31 @@ public class Bit {
         System.out.println(a + " " + b);
     }
 
+    boolean checkKthBit(int n, int k) {
+
+        String a = Number_to_binary(n);
+        int l = a.length();
+        if (k >= l)
+            return false;
+        for (int i = l - 1; i >= 0; i--) {
+            if (k == 0) {
+                if (a.charAt(i) == '1')
+                    return true;
+                else
+                    return false;
+            }
+            k--;
+        }
+        return false;
+    }
+
+     boolean checkKthBit_optimal(int n, int k) { //O(1)
+    
+        if(((n>>k)&1 )==1)return true;
+        return false;
+    }
+    
+    
     public static void main(String args[]) {
         Bit a = new Bit();
 
@@ -98,6 +123,8 @@ public class Bit {
         // System.out.println(a.ones_Complement(13));
         // System.out.println(a.twos_complement(14));
         // a.swap(3, 1);
+       // System.out.println(a.checkKthBit(4, 2));
+       //System.out.println(a.checkKthBit_optimal(13, 2));
 
     }
 }
