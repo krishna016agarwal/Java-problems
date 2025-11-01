@@ -108,13 +108,36 @@ public class Bit {
         return false;
     }
 
-     boolean checkKthBit_optimal(int n, int k) { //O(1)
-    
-        if(((n>>k)&1 )==1)return true;
+    boolean checkKthBit_optimal(int n, int k) { // O(1)
+
+        if (((n >> k) & 1) == 1)
+            return true;
         return false;
     }
-    
-    
+
+    int setKthBit(int n, int k) {
+        return (n | 1 << k);
+
+    }
+
+    int clearKthBit(int n, int k) {
+        return (n & ~(1 << k));
+    }
+
+    int toggleKthBit(int n, int k) {
+        return (n ^ (1 << k));
+    }
+
+    int Set_the_rightmost_unset_bit(int n) {
+        // code here
+        return n | n + 1;
+    }
+
+    int UnSet_the_rightmost_set_bit(int n) {
+        // code here
+        return n & n - 1;
+    }
+
     public static void main(String args[]) {
         Bit a = new Bit();
 
@@ -123,8 +146,11 @@ public class Bit {
         // System.out.println(a.ones_Complement(13));
         // System.out.println(a.twos_complement(14));
         // a.swap(3, 1);
-       // System.out.println(a.checkKthBit(4, 2));
-       //System.out.println(a.checkKthBit_optimal(13, 2));
+        // System.out.println(a.checkKthBit(4, 2));
+        // System.out.println(a.checkKthBit_optimal(13, 2));
+        // System.out.println(a.setKthBit(13, 1));
+        // System.out.println(a.clearKthBit(13, 2));
+        // System.out.println(a.toggleKthBit(13, 2));
 
     }
 }
