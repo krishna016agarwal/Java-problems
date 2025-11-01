@@ -532,6 +532,96 @@ public class recursion {
         }
     }
 
+    class DP {
+        public static boolean wordBreak(String s, List<String> wordDict) {
+            List<String> a = new ArrayList<>();
+            helper(s, wordDict, a);
+
+            int l = 0;
+            for (String i : a) {
+                l += i.length();
+            }
+            if (l == s.length())
+                return true;
+            return false;
+        }
+
+        public static void helper(String s, List<String> w, List<String> a) {
+
+            boolean finish = false;
+            for (int i = 0; i <= s.length(); i++) {
+                if (finish)
+                    return;
+                String part = s.substring(0, i);
+                System.out.println(part + " ");
+                for (String j : w) {
+
+                    if (part.equals(j)) {
+                        a.add(part);
+                        finish = true;
+                        helper(s.substring(i), w, a);
+                    }
+                }
+            }
+        }
+    }
+
+    class Solution {
+        public void solveSudoku(char[][] board) {
+            helper(board, 0, 0);
+        }
+
+        public boolean helper(char[][] board, int i, int j) {
+            int n = board.length;
+
+            // ✅ Base Case — all rows done
+            if (i == n)
+                return true;
+
+            // ✅ Move to next row if at end of current one
+            if (j == n)
+                return helper(board, i + 1, 0);
+
+            // ✅ Skip pre-filled cells
+            if (board[i][j] != '.')
+                return helper(board, i, j + 1);
+
+            for (char a = '1'; a <= '9'; a++) {
+                if (isSafe(board, i, j, a)) {
+                    board[i][j] = a;
+
+                    // if placing this works, done
+                    if (helper(board, i, j + 1))
+                        return true;
+
+                    // else undo (backtrack)
+                    board[i][j] = '.';
+                }
+            }
+
+            return false; // no valid number fits here
+        }
+
+        public boolean isSafe(char[][] board, int i, int j, char num) {
+            for (int p = 0; p < 9; p++) {
+                if (board[i][p] == num)
+                    return false; // row check
+                if (board[p][j] == num)
+                    return false; // column check
+            }
+
+            int r = (i / 3) * 3;
+            int c = (j / 3) * 3;
+            for (int p = r; p < r + 3; p++) {
+                for (int q = c; q < c + 3; q++) {
+                    if (board[p][q] == num)
+                        return false;
+                }
+            }
+            return true;
+        }
+    }
+
     public static void main(String[] args) {
 
         // System.out.println(myPow(2, 3));
@@ -557,6 +647,13 @@ public class recursion {
         // int
         // arr[][]={{1,0,0,0,0,0,0},{1,1,1,0,0,0,0},{0,0,1,0,1,1,1},{0,1,1,0,1,0,1},{0,1,1,1,1,0,1}};
         // System.out.println(recursion.Solution.ratInMaze(arr));
+
+        // ArrayList<String> a = new ArrayList<>();
+        // a.add("aaaa");
+        // a.add("aaa");
+        // // a.add("b");
+        // // a.add("cd");
+        // System.out.println(recursion.DP.wordBreak("aaaaaaa", a));
 
     }
 }

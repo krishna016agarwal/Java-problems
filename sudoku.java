@@ -1,3 +1,4 @@
+
 public class sudoku {
 
     public static boolean isSafe(int sudoku[][], int row, int col, int digit) {
@@ -84,6 +85,8 @@ public class sudoku {
         } else {
             System.out.println("Sudoku can't be solved");
         }
+      
 
     }
+   
 }

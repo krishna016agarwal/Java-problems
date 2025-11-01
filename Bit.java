@@ -1,0 +1,103 @@
+public class Bit {
+
+    String reverse_String(String s) {
+        String d = "";
+        for (int i = 0; i < s.length(); i++) {
+            d += s.charAt(s.length() - i - 1);
+        }
+
+        return d;
+    }
+
+    String Number_to_binary(int n) { // O(logn) SC- O(logn)
+
+        String s = "";
+        while (n != 0) {
+            int r = n % 2;
+            n = n / 2;
+            s += r;
+        }
+
+        return reverse_String(s);
+
+    }
+
+    int binary_to_Number(String n) { // O(n) SC-(1)
+        int num = 0;
+        int pow = 0;
+        while (!n.isEmpty()) {
+            char a = n.charAt(n.length() - 1);
+            num += Math.pow(2, pow) * (a - '0');
+            n = n.substring(0, n.length() - 1);
+            pow++;
+        }
+        return num;
+    }
+
+    String ones_Complement(int n) {
+        String a = Number_to_binary(n);
+        String b = "";
+        for (int i = 0; i < a.length(); i++) {
+            if (a.charAt(i) == '0') {
+                b += "1";
+            } else {
+                b += "0";
+            }
+        }
+        return b;
+    }
+
+    String twos_complement(int n) {
+        String a = ones_Complement(n);
+        int len = a.length();
+
+        int carry = 0;
+        String b = "";
+        while (!a.isEmpty()) {
+            int c = a.charAt(a.length() - 1) - '0';
+
+            if (a.length() == len) {
+                if (c == 1) {
+                    b += "0";
+
+                    carry = 1;
+                } else if (c == 0) {
+                    b += "1";
+                    carry = 0;
+                }
+            } else {
+                int d = c + carry;
+                if (d == 1) {
+                    b += "1";
+                    carry = 0;
+                } else if (d == 0) {
+                    b += "0";
+                    carry = 0;
+                }
+            }
+
+            a = a.substring(0, a.length() - 1);
+
+        }
+
+        return reverse_String(b);
+    }
+
+    void swap(int a, int b) {
+        a = a ^ b;
+        b = a ^ b;
+        a = a ^ b;
+        System.out.println(a + " " + b);
+    }
+
+    public static void main(String args[]) {
+        Bit a = new Bit();
+
+        // System.out.println(a.Number_to_binary(10));
+        // System.out.println(a.binary_to_Number("1101"));
+        // System.out.println(a.ones_Complement(13));
+        // System.out.println(a.twos_complement(14));
+        // a.swap(3, 1);
+
+    }
+}
