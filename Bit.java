@@ -138,6 +138,23 @@ public class Bit {
         return n & n - 1;
     }
 
+    boolean isPowerOfTwo(int n) {
+        if (n <= 0)
+            return false;
+
+        return (n & (n - 1)) == 0;
+    }
+
+    int count_no_of_set_bits(int n){
+        int count=0;
+        while(n>1){
+            count+= n & 1; //n%2
+            n=n>>1; //       n/2
+            if(n==1) count ++;
+        }
+        return count;
+    }
+
     public static void main(String args[]) {
         Bit a = new Bit();
 
@@ -151,6 +168,10 @@ public class Bit {
         // System.out.println(a.setKthBit(13, 1));
         // System.out.println(a.clearKthBit(13, 2));
         // System.out.println(a.toggleKthBit(13, 2));
+        // System.out.println(a.count_no_of_set_bits(12));
+     
+
+
 
     }
 }
