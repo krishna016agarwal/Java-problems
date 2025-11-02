@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Bit {
 
     String reverse_String(String s) {
@@ -170,6 +172,29 @@ public class Bit {
         return count_no_of_set_bits_optimal(a);
     }
 
+    List<List<Integer>> powerSet(int[] arr) { // O(2^n * n) SC - O(2^n *n)
+        List<List<Integer>> a = new ArrayList<>();
+        int subsets = 1 << arr.length;
+        for (int i = 0; i < subsets; i++) { // 2^n
+            List<Integer> b = new ArrayList<>();
+            for (int j = 0; j < arr.length; j++) {
+                if ((i & (1 << j)) != 0) {
+                    b.add(arr[j]);
+                }
+            }
+            a.add(b);
+        }
+        return a;
+    }
+
+    int SinglNumber(int arr[]) {
+        int num = 0;
+        for (int i = 0; i < arr.length; i++) {
+            num ^= arr[i];
+        }
+        return num;
+    }
+
     public static void main(String args[]) {
         Bit a = new Bit();
 
@@ -186,6 +211,13 @@ public class Bit {
         // System.out.println(a.count_no_of_set_bits(12456));
         // System.out.println(a.count_no_of_set_bits_optimal(12456));
         // System.out.println(a.count_minimum_flips(10, 7));
+
+        // int arr[]={1,2,3};
+        // System.out.println(a.powerSet(arr));
+
+        // int arr[] = { 4, 1, 2, 1, 2 };
+        // System.out.println(a.SinglNumber(arr));
+        
 
     }
 }
