@@ -187,7 +187,7 @@ public class Bit {
         return a;
     }
 
-    int SinglNumber(int arr[]) {
+    int SingleNumber(int arr[]) { // O(nlogn + n/3)
         int num = 0;
         for (int i = 0; i < arr.length; i++) {
             num ^= arr[i];
@@ -195,6 +195,44 @@ public class Bit {
         return num;
     }
 
+    int singleNumber_while_others_are_3(int arr[]) {
+        Arrays.sort(arr);
+        for (int i = 1; i < arr.length; i = i + 3) {
+            if (arr[i] != arr[i - 1])
+                return arr[i - 1];
+
+        }
+        return arr[arr.length - 1];
+    }
+
+    int divide(int dividend, int divisor) {
+        if (divisor == 0)
+            return Integer.MAX_VALUE; // division by zero
+        if (dividend == Integer.MIN_VALUE && divisor == -1)
+            return Integer.MAX_VALUE; // overflow
+
+        // Determine sign
+        boolean sign = (dividend >= 0) == (divisor >= 0);
+
+        // Convert to positive long to handle abs safely
+        long a = Math.abs((long) dividend);
+        long b = Math.abs((long) divisor);
+        int result = 0;
+
+        while (a >= b) {
+            int c = 0;
+            while (a >= (b << (c + 1))) {
+                c++;
+            }
+            result += 1 << c;
+            a -= b << c;
+        }
+
+        return sign ? result : -result;
+    }
+
+    
+    
     public static void main(String args[]) {
         Bit a = new Bit();
 
@@ -216,8 +254,10 @@ public class Bit {
         // System.out.println(a.powerSet(arr));
 
         // int arr[] = { 4, 1, 2, 1, 2 };
-        // System.out.println(a.SinglNumber(arr));
-        
+        // System.out.println(a.SingleNumber(arr));
+
+        // int arr[] = { 1, 2, 5, 2, 1, 1, 2, 5, 5, 3 };
+        // System.out.println(a.singleNumber_while_others_are_3(arr));
 
     }
 }

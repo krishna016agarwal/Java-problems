@@ -144,30 +144,6 @@ public class stack {
 
     }
 
-    public static boolean isValid(String str) { // O(n)
-        Stack<Character> s = new Stack<>();
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == '(' || str.charAt(i) == '{' || str.charAt(i) == '[') {
-                s.push(str.charAt(i));
-            } else {
-                if (s.isEmpty()) {
-                    return false;
-                }
-                if ((s.peek() == '(' && str.charAt(i) == ')')
-                        || (s.peek() == '{' && str.charAt(i) == '}')
-                        || (s.peek() == '[' && str.charAt(i) == ']')) {
-                    s.pop();
-                }
-            }
-
-        }
-        if (s.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public static boolean duplicateParentheses(String str) { // O(n)
         Stack<Character> s = new Stack<>();
 
@@ -239,6 +215,230 @@ public class stack {
         System.out.println("max area in histogram = " + maxArea);
     }
 
+    static boolean validParenthesis(String s) {
+        Stack<Character> a = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char j = s.charAt(i);
+            if (a.size() == 0 && (j == ']' || j == '}' || j == ')'))
+                return false;
+            else if (j == '(' || j == '{' || j == '[')
+                a.push(j);
+            else if ((j == ')' && a.peek() == '(') || (j == '}' && a.peek() == '{') || (j == ']' && a.peek() == '['))
+                a.pop();
+            else
+                return false;
+        }
+        return a.size() == 0;
+    }
+
+    class InfixToPostfix {
+        public static String infixToPostfix(String s) {
+            Stack<Character> stack = new Stack<>();
+            StringBuilder result = new StringBuilder();
+
+            for (int i = 0; i < s.length(); i++) {
+                char ch = s.charAt(i);
+
+                // Operand
+                if (Character.isLetterOrDigit(ch)) {
+                    result.append(ch);
+                }
+                // Opening bracket
+                else if (ch == '(') {
+                    stack.push(ch);
+                }
+                // Closing bracket
+                else if (ch == ')') {
+                    while (!stack.isEmpty() && stack.peek() != '(') {
+                        result.append(stack.pop());
+                    }
+                    stack.pop(); // remove '('
+                }
+                // Operator
+                else {
+                    while (!stack.isEmpty() &&
+                            (precedence(ch) < precedence(stack.peek()) ||
+                                    (precedence(ch) == precedence(stack.peek()) && ch != '^'))) {
+                        result.append(stack.pop());
+                    }
+                    stack.push(ch);
+                }
+            }
+
+            // Pop all remaining operators
+            while (!stack.isEmpty()) {
+                result.append(stack.pop());
+            }
+
+            return result.toString();
+        }
+
+        static int precedence(char ch) {
+            switch (ch) {
+                case '+':
+                case '-':
+                    return 1;
+                case '*':
+                case '/':
+                    return 2;
+                case '^':
+                    return 3;
+            }
+            return -1;
+        }
+    }
+
+    static String postfixToInfix(String s) {
+        Stack<String> a = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            String j = Character.toString(s.charAt(i));
+            if (Character.isLetterOrDigit(s.charAt(i))) {
+                a.push(j);
+            } else {
+
+                String n = a.pop();
+                String m = a.pop();
+                String q = "(" + m + j + n + ")";
+                a.push(q);
+            }
+
+        }
+        return a.pop();
+    }
+
+    static String prefixToInfix(String s) {
+        Stack<String> a = new Stack<>();
+        for (int i = s.length() - 1; i >= 0; i--) {
+            String j = Character.toString(s.charAt(i));
+            if (Character.isLetterOrDigit(s.charAt(i))) {
+                a.push(j);
+            } else {
+
+                String n = a.pop();
+                String m = a.pop();
+                String q = "(" + n + j + m + ")";
+                a.push(q);
+            }
+
+        }
+        return a.pop();
+    }
+
+    static String postfixToPrefix(String s) {
+        Stack<String> a = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            String j = Character.toString(s.charAt(i));
+            if (Character.isLetterOrDigit(s.charAt(i))) {
+                a.push(j);
+            } else {
+
+                String n = a.pop();
+                String m = a.pop();
+                String q = j + m + n;
+                a.push(q);
+            }
+
+        }
+        return a.pop();
+    }
+
+    static String prefixToPostfix(String s) {
+        Stack<String> a = new Stack<>();
+        for (int i = s.length() - 1; i >= 0; i--) {
+            String j = Character.toString(s.charAt(i));
+            if (Character.isLetterOrDigit(s.charAt(i))) {
+                a.push(j);
+            } else {
+
+                String n = a.pop();
+                String m = a.pop();
+                String q = n + m + j;
+                a.push(q);
+            }
+
+        }
+        return a.pop();
+    }
+
+    class MinStack { // O(1) SC-O(2*n)
+        private Stack<int[]> a;
+
+        public MinStack() {
+            a = new Stack<>();
+        }
+
+        public void push(int val) {
+            int min;
+            if (a.isEmpty()) {
+                min = val;
+            } else {
+                min = Math.min(val, a.peek()[1]);
+            }
+            a.push(new int[] { val, min });
+        }
+
+        public void pop() {
+            if (!a.isEmpty()) {
+                a.pop();
+            }
+        }
+
+        public int top() {
+            return a.peek()[0];
+        }
+
+        public int getMin() {
+            return a.peek()[1];
+        }
+    }
+
+    class MinStack_optimal { // SC- O(n)
+        Stack<Long> stack = new Stack<>();
+        long min;
+
+        public MinStack_optimal() {
+        }
+
+        public void push(int val) {
+            long value = val;
+            if (stack.isEmpty()) {
+                stack.push(value);
+                min = value;
+            } else {
+                if (value < min) {
+                    // encode the smaller value
+                    stack.push(2 * value - min);
+                    min = value;
+                } else {
+                    stack.push(value);
+                }
+            }
+        }
+
+        public void pop() {
+            if (stack.isEmpty())
+                return;
+            long top = stack.pop();
+            if (top < min) {
+                // decode previous min
+                min = 2 * min - top;
+            }
+        }
+
+        public int top() {
+            long top = stack.peek();
+            if (top < min) {
+                return (int) min;
+            } else {
+                return (int) top;
+            }
+        }
+
+        public int getMin() {
+            return (int) min;
+        }
+    }
+
     public static void main(String args[]) {
         // ----------array list stack--------- //O(1)
         // stack_using_arraylist.push(1);
@@ -294,8 +494,8 @@ public class stack {
         // int arr[] = { 6, 8, 0, 1, 3 };
         // nextGreaterElement(arr);
 
-        // String str="()({[]})[]";
-        // System.out.println(isValid(str));
+        // String str = "(])";
+        // System.out.println(validParenthesis(str));
 
         // String str="((c+d))"; //valid string
         // String str1="(a+b)";
@@ -303,5 +503,15 @@ public class stack {
 
         // int arr[]={2,1,5}; //height in histogram
         // max_area_in_histogram(arr);
+
+        // System.out.println(stack.InfixToPostfix.infixToPostfix("(a+b)*(c-d)"));
+
+        // System.out.println(postfixToInfix("ab+cd-*"));
+
+        // System.out.println(prefixToInfix("*+pq-mn"));
+
+        // System.out.println(postfixToPrefix("AB-DE+F*/"));
+
+        // System.out.println(prefixToPostfix("/-AB*+DEF"));
     }
 }
