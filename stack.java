@@ -556,6 +556,35 @@ public class stack {
         return total;
     }
 
+    public int trapRainWater_Optimal(int[] height) { // O(n) SC- O(1)
+        int total = 0;
+
+        int lmax = 0;
+        int rmax = 0;
+        int l = 0;
+        int r = height.length - 1;
+        while (l < r) {
+            if (height[l] <= height[r]) {
+                if (lmax > height[l]) {
+                    total += lmax - height[l];
+
+                } else {
+                    lmax = height[l];
+                }
+                l++;
+            } else {
+                if (height[r] < rmax) {
+                    total += rmax - height[r];
+
+                } else {
+                    rmax = height[r];
+                }
+                r--;
+            }
+        }
+        return total;
+    }
+
     public static void main(String args[]) {
         // ----------array list stack--------- //O(1)
         // stack_using_arraylist.push(1);
@@ -632,7 +661,7 @@ public class stack {
         // System.out.println(prefixToPostfix("/-AB*+DEF"));
 
         // int arr[] = {
-        //         0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1
+        // 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1
         // };
         // System.out.println(trapRainWater(arr));
         // trap(arr);
