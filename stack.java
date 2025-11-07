@@ -585,6 +585,23 @@ public class stack {
         return total;
     }
 
+    public int sumSubarrayMins(int[] arr) {
+        int MOD = 1000000007;
+        long total = 0;
+        int n = arr.length;
+
+        for (int i = 0; i < n; i++) {
+            int min = arr[i];
+            for (int j = i; j < n; j++) {
+                if (arr[j] < min)
+                    min = arr[j];
+                total = (total + min) % MOD; // ✅ modulo at every step
+            }
+        }
+
+        return (int) total;
+    }
+
     public static void main(String args[]) {
         // ----------array list stack--------- //O(1)
         // stack_using_arraylist.push(1);
