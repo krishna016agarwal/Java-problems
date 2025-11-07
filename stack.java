@@ -392,7 +392,7 @@ public class stack {
         }
     }
 
-    class MinStack_optimal { // SC- O(n)
+    class MinStack_optimal { // SC- O(n) TC - O(1)
         Stack<Long> stack = new Stack<>();
         long min;
 
@@ -436,6 +436,37 @@ public class stack {
 
         public int getMin() {
             return (int) min;
+        }
+    }
+
+    class NextGreaterElement { //TC - O(m + n) SC - O (n)
+        public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+            HashMap<Integer, Integer> a = new HashMap<>();
+            Stack<Integer> s = new Stack<>();
+            for (int i = nums2.length - 1; i >= 0; i--) {
+                if (s.isEmpty()) {
+                    a.put(nums2[i], -1);
+
+                } else if (nums2[i] < s.peek()) {
+                    a.put(nums2[i], s.peek());
+
+                } else if (nums2[i] >= s.peek()) {
+                    while (!s.isEmpty() && nums2[i] > s.peek()) {
+                        s.pop();
+                    }
+                    if (s.isEmpty()) {
+                        a.put(nums2[i], -1);
+
+                    } else {
+                        a.put(nums2[i], s.peek());
+                    }
+                }
+                s.push(nums2[i]);
+            }
+            for (int i = 0; i < nums1.length; i++) {
+                nums1[i] = a.get(nums1[i]);
+            }
+            return nums1;
         }
     }
 
