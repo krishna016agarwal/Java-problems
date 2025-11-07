@@ -468,7 +468,7 @@ public class stack {
         return nums1;
     }
 
-    public int[] nextGreaterElements_circularArray(int[] nums) {
+    public int[] nextGreaterElements_circularArray(int[] nums) { // TC-O(n) SC-O(n)
         Stack<Integer> s = new Stack<>();
         int i = nums.length - 1;
         int[] arr = new int[nums.length];
@@ -489,6 +489,71 @@ public class stack {
         }
         return arr;
 
+    }
+
+    public static int trapRainWater(int[] height) { // O(3n) SC- O(2n)
+        int total = 0;
+        int left[] = new int[height.length];
+        int right[] = new int[height.length];
+        int ll = height[0];
+        for (int i = 0; i < height.length; i++) {
+            if (height[i] >= ll) {
+                ll = height[i];
+                left[i] = 0;
+            } else {
+                left[i] = ll;
+            }
+        }
+        int rl = height[height.length - 1];
+
+        for (int i = height.length - 1; i >= 0; i--) {
+            if (height[i] >= rl) {
+                rl = height[i];
+                right[i] = 0;
+            } else {
+                right[i] = rl;
+            }
+        }
+
+        for (int i = 0; i < height.length; i++) {
+
+            if (Math.min(right[i], left[i]) > 0) {
+                total += Math.min(right[i], left[i]) - height[i];
+            }
+        }
+        return total;
+    }
+
+    public int trapRainWater2(int[] height) { // O(3n) SC- O(n)
+        int total = 0;
+
+        int right[] = new int[height.length];
+
+        int rl = height[height.length - 1];
+        for (int i = height.length - 1; i >= 0; i--) {
+            if (height[i] >= rl) {
+                rl = height[i];
+                right[i] = 0;
+            } else {
+                right[i] = rl;
+            }
+        }
+        int ll = height[0];
+        for (int i = 0; i < height.length; i++) {
+            if (height[i] >= ll) {
+                ll = height[i];
+                right[i] = 0;
+            } else {
+                right[i] = Math.min(ll, right[i]);
+            }
+        }
+
+        for (int i = 0; i < height.length; i++) {
+            if (right[i] > 0) {
+                total += right[i] - height[i];
+            }
+        }
+        return total;
     }
 
     public static void main(String args[]) {
@@ -565,5 +630,11 @@ public class stack {
         // System.out.println(postfixToPrefix("AB-DE+F*/"));
 
         // System.out.println(prefixToPostfix("/-AB*+DEF"));
+
+        // int arr[] = {
+        //         0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1
+        // };
+        // System.out.println(trapRainWater(arr));
+        // trap(arr);
     }
 }
