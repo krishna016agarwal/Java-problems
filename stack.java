@@ -602,6 +602,103 @@ public class stack {
         return (int) total;
     }
 
+    class SumSubarrayMins {
+        // Find index of next smaller element to the right of arr[si]
+        public static int nextSmaller(int[] arr, int si, int ei) {
+            for (int i = si + 1; i <= ei; i++) {
+                if (arr[i] <= arr[si]) { // ✅ FIX: allow equality
+                    return i;
+                }
+            }
+            return arr.length; // no smaller element
+        }
+
+        // Find index of previous smaller element to the left of arr[ei]
+        public static int prevSmaller(int[] arr, int si, int ei) {
+            for (int i = ei - 1; i >= si; i--) {
+                if (arr[i] < arr[ei]) { // ✅ FIX: strictly less
+                    return i;
+                }
+            }
+            return -1; // no smaller element
+        }
+
+        public static int sumSubarrayMins(int[] arr) {
+            int MOD = 1_000_000_007;
+            long total = 0;
+
+            for (int i = 0; i < arr.length; i++) {
+                int l = prevSmaller(arr, 0, i);
+                int r = nextSmaller(arr, i, arr.length - 1);
+
+                long leftCount = i - l;
+                long rightCount = r - i;
+
+                total = (total + (arr[i] * leftCount * rightCount) % MOD) % MOD;
+            }
+
+            return (int) total;
+        }
+    }
+
+    public static String removeKdigits(String num, int k) {
+        int len = num.length();
+        if (len <= k)
+            return "0";
+        Stack<Character> a = new Stack<>();
+        for (int i = 0; i < len; i++) {
+            while (!a.isEmpty() && k > 0 && (a.peek() - '0') > (num.charAt(i) - '0')) {
+                a.pop();
+                k--;
+            }
+            a.push(num.charAt(i));
+        }
+        while (k > 0) {
+            a.pop();
+            k--;
+        }
+        if (a.isEmpty())
+            return "0";
+        String res = "";
+        while (!a.isEmpty()) {
+            res += a.pop();
+        }
+
+        while (res.length() > 0 && res.charAt(res.length() - 1) == '0') {
+            res = res.substring(0, res.length() - 1);
+        }
+        if (res == "")
+            return "0";
+        String ans = "";
+        for (int i = res.length() - 1; i >= 0; i--) {
+            ans += res.charAt(i);
+        }
+        return ans;
+    }
+
+    public static int[] asteroidCollision(int[] asteroids) { //O(n) SC-O(n)
+        List<Integer> s = new ArrayList<>();
+        int top = -1;
+        for (int i = 0; i < asteroids.length; i++) {
+            int j = asteroids[i];
+            if (j > 0)
+                s.add(++top, j);
+            else {
+                while (top != -1 && s.get(top) > 0 && s.get(top) < Math.abs(j))
+                    s.remove(top--);
+                if (top != -1 && s.get(top) == Math.abs(j))
+                    s.remove(top--);
+                else if (top == -1 || s.get(top) < 0)
+                    s.add(++top, j);
+            }
+
+        }
+        int[] result = new int[s.size()];
+        for (int i = 0; i < s.size(); i++)
+            result[i] = s.get(i);
+        return result;
+    }
+
     public static void main(String args[]) {
         // ----------array list stack--------- //O(1)
         // stack_using_arraylist.push(1);
@@ -682,5 +779,11 @@ public class stack {
         // };
         // System.out.println(trapRainWater(arr));
         // trap(arr);
+
+        // int arr[]={3,1,2,4};
+        // System.out.println(stack.SumSubarrayMins.sumSubarrayMins(arr));
+
+        // System.out.println(removeKdigits("10", 1));
+
     }
 }
