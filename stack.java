@@ -744,7 +744,7 @@ public class stack {
         return area;
     }
 
-    public static int maximalRectangle(char[][] matrix) { //O((m*n)+(n*2m)) SC-O((n*m)+n) )
+    public static int maximalRectangle(char[][] matrix) { // O((m*n)+(n*2m)) SC-O((n*m)+n) )
         int area = 0;
         int prefixSum[][] = new int[matrix.length][matrix[0].length];
         for (int i = 0; i < matrix[0].length; i++) {
@@ -762,6 +762,61 @@ public class stack {
             area = Math.max(area, largestRectangleArea(prefixSum[i]));
         }
         return area;
+    }
+
+    class StockSpanner {
+        /// O(n)
+
+        ArrayList<Integer> s = new ArrayList<>();
+
+        public StockSpanner() {
+
+        }
+
+        public int next(int price) {
+
+            s.add(price);
+            int count = 0;
+            for (int i = s.size() - 1; i >= 0; i--) {
+                if (s.get(i) <= price)
+                    count++;
+                else {
+                    break;
+                }
+            }
+            return count;
+        }
+    }
+
+    class StockSpanner_optimal {
+        
+        Stack<Integer> a = new Stack<>();
+        ArrayList<Integer> s = new ArrayList<>();
+
+        public StockSpanner_optimal() {
+
+        }
+
+        public int next(int price) {
+
+            s.add(price);
+            int count = 0;
+            while (!a.isEmpty() && s.get(a.peek()) <= price) {
+                a.pop();
+            }
+
+            if (a.isEmpty() && s.size() == 1) {
+                a.push(s.size() - 1);
+                return 1;
+            }
+            if (a.isEmpty()) {
+                a.push(s.size() - 1);
+                return s.size();
+            }
+            count = s.size() - a.peek() - 1;
+            a.push(s.size() - 1);
+            return count;
+        }
     }
 
     public static void main(String args[]) {
