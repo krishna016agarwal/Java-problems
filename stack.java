@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class stack {
     static class stack_using_arraylist {
@@ -676,7 +677,27 @@ public class stack {
         return ans;
     }
 
-    public static int[] asteroidCollision(int[] asteroids) { //O(n) SC-O(n)
+    public static ArrayList<Integer> nextSmallerEle(int[] arr) {
+        int[] nums = new int[arr.length];
+        Stack<Integer> s = new Stack<>();
+
+        for (int i = arr.length - 1; i >= 0; i--) {
+            while (!s.isEmpty() && arr[i] < s.peek()) {
+                s.pop();
+            }
+            nums[i] = s.isEmpty() ? -1 : s.peek();
+            s.push(arr[i]);
+        }
+
+        // Convert int[] → List<Integer>
+        ArrayList<Integer> result = Arrays.stream(nums)
+                .boxed()
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        return result;
+    }
+
+    public static int[] asteroidCollision(int[] asteroids) { // O(n) SC-O(n)
         List<Integer> s = new ArrayList<>();
         int top = -1;
         for (int i = 0; i < asteroids.length; i++) {
@@ -699,7 +720,56 @@ public class stack {
         return result;
     }
 
+    public static int largestRectangleArea(int[] heights) { // O(n) SC-O(n)
+        Stack<Integer> s = new Stack<>();
+        int area = 0;
+        for (int i = 0; i < heights.length; i++) {
+            while (!s.isEmpty() && heights[s.peek()] > heights[i]) {
+                int element = s.peek();
+                s.pop();
+                int nextSmall = i;
+                int prevsmall = s.isEmpty() ? -1 : s.peek();
+                area = Math.max(area, heights[element] * (nextSmall - prevsmall - 1));
+
+            }
+            s.push(i);
+        }
+        while (!s.isEmpty()) {
+            int element = s.peek();
+            s.pop();
+            int nextsmall = heights.length;
+            int prevsmall = s.isEmpty() ? -1 : s.peek();
+            area = Math.max(area, heights[element] * (nextsmall - prevsmall - 1));
+        }
+        return area;
+    }
+
+    public static int maximalRectangle(char[][] matrix) { //O((m*n)+(n*2m)) SC-O((n*m)+n) )
+        int area = 0;
+        int prefixSum[][] = new int[matrix.length][matrix[0].length];
+        for (int i = 0; i < matrix[0].length; i++) {
+            int sum = 0;
+            for (int j = 0; j < matrix.length; j++) {
+                sum += matrix[j][i] - '0';
+                if (matrix[j][i] - '0' == 0) {
+                    sum = 0;
+
+                }
+                prefixSum[j][i] = sum;
+            }
+        }
+        for (int i = 0; i < matrix.length; i++) {
+            area = Math.max(area, largestRectangleArea(prefixSum[i]));
+        }
+        return area;
+    }
+
     public static void main(String args[]) {
+        // int arr[] = { 2, 1, 5, 6, 2, 3 };
+
+        // System.out.println(largestRectangleArea(arr));
+        // System.out.println(nextSmallerEle(arr));
+
         // ----------array list stack--------- //O(1)
         // stack_using_arraylist.push(1);
         // stack_using_arraylist.push(2);
