@@ -166,16 +166,56 @@ public class sorting {
         }
     }
 
-    class mergeSorting{
-        public int[] sort(int arr[]){
+    class mergeSorting {
+        public int[] sort(int arr[]) {
             helper(arr);
             return arr;
         }
-        private void helper(int arr[]){
-            
+
+        private void helper(int arr[]) {
+
         }
     }
-    
+
+    class QuickSorting {
+        public int[] sortArray(int[] nums) {
+            quicksort(nums, 0, nums.length - 1);
+            return nums;
+        }
+
+        void quicksort(int[] arr, int low, int high) {
+            if (low < high) {
+                int p = partition(arr, low, high);
+                quicksort(arr, low, p);
+                quicksort(arr, p + 1, high);
+            }
+        }
+
+        int partition(int[] arr, int low, int high) {
+            int pivot = arr[(low + high) / 2];
+            int i = low - 1;
+            int j = high + 1;
+
+            while (true) {
+                do {
+                    i++;
+                } while (arr[i] < pivot);
+
+                do {
+                    j--;
+                } while (arr[j] > pivot);
+
+                if (i >= j)
+                    return j;
+
+                // swap arr[i], arr[j]
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+
     public static void main(String args[]) {
         // int arr[] = { 9, 5, 7, 3, 52, 1, 4, 78, 62, 2 };
         // selection_sorting(arr);
@@ -188,12 +228,12 @@ public class sorting {
         // int arr[] = { 1, 3, 1, 3, 2, 1, 8, 6,2 }; //time complexity-O(n+k)
         // counting_sort(arr);
 
-        //spiral_matrix();
-//--------------------------------------------------------
+        // spiral_matrix();
+        // --------------------------------------------------------
         // int arr[] = { 8, 5, 2, 9, -6, 1, -3 };
         // MergeSort.mergeSort(arr, 0, arr.length - 1);
         // code.printArray(arr);
-//----------------------------------------------------------
+        // ----------------------------------------------------------
         // int arr[] = { 8, 5, 2, 9, -6, 1, -3 };
         // QuickSort.quicksort(arr, 0, arr.length-1);
         // code.printArray(arr);
@@ -217,9 +257,10 @@ public class sorting {
 
 class MergeSort {
 
-    public static void mergeSort(int arr[], int i, int e){
-        if (i >= e) return;
-        
+    public static void mergeSort(int arr[], int i, int e) {
+        if (i >= e)
+            return;
+
         int mid = i + (e - i) / 2;
 
         mergeSort(arr, i, mid);
@@ -229,9 +270,9 @@ class MergeSort {
 
     public static void mergeConquor(int arr[], int si, int e, int mid) {
         int temp[] = new int[e - si + 1];
-        int i = si; //first array
-        int j = mid + 1; //second array
-        int k = 0; //temp array
+        int i = si; // first array
+        int j = mid + 1; // second array
+        int k = 0; // temp array
 
         while (i <= mid && j <= e) {
             if (arr[i] < arr[j]) {
