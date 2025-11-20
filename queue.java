@@ -391,7 +391,7 @@ public class queue {
         }
     }
 
-    public int[] maxSlidingWindow(int[] nums, int k) {
+    public int[] maxSlidingWindow(int[] nums, int k) { //O(n)  SC- O(n)
         
         if (k == 1)
             return nums;

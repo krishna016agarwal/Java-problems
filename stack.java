@@ -789,7 +789,7 @@ public class stack {
     }
 
     class StockSpanner_optimal {
-        
+
         Stack<Integer> a = new Stack<>();
         ArrayList<Integer> s = new ArrayList<>();
 
@@ -817,6 +817,58 @@ public class stack {
             a.push(s.size() - 1);
             return count;
         }
+    }
+
+    public static int celebrity(int mat[][]) { // O(n^2)
+
+        int iknows[] = new int[mat.length];
+        int knowMe[] = new int[mat.length];
+
+        for (int i = 0; i < mat.length; i++) {
+            iknows[i] = knowMe[i] = 0;
+        }
+        for (int i = 0; i < mat.length; i++) {
+            for (int j = 0; j < mat.length; j++) {
+                if (mat[i][j] == 1 && i != j) {
+                    iknows[i]++;
+                    knowMe[j]++;
+                }
+            }
+        }
+        int celebratity = -1;
+        for (int i = 0; i < mat.length; i++) {
+            if (iknows[i] == 0 && knowMe[i] == mat.length - 1)
+                celebratity = i;
+        }
+
+        return celebratity;
+    }
+
+    public int celebrity_optimal(int mat[][]) { // O(n)
+        int top = 0;
+        int down = mat.length - 1;
+
+        while (top < down) {
+            if (mat[top][down] == 1) {
+                top++;
+            } else {
+                down--;
+            }
+        }
+
+        int c = top; // candidate
+
+        // verify candidate
+        for (int i = 0; i < mat.length; i++) {
+            if (i == c)
+                continue;
+
+            // celebrity knows no one, everyone knows celebrity
+            if (mat[c][i] == 1 || mat[i][c] == 0) {
+                return -1;
+            }
+        }
+        return c;
     }
 
     public static void main(String args[]) {

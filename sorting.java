@@ -68,18 +68,23 @@ public class sorting {
     }
 
     public static void counting_sort(int arr[]) {
-        // arr=[1,3,1,3,2,1,8,6]
-        // fre=[0,3,1,2,0,0,1,0,1]
-        int fre[] = new int[arr.length + 1];
 
+        int max = Integer.MIN_VALUE;
         for (int i = 0; i < arr.length; i++) {
-            fre[arr[i]] += 1;
+            max = Math.max(max, arr[i]);
         }
-        for (int i = 0; i < fre.length; i++) {
-            for (int j = 0; j < fre[i]; j++) {
-                System.out.print(i + " ");
+        int nums[] = new int[max + 1];
+        for (int i = 0; i < arr.length; i++) {
+            nums[arr[i]]++;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                for (int j = 0; j < nums[i]; j++) {
+                    System.out.print(i + " ");
+                }
             }
         }
+
     }
 
     public static void spiral_matrix() {
@@ -225,7 +230,7 @@ public class sorting {
         // int arr[] = { 1, 2, 3, 4, 5, 6, 9 };
         // check_if_array_is_sorted(arr, 0);
 
-        // int arr[] = { 1, 3, 1, 3, 2, 1, 8, 6,2 }; //time complexity-O(n+k)
+        // int arr[] = { 1, 13, 1, 13, 12, 1, 8, 6,2 }; //time complexity-O(n+k)
         // counting_sort(arr);
 
         // spiral_matrix();
