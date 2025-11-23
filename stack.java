@@ -871,6 +871,44 @@ public class stack {
         return c;
     }
 
+    class StockSpanner_owncode {
+        int count;
+        Stack<int[]> s;
+
+        public StockSpanner_owncode() {
+
+            s = new Stack<>();
+            count = -1;
+
+        }
+
+        public int next(int price) {
+            count++;
+            int result = -1;
+            if (s.isEmpty()) {
+                result = count + 1;
+                s.push(new int[] { price, count });
+            } else {
+                if (!s.isEmpty() && price >= s.peek()[0]) {
+                    while (!s.isEmpty() && price >= s.peek()[0])
+                        s.pop();
+                    if (!s.isEmpty()) {
+                        result = count - s.peek()[1];
+                    } else {
+                        result = count + 1;
+                    }
+
+                } else {
+                    result = 1;
+                }
+                s.push(new int[] { price, count });
+            }
+
+            return result;
+
+        }
+    }
+
     public static void main(String args[]) {
         // int arr[] = { 2, 1, 5, 6, 2, 3 };
 

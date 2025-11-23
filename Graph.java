@@ -153,6 +153,6 @@ public class Graph {
     public static void main(String[] args) {
         int[][] arr = { { 0, 1, 5 }, { 1, 2, 3 }, { 0, 2, 1 } };
         // System.out.println(Prims_Algorithm_for_minimum_spanning_tree(3, arr));
-        System.out.println(Graph.KruskalsMST.kruskalsMST(3, arr));
+        //System.out.println(Graph.KruskalsMST.kruskalsMST(3, arr));
     }
 }
