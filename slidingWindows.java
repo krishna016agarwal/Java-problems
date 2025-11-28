@@ -26,7 +26,7 @@ public class slidingWindows {
 
     }
 
-    class LengthOfLongestSubstring { //O(n^2)
+    class LengthOfLongestSubstring { // O(n^2)
         HashMap<Integer, Integer> k = new HashMap<>();
 
         public int hash(int a) {
@@ -50,6 +50,30 @@ public class slidingWindows {
             }
             return max;
         }
+    }
+
+    public int lengthOfLongestSubstring_optimal(String s) { //O(n)
+        HashMap<Character, Integer> map = new HashMap<>();
+        int left = 0;
+        int maxLen = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+            char c = s.charAt(right);
+
+            // If repeated character found
+            if (map.containsKey(c)) {
+                // Move left pointer to the right side of previous occurrence
+                left = Math.max(left, map.get(c) + 1);
+            }
+
+            // Update last seen index of the character
+            map.put(c, right);
+
+            // Window size = right - left + 1
+            maxLen = Math.max(maxLen, right - left + 1);
+        }
+
+        return maxLen;
     }
 
     public static void main(String[] args) {
