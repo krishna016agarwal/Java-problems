@@ -52,7 +52,7 @@ public class slidingWindows {
         }
     }
 
-    public int lengthOfLongestSubstring_optimal(String s) { //O(n)
+    public int lengthOfLongestSubstring_optimal(String s) { // O(n)
         HashMap<Character, Integer> map = new HashMap<>();
         int left = 0;
         int maxLen = 0;
@@ -76,11 +76,31 @@ public class slidingWindows {
         return maxLen;
     }
 
+    public int longestOnes(int[] nums, int k) { //O(n)
+        int left = 0;
+        int zeroCount = 0;
+        int maxLen = 0;
+
+        for (int right = 0; right < nums.length; right++) {
+            if (nums[right] == 0)
+                zeroCount++;
+
+            while (zeroCount > k) {
+                if (nums[left] == 0)
+                    zeroCount--;
+                left++;
+            }
+
+            maxLen = Math.max(maxLen, right - left + 1);
+        }
+        return maxLen;
+    }
+
     public static void main(String[] args) {
         slidingWindows a = new slidingWindows();
         slidingWindows.LengthOfLongestSubstring b = a.new LengthOfLongestSubstring();
         System.out.println(b.lengthOfLongestSubstring("pwwkewlp1212"));
-
+   
     }
 
 }
