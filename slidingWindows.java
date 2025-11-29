@@ -116,6 +116,24 @@ public class slidingWindows {
         return maxLen;
     }
 
+    public int totalFruit(int[] fruits) { 
+        HashMap<Integer, Integer> s = new HashMap<>();
+        int max = 0;
+        int l = 0;
+        for (int r = 0; r < fruits.length; r++) {
+            s.put(fruits[r], s.getOrDefault(fruits[r], 0) + 1);
+
+            if (s.size() > 2) {
+                s.replace(fruits[l], s.get(fruits[l]) - 1);
+                if (s.get(fruits[l]) == 0)
+                    s.remove(fruits[l]);
+                l++;
+            }
+            max = Math.max(max, r - l + 1);
+        }
+        return max;
+    }
+
     public static void main(String[] args) {
         slidingWindows a = new slidingWindows();
         // slidingWindows.LengthOfLongestSubstring b = a.new LengthOfLongestSubstring();
