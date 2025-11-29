@@ -185,6 +185,50 @@ public class slidingWindows {
         return max;
     }
 
+    public int Number_of_substring_containing_all_three_characters(String s) { // O(2n) SC-O(n)
+        HashMap<Integer, Integer> a = new HashMap<>();
+        int count = 0;
+        int l = 0;
+        for (int r = 0; r < s.length(); r++) {
+            int num = s.charAt(r) - '0';
+            a.put(num, a.getOrDefault(num, 0) + 1);
+            while (a.size() == 3) {
+                count += s.length() - r;
+                a.replace(s.charAt(l) - '0', a.get(s.charAt(l) - '0') - 1);
+                if (a.get(s.charAt(l) - '0') == 0)
+                    a.remove(s.charAt(l) - '0');
+                l++;
+
+            }
+
+        }
+        return count;
+    }
+
+    public int Number_of_substring_containing_all_three_characters_optimal(String s) { // O(n) SC-O(1)
+        int a = -1;
+        int b = -1;
+        int c = -1;
+        int count = 0;
+
+        for (int r = 0; r < s.length(); r++) {
+
+            char q = s.charAt(r);
+            if (q == 'a')
+                a = r;
+            else if (q == 'b')
+                b = r;
+            else if (q == 'c')
+                c = r;
+            if (a != -1 && b != -1 && c != -1) {
+                count += Math.min(a, Math.min(b, c)) + 1;
+
+            }
+
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         slidingWindows a = new slidingWindows();
         // slidingWindows.LengthOfLongestSubstring b = a.new LengthOfLongestSubstring();
@@ -192,7 +236,8 @@ public class slidingWindows {
         // System.out.println(a.longestOnes(new int[]{1,0,1,0,1,1,1,0,0,0}, 2));
         // System.out.println(a.totalFruit(new int[] { 3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4
         // }));
-        // System.out.println(a.Longest_Substring_with_At_Most_K_Distinct_Characters("aaabbccd", 2));
+        // System.out.println(a.Longest_Substring_with_At_Most_K_Distinct_Characters("aaabbccd",
+        // 2));
     }
 
 }
