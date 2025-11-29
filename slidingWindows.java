@@ -2,6 +2,34 @@ import java.util.*;
 
 public class slidingWindows {
 
+    public int[] maxSlidingWindow(int[] nums, int k) { // O(n) SC- O(n)
+
+        if (k == 1)
+            return nums;
+        Deque<Integer> s = new ArrayDeque<>();
+
+        for (int i = 0; i < k; i++) {
+            while (!s.isEmpty() && nums[s.peekLast()] <= nums[i]) {
+                s.removeLast();
+            }
+            s.addLast(i);
+        }
+        int arr[] = new int[nums.length - k + 1];
+        int j = 0;
+        arr[j] = nums[s.peekFirst()];
+        for (int i = k; i < nums.length; i++) {
+            if (!s.isEmpty() && s.peekFirst() <= i - k) {
+                s.removeFirst();
+            }
+            while (!s.isEmpty() && nums[s.peekLast()] <= nums[i]) {
+                s.removeLast();
+            }
+            s.addLast(i);
+            arr[++j] = nums[s.peekFirst()];
+        }
+        return arr;
+    }
+
     public static int maxScore(int[] cardPoints, int k) {
         int sum = 0;
         if (k == cardPoints.length) {
@@ -116,7 +144,7 @@ public class slidingWindows {
         return maxLen;
     }
 
-    public int totalFruit(int[] fruits) { 
+    public int totalFruit(int[] fruits) { // O(n) SC-O(n)
         HashMap<Integer, Integer> s = new HashMap<>();
         int max = 0;
         int l = 0;
@@ -134,11 +162,37 @@ public class slidingWindows {
         return max;
     }
 
+    public int Longest_Substring_with_At_Most_K_Distinct_Characters(String s, int k) { // O(n) SC-O(n)
+
+        HashMap<Integer, Integer> p = new HashMap<>();
+        int l = 0;
+        int max = -1;
+        for (int r = 0; r < s.length(); r++) {
+            int num = s.charAt(r) - '0';
+            int q = s.charAt(l) - '0';
+            p.put(num, p.getOrDefault(num, 0) + 1);
+            if (p.size() > k) {
+                p.replace(q, p.get(q) - 1);
+                if (p.get(q) == 0)
+                    p.remove(q);
+                l++;
+            }
+            if (p.size() == k) {
+                max = Math.max(max, r - l + 1);
+            }
+
+        }
+        return max;
+    }
+
     public static void main(String[] args) {
         slidingWindows a = new slidingWindows();
         // slidingWindows.LengthOfLongestSubstring b = a.new LengthOfLongestSubstring();
         // System.out.println(b.lengthOfLongestSubstring("pwwkewlp1212"));
         // System.out.println(a.longestOnes(new int[]{1,0,1,0,1,1,1,0,0,0}, 2));
+        // System.out.println(a.totalFruit(new int[] { 3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4
+        // }));
+        // System.out.println(a.Longest_Substring_with_At_Most_K_Distinct_Characters("aaabbccd", 2));
     }
 
 }

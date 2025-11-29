@@ -391,33 +391,7 @@ public class queue {
         }
     }
 
-    public int[] maxSlidingWindow(int[] nums, int k) { //O(n)  SC- O(n)
-        
-        if (k == 1)
-            return nums;
-        Deque<Integer> s = new ArrayDeque<>();
-
-        for (int i = 0; i < k; i++) {
-            while (!s.isEmpty() && nums[s.peekLast()] <= nums[i]) {
-                s.removeLast();
-            }
-            s.addLast(i);
-        }
-        int arr[] = new int[nums.length - k + 1];
-        int j = 0;
-        arr[j] = nums[s.peekFirst()];
-        for (int i = k; i < nums.length; i++) {
-            if (!s.isEmpty() && s.peekFirst() <= i - k) {
-                s.removeFirst();
-            }
-            while (!s.isEmpty() && nums[s.peekLast()] <= nums[i]) {
-                s.removeLast();
-            }
-            s.addLast(i);
-            arr[++j] = nums[s.peekFirst()];
-        }
-        return arr;
-    }
+   
 
     public static void main(String args[]) {
         // ArrayQueue s=new ArrayQueue(5) //non static method
