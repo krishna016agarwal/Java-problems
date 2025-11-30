@@ -205,6 +205,42 @@ public class Greedy {
 
     }
 
+    public boolean lemonadeChange(int[] bills) {
+        int five = 0;
+        int ten = 0;
+
+        for (int bill : bills) {
+
+            if (bill == 5) {
+                five++;
+            }
+
+            else if (bill == 10) {
+                if (five == 0)
+                    return false;
+                five--;
+                ten++;
+            }
+
+            else { // bill == 20
+                // Prefer giving 10 + 5 as change
+                if (ten > 0 && five > 0) {
+                    ten--;
+                    five--;
+                }
+                // Otherwise give 3 fives
+                else if (five >= 3) {
+                    five -= 3;
+                }
+                // Cannot give change
+                else {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public int findContentChildren(int[] g, int[] s) {
         Arrays.sort(g);
         Arrays.sort(s);
