@@ -252,7 +252,7 @@ public class slidingWindows {
         return maxLen;
     }
 
-    class Binary_subarray_with_sum { //O(n)
+    class Binary_subarray_with_sum { //O(n) //SC-O(1)
 
         public int numSubarraysWithSum(int[] nums, int goal) {
             return helper(nums, goal) - helper(nums, goal - 1);
