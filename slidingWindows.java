@@ -252,6 +252,30 @@ public class slidingWindows {
         return maxLen;
     }
 
+    class Binary_subarray_with_sum { //O(n)
+
+        public int numSubarraysWithSum(int[] nums, int goal) {
+            return helper(nums, goal) - helper(nums, goal - 1);
+        }
+
+        public int helper(int num[], int goal) {
+            if (goal < 0)
+                return 0;
+            int l = 0;
+            int c = 0;
+            int s = 0;
+            for (int r = 0; r < num.length; r++) {
+                s += num[r];
+                while (s > goal) {
+                    s -= num[l];
+                    l++;
+                }
+                c += r - l + 1;
+            }
+            return c;
+        }
+    }
+
     public static void main(String[] args) {
         slidingWindows a = new slidingWindows();
         // slidingWindows.LengthOfLongestSubstring b = a.new LengthOfLongestSubstring();
