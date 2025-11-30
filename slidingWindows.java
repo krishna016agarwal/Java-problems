@@ -276,6 +276,31 @@ public class slidingWindows {
         }
     }
 
+    class Count_number_of_nice_subarrays {
+    public int numberOfSubarrays(int[] nums, int k) {
+        
+        return helper(nums, k) - helper(nums, k - 1);
+        }
+
+        public int helper(int num[], int goal) {
+            if (goal < 0)
+                return 0;
+            int l = 0;
+            int c = 0;
+            int s = 0;
+            for (int r = 0; r < num.length; r++) {
+                s += num[r]%2;
+                while (s > goal) {
+                    s -= num[l]%2;
+                    l++;
+                }
+                c += r - l + 1;
+            }
+            return c;
+        }
+}
+    
+    
     public static void main(String[] args) {
         slidingWindows a = new slidingWindows();
         // slidingWindows.LengthOfLongestSubstring b = a.new LengthOfLongestSubstring();
