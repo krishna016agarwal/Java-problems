@@ -252,7 +252,7 @@ public class slidingWindows {
         return maxLen;
     }
 
-    class Binary_subarray_with_sum { //O(n) //SC-O(1)
+    class Binary_subarray_with_sum { // O(n) //SC-O(1)
 
         public int numSubarraysWithSum(int[] nums, int goal) {
             return helper(nums, goal) - helper(nums, goal - 1);
@@ -277,9 +277,9 @@ public class slidingWindows {
     }
 
     class Count_number_of_nice_subarrays {
-    public int numberOfSubarrays(int[] nums, int k) {
-        
-        return helper(nums, k) - helper(nums, k - 1);
+        public int numberOfSubarrays(int[] nums, int k) {
+
+            return helper(nums, k) - helper(nums, k - 1);
         }
 
         public int helper(int num[], int goal) {
@@ -289,18 +289,41 @@ public class slidingWindows {
             int c = 0;
             int s = 0;
             for (int r = 0; r < num.length; r++) {
-                s += num[r]%2;
+                s += num[r] % 2;
                 while (s > goal) {
-                    s -= num[l]%2;
+                    s -= num[l] % 2;
                     l++;
                 }
                 c += r - l + 1;
             }
             return c;
         }
-}
+    }
+
+    class Subarrays_with_K_Different_Integers {
+
+          public int subarraysWithKDistinct(int[] nums, int k) {
+        return helper(nums,k)-helper(nums,k-1);
+    }
+    public int helper(int nums[],int k){
+        if(k<0) return 0;
+        HashMap<Integer,Integer> a=new HashMap<>();
+        int l=0;
+        int c=0;
     
-    
+        for(int r=0;r<nums.length;r++){
+            a.put(nums[r],a.getOrDefault(nums[r],0)+1);
+            while(a.size()>k){
+                a.replace(nums[l],a.get(nums[l])-1);
+                if(a.get(nums[l])==0) a.remove(nums[l]);
+                l++;
+            }
+            c+=r-l+1;
+        }
+        return c;
+    }
+    }
+
     public static void main(String[] args) {
         slidingWindows a = new slidingWindows();
         // slidingWindows.LengthOfLongestSubstring b = a.new LengthOfLongestSubstring();
@@ -310,6 +333,9 @@ public class slidingWindows {
         // }));
         // System.out.println(a.Longest_Substring_with_At_Most_K_Distinct_Characters("aaabbccd",
         // 2));
+
+        slidingWindows.Subarrays_with_K_Different_Integers c = a.new Subarrays_with_K_Different_Integers();
+        System.out.println(c.subarraysWithKDistinct(new int[] { 1, 2, 1, 3, 4 }, 3));
     }
 
 }

@@ -139,7 +139,7 @@ public class Greedy {
     public static class job {
         public static class Job {
 
-            int id; //index
+            int id; // index
             int deadline;
             int profit;
 
@@ -174,9 +174,9 @@ public class Greedy {
     public static void chocola_problem(Integer costHor[], Integer costVer[]) {
         Arrays.sort(costVer, Collections.reverseOrder());
         Arrays.sort(costHor, Collections.reverseOrder());
-        int h = 0, v = 0; //traverse over costVer & costHor
-        int hp = 1 ;//horizontal pieces 
-        int vp = 1; 
+        int h = 0, v = 0; // traverse over costVer & costHor
+        int hp = 1;// horizontal pieces
+        int vp = 1;
         int cost = 0;
         while (h < costHor.length && v < costVer.length) {
             // vertical cost < hor cost
@@ -203,6 +203,23 @@ public class Greedy {
         }
         System.out.println("minimum cost = " + cost);
 
+    }
+
+    public int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+
+        int r = 0; // children pointer
+        int l = 0; // cookies pointer
+
+        while (l < s.length && r < g.length) {
+            if (g[r] <= s[l]) {
+                r++; // child satisfied
+            }
+            l++; // move to next cookie
+        }
+
+        return r;
     }
 
     public static void main(String[] args) {
@@ -234,7 +251,8 @@ public class Greedy {
 
         // -----------------------------------------
 
-        // int jobInfo[][] = { { 2, 20 }, { 1, 10 }, { 2, 40 }, { 2, 30 } }; //index 0 is deadline inex 1 is profit
+        // int jobInfo[][] = { { 2, 20 }, { 1, 10 }, { 2, 40 }, { 2, 30 } }; //index 0
+        // is deadline inex 1 is profit
         // ArrayList<job.Job> s = new ArrayList<>();
 
         // for (int i = 0; i < jobInfo.length; i++) {
