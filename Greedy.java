@@ -270,19 +270,40 @@ public class Greedy {
         return true;
     }
 
-    public int jump2(int[] nums) { //O(n^n) SC-O(n)
-        return helper(nums, 0, 0);
+    class Jump2 { // O(n^n) SC-O(n)
+        public int jump2(int[] nums) { // O(n^n) SC-O(n)
+            return helper(nums, 0, 0);
+        }
+
+        int helper(int[] nums, int i, int c) {
+            if (i >= nums.length - 1)
+                return c;
+
+            int min = Integer.MAX_VALUE;
+            for (int j = 1; j <= nums[i]; j++) {
+                min = Math.min(min, helper(nums, i + j, c + 1));
+            }
+            return min;
+        }
     }
 
-    int helper(int[] nums, int i, int c) {
-        if (i >= nums.length - 1)
-            return c;
+    public int jump(int[] nums) { // O(n)
+        int jumps = 0;
+        int l = 0, r = 0;
 
-        int min = Integer.MAX_VALUE;
-        for (int j = 1; j <= nums[i]; j++) {
-            min = Math.min(min, helper(nums, i + j, c + 1));
+        while (r < nums.length - 1) {
+            int farthest = 0;
+
+            for (int i = l; i <= r; i++) {
+                farthest = Math.max(farthest, i + nums[i]);
+            }
+
+            l = r + 1;
+            r = farthest;
+            jumps++;
         }
-        return min;
+
+        return jumps;
     }
 
     public static void main(String[] args) {
