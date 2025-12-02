@@ -223,7 +223,7 @@ public class Greedy {
             }
 
             else { // bill == 20
-                // Prefer giving 10 + 5 as change
+                   // Prefer giving 10 + 5 as change
                 if (ten > 0 && five > 0) {
                     ten--;
                     five--;
@@ -256,6 +256,18 @@ public class Greedy {
         }
 
         return r;
+    }
+
+    public boolean canJump(int[] nums) {
+        int reach = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (i > reach)
+                return false; // cannot reach this index
+            reach = Math.max(reach, i + nums[i]);
+        }
+
+        return true;
     }
 
     public static void main(String[] args) {
