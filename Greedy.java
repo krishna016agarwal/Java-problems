@@ -258,7 +258,7 @@ public class Greedy {
         return r;
     }
 
-    public boolean canJump(int[] nums) {
+    public boolean canJump(int[] nums) { // O(n)
         int reach = 0;
 
         for (int i = 0; i < nums.length; i++) {
@@ -268,6 +268,21 @@ public class Greedy {
         }
 
         return true;
+    }
+
+    public int jump2(int[] nums) { //O(n^n) SC-O(n)
+        return helper(nums, 0, 0);
+    }
+
+    int helper(int[] nums, int i, int c) {
+        if (i >= nums.length - 1)
+            return c;
+
+        int min = Integer.MAX_VALUE;
+        for (int j = 1; j <= nums[i]; j++) {
+            min = Math.min(min, helper(nums, i + j, c + 1));
+        }
+        return min;
     }
 
     public static void main(String[] args) {
