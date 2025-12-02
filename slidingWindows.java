@@ -302,26 +302,75 @@ public class slidingWindows {
 
     class Subarrays_with_K_Different_Integers {
 
-          public int subarraysWithKDistinct(int[] nums, int k) {
-        return helper(nums,k)-helper(nums,k-1);
+        public int subarraysWithKDistinct(int[] nums, int k) {
+            return helper(nums, k) - helper(nums, k - 1);
+        }
+
+        public int helper(int nums[], int k) {
+            if (k < 0)
+                return 0;
+            HashMap<Integer, Integer> a = new HashMap<>();
+            int l = 0;
+            int c = 0;
+
+            for (int r = 0; r < nums.length; r++) {
+                a.put(nums[r], a.getOrDefault(nums[r], 0) + 1);
+                while (a.size() > k) {
+                    a.replace(nums[l], a.get(nums[l]) - 1);
+                    if (a.get(nums[l]) == 0)
+                        a.remove(nums[l]);
+                    l++;
+                }
+                c += r - l + 1;
+            }
+            return c;
+        }
     }
-    public int helper(int nums[],int k){
-        if(k<0) return 0;
-        HashMap<Integer,Integer> a=new HashMap<>();
-        int l=0;
-        int c=0;
-    
-        for(int r=0;r<nums.length;r++){
-            a.put(nums[r],a.getOrDefault(nums[r],0)+1);
-            while(a.size()>k){
-                a.replace(nums[l],a.get(nums[l])-1);
-                if(a.get(nums[l])==0) a.remove(nums[l]);
+
+    public String minWindow(String s, String t) {
+
+        int min = Integer.MAX_VALUE; // FIX: should be MAX_VALUE
+        int l = 0;
+        int c = 0;
+        int k = t.length();
+        int si = -1;
+
+        HashMap<Character, Integer> a = new HashMap<>(); // FIX: use Character
+
+        // FIX: iterate through characters of t
+        for (char i : t.toCharArray()) {
+            a.put(i, a.getOrDefault(i, 0) + 1);
+        }
+
+        for (int r = 0; r < s.length(); r++) {
+
+            char rc = s.charAt(r);
+
+            if (a.containsKey(rc)) {
+                if (a.get(rc) > 0)
+                    c++;
+                a.put(rc, a.get(rc) - 1);
+            }
+
+            while (c == k) {
+
+                if (r - l + 1 < min) {
+                    min = r - l + 1;
+                    si = l;
+                }
+
+                char lc = s.charAt(l); // FIX: left pointer char
+                if (a.containsKey(lc)) {
+                    a.put(lc, a.get(lc) + 1);
+                    if (a.get(lc) > 0)
+                        c--;
+                }
+
                 l++;
             }
-            c+=r-l+1;
         }
-        return c;
-    }
+
+        return si == -1 ? "" : s.substring(si, si + min); // FIX: correct end index
     }
 
     public static void main(String[] args) {
@@ -334,8 +383,9 @@ public class slidingWindows {
         // System.out.println(a.Longest_Substring_with_At_Most_K_Distinct_Characters("aaabbccd",
         // 2));
 
-        slidingWindows.Subarrays_with_K_Different_Integers c = a.new Subarrays_with_K_Different_Integers();
-        System.out.println(c.subarraysWithKDistinct(new int[] { 1, 2, 1, 3, 4 }, 3));
+        // slidingWindows.Subarrays_with_K_Different_Integers c = a.new
+        // Subarrays_with_K_Different_Integers();
+        // System.out.println(c.subarraysWithKDistinct(new int[] { 1, 2, 1, 3, 4 }, 3));
     }
 
 }
