@@ -306,6 +306,112 @@ public class Greedy {
         return jumps;
     }
 
+    class JobSequencing { //O(nlogn + n*maxdealine) SC-O(n)
+
+        class Job {
+            int deadline;
+            int profit;
+
+            Job(int d, int p) {
+                deadline = d;
+                profit = p;
+            }
+        }
+
+        public ArrayList<Integer> jobSequencing(int[] deadline, int[] profit) {
+            // code here
+            int maxprofit = 0;
+            int count = 0;
+            Job arr[] = new Job[profit.length];
+            int maxdeadline = 0;
+            for (int i = 0; i < profit.length; i++) {
+                arr[i] = new Job(deadline[i], profit[i]);
+                maxdeadline = Math.max(maxdeadline, deadline[i]);
+            }
+            Arrays.sort(arr, (a, b) -> b.profit - a.profit);
+            int slot[] = new int[maxdeadline + 1];
+            Arrays.fill(slot, -1);
+            for (Job i : arr) {
+                for (int j = i.deadline; j > 0; j--) {
+                    if (slot[j] == -1) {
+                        count++;
+                        maxprofit += i.profit;
+                        slot[j] = i.profit;
+                        break;
+                    }
+                }
+            }
+            ArrayList<Integer> result = new ArrayList<>();
+            result.add(count);
+            result.add(maxprofit);
+            return result;
+
+        }
+    }
+
+    class JbSequencing_optimal { //O(nlogn)
+
+        class Job {
+            int deadline, profit;
+
+            Job(int d, int p) {
+                deadline = d;
+                profit = p;
+            }
+        }
+
+        // DSU find function
+        int find(int parent[], int x) {
+            if (parent[x] == x)
+                return x;
+            return parent[x] = find(parent, parent[x]); // path compression
+        }
+
+        public ArrayList<Integer> jobSequencing(int[] deadline, int[] profit) {
+
+            int n = deadline.length;
+
+            Job[] arr = new Job[n];
+            int maxDeadline = 0;
+
+            for (int i = 0; i < n; i++) {
+                arr[i] = new Job(deadline[i], profit[i]);
+                maxDeadline = Math.max(maxDeadline, deadline[i]);
+            }
+
+            // Sort by descending profit
+            Arrays.sort(arr, (a, b) -> b.profit - a.profit);
+
+            // DSU parent array
+            int parent[] = new int[maxDeadline + 1];
+            for (int i = 0; i <= maxDeadline; i++)
+                parent[i] = i;
+
+            int countJobs = 0;
+            int maxProfit = 0;
+
+            for (Job job : arr) {
+
+                // find latest available day
+                int availableDay = find(parent, job.deadline);
+
+                if (availableDay > 0) {
+                    // schedule job
+                    countJobs++;
+                    maxProfit += job.profit;
+
+                    // mark this slot used → point to next free slot
+                    parent[availableDay] = find(parent, availableDay - 1);
+                }
+            }
+
+            ArrayList<Integer> result = new ArrayList<>();
+            result.add(countJobs);
+            result.add(maxProfit);
+            return result;
+        }
+    }
+
     public static void main(String[] args) {
         // int start[] = { 1, 3, 0, 5, 8, 5 };
         // int end[] = { 2, 4, 6, 7, 9, 9 };
