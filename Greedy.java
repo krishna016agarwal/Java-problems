@@ -412,7 +412,7 @@ public class Greedy {
         }
     }
 
-    class MaxMeetings {
+    class MaxMeetings { // O(2n)+O(nlogn) SC-O(n)
 
         class time {
             int start;
@@ -425,9 +425,9 @@ public class Greedy {
         }
 
         public int maxMeetings(int start[], int end[]) {
-       
+
             time arr[] = new time[end.length];
-            
+
             for (int i = 0; i < end.length; i++) {
                 arr[i] = new time(start[i], end[i]);
             }
