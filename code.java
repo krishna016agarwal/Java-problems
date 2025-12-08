@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class code {
 
     public static int last_occurance_of_number_in_array(int arr[], int key, int i) {
@@ -265,7 +267,8 @@ public class code {
         return fibonacci(n - 1) + fibonacci(n - 2);
     }
 
-    static void find_element_in_sorted_array_staicase_method(int arr[][], int target) { //time complexity -O(row+column)
+    static void find_element_in_sorted_array_staicase_method(int arr[][], int target) { // time complexity
+                                                                                        // -O(row+column)
         int row = 0;
         int col = arr.length - 1;
         while (row < arr.length && col >= 0) {
@@ -281,19 +284,54 @@ public class code {
         }
     }
 
-   public static boolean isPrime(int n){  //O(sqrt(n))
-    if (n<=1) {
-        return false;
+    public static boolean isPrime(int n) { // O(sqrt(n))
+        if (n <= 1) {
+            return false;
+        }
+        for (int i = 2; i < Math.sqrt(n); i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
-    for (int i = 2; i < Math.sqrt(n); i++) {
-       if (n%i==0) {
-        return false;
-       }
-    }
-    return true;
-   }
 
+    void print_prime_numbers(int n) {
+        for (int i = 2; i <= n; i++) {
+            boolean divide = false;
+            for (int j = 2; j < i; j++) {
+                if (i % j == 0) {
+                    divide = true;
+                    break;
+                }
+            }
+            if (!divide) {
+                System.out.print(i + " ");
+            }
+        }
+    }
+
+    void print_prime_numbers_optimal_solution(int n) {
+        int arr[] = new int[n + 1];
+        Arrays.fill(arr, 1);
+        for (int i = 2; i * i <= n; i++) {
+            if (arr[i] == 1) {
+                for (int j = i * i; j <= n; j += i)
+                    arr[j] = 0;
+            }
+        }
+        for (int i = 2; i < arr.length; i++) {
+            if (arr[i] == 1) {
+                System.out.print(i + " ");
+            }
+        }
+    }
+    
     public static void main(String args[]) {
+      //  code a = new code();
+        
+        // a.print_prime_numbers(10);
+        //a.print_prime_numbers_optimal_solution(100);
 
         // int arr[] = { 1, 2, 3, 4, 5, 6, 1 };
         // int index=last_occurance_of_number_in_array(arr, 1, 0);
@@ -322,8 +360,6 @@ public class code {
         // System.out.println(a);
 
         // print_binary_string_without_consecutive_ones(2, "", 0);
-
-       
 
         // int arr[] = { 1,2,3,4,5,6};
         // binary_search(arr, 1);
@@ -363,12 +399,11 @@ public class code {
         // System.out.println(fibonacci(i));
         // }
 
+        // int arr[][] = { { 10, 20, 30, 40 }, { 15, 25, 35, 45 }, { 27, 29, 37, 48 }, {
+        // 32, 33, 39, 50 } };
+        // find_element_in_sorted_array_staicase_method(arr, 37);
 
-        // int arr[][] = { { 10, 20, 30, 40 }, { 15, 25, 35, 45 }, { 27, 29, 37, 48 }, { 32, 33, 39, 50 } };
-        // find_element_in_sorted_array_staicase_method(arr, 37);  
-
-      //  System.out.println(isPrime(0));
-
+        // System.out.println(isPrime(0));
 
     }
 }

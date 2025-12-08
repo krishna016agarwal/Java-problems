@@ -306,7 +306,7 @@ public class Greedy {
         return jumps;
     }
 
-    class JobSequencing { //O(nlogn + n*maxdealine) SC-O(n)
+    class JobSequencing { // O(nlogn + n*maxdealine) SC-O(n)
 
         class Job {
             int deadline;
@@ -319,7 +319,7 @@ public class Greedy {
         }
 
         public ArrayList<Integer> jobSequencing(int[] deadline, int[] profit) {
-            // code here
+
             int maxprofit = 0;
             int count = 0;
             Job arr[] = new Job[profit.length];
@@ -349,7 +349,7 @@ public class Greedy {
         }
     }
 
-    class JbSequencing_optimal { //O(nlogn)
+    class JbSequencing_optimal { // O(nlogn)
 
         class Job {
             int deadline, profit;
@@ -409,6 +409,44 @@ public class Greedy {
             result.add(countJobs);
             result.add(maxProfit);
             return result;
+        }
+    }
+
+    class MaxMeetings {
+
+        class time {
+            int start;
+            int end;
+
+            time(int s, int e) {
+                start = s;
+                end = e;
+            }
+        }
+
+        public int maxMeetings(int start[], int end[]) {
+       
+            time arr[] = new time[end.length];
+            
+            for (int i = 0; i < end.length; i++) {
+                arr[i] = new time(start[i], end[i]);
+            }
+            Arrays.sort(arr, (a, b) -> a.end - b.end);
+
+            int count = 0;
+            int init = -1;
+            for (int i = 0; i < arr.length; i++) {
+                if (init == -1) {
+                    count++;
+                    init = arr[i].end;
+                } else {
+                    if (arr[i].start > init) {
+                        count++;
+                        init = arr[i].end;
+                    }
+                }
+            }
+            return count;
         }
     }
 

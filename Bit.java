@@ -231,11 +231,68 @@ public class Bit {
         return sign ? result : -result;
     }
 
-    
-    
+    public boolean prime(int n) {
+
+        for (int j = 2; j < n; j++) {
+            if (n % j == 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public int largestPrime(int n) {
+        int sum = 0;
+        int k = 0;
+        for (int i = 2; i <= n; i++) {
+            if (prime(i)) {
+                if (sum >= n)
+                    break;
+                sum += i;
+                k = i;
+            }
+        }
+        System.out.println(sum);
+        if (sum >= n) {
+            for (int i = k; i >= 2; i--) {
+                if (prime(sum)) {
+                    return sum;
+                }
+                if (prime(i)) {
+                    sum -= i;
+                }
+
+            }
+        }
+
+        return 0;
+    }
+
+    public long totalScore(int hp, int[] damage, int[] requirement) {
+        long sum = 0;
+        for (int i = 0; i < damage.length; i++) {
+            int k = hp;
+            long count = 0;
+            for (int j = i; j < damage.length; j++) {
+                k -= damage[j];
+             
+                if (requirement[j] <= k){
+                    count = count + 1;
+                   
+                }
+               
+            }
+            sum += count;
+            k = hp;
+        }
+        return sum;
+    }
+
     public static void main(String args[]) {
         Bit a = new Bit();
-
+        // System.out.println(a.largestPrime(20));
+        System.out.println(a.totalScore(11, new int[] { 3, 6, 7 }, new int[] { 4, 2, 5 }));
         // System.out.println(a.Number_to_binary(10));
         // System.out.println(a.binary_to_Number("1101"));
         // System.out.println(a.ones_Complement(13));
