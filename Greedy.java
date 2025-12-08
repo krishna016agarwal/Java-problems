@@ -450,6 +450,44 @@ public class Greedy {
         }
     }
 
+    class EraseOverlapIntervals {
+        class time {
+            int start;
+            int end;
+
+            time(int s, int e) {
+                start = s;
+                end = e;
+            }
+        }
+
+        public int eraseOverlapIntervals(int[][] intervals) {
+
+            time arr[] = new time[intervals.length];
+
+            for (int i = 0; i < intervals.length; i++) {
+                arr[i] = new time(intervals[i][0], intervals[i][1]);
+            }
+            Arrays.sort(arr, (a, b) -> a.end - b.end);
+            int count = 0;
+            int init = Integer.MIN_VALUE;
+            for (time i : arr) {
+                if (init == Integer.MIN_VALUE) {
+
+                    init = i.end;
+                } else {
+                    if (i.start < init) {
+                        count++;
+
+                    } else {
+                        init = i.end;
+                    }
+                }
+            }
+            return count;
+        }
+    }
+
     public static void main(String[] args) {
         // int start[] = { 1, 3, 0, 5, 8, 5 };
         // int end[] = { 2, 4, 6, 7, 9, 9 };
