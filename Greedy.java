@@ -523,6 +523,31 @@ public class Greedy {
         return result.toArray(new int[result.size()][]);
     }
 
+    public int minPlatform(int arr[], int dep[]) { // O (2nlogn)+O(n)
+
+        Arrays.sort(arr);
+        Arrays.sort(dep);
+
+        int a = 0, d = 0;
+        int platforms = 0, maxPlatforms = 0;
+
+        while (a < arr.length && d < dep.length) {
+            // Train arrives before last one leaves
+            if (arr[a] <= dep[d]) {
+                platforms++;
+                maxPlatforms = Math.max(maxPlatforms, platforms);
+                a++;
+            }
+            // Train departs
+            else {
+                platforms--;
+                d++;
+            }
+        }
+
+        return maxPlatforms;
+    }
+
     public static void main(String[] args) {
         // int start[] = { 1, 3, 0, 5, 8, 5 };
         // int end[] = { 2, 4, 6, 7, 9, 9 };
