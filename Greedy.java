@@ -548,7 +548,129 @@ public class Greedy {
         return maxPlatforms;
     }
 
+    class CheckValidString {
+        public boolean checkValidString(String s) {
+            int count = 0;
+            return check(s, 0, count);
+        }
+
+        public boolean check(String s, int j, int count) {
+            int l = s.length();
+            for (int i = j; i < l; i++) {
+                char a = s.charAt(i);
+                if (a == '(')
+                    count++;
+                else if (a == ')')
+                    count--;
+                else {
+                    count++;
+                    if (check(s, i + 1, count))
+                        return true;
+                    count -= 2;
+                    if (check(s, i + 1, count))
+                        return true;
+                    count++;
+                    if (check(s, i + 1, count))
+                        return true;
+
+                }
+                if (count < 0)
+                    return false;
+
+            }
+            System.out.println(count);
+            if (count == 0)
+                return true;
+            return false;
+
+        }
+    }
+
+    public int candy(int[] ratings) { // O(n) SC-O(n)
+
+        int count = 0;
+        int a = 0;
+        int left[] = new int[ratings.length];
+        int right[] = new int[ratings.length];
+        for (int i = 0; i < ratings.length; i++) {
+            if (i == 0) {
+
+                a = 1;
+                left[i] = a;
+            } else {
+                if (ratings[i] > ratings[i - 1]) {
+
+                    a = a + 1;
+                } else {
+
+                    a = 1;
+                }
+                left[i] = a;
+            }
+        }
+
+        a = 0;
+        for (int i = ratings.length - 1; i >= 0; i--) {
+            if (i == ratings.length - 1) {
+
+                a = 1;
+                right[i] = a;
+            } else {
+                if (ratings[i] > ratings[i + 1]) {
+
+                    a = a + 1;
+                } else {
+
+                    a = 1;
+                }
+                right[i] = a;
+            }
+        }
+        for (int i = 0; i < left.length; i++) {
+            count += Math.max(left[i], right[i]);
+        }
+        return count;
+    }
+
+    public int candy_optimal(int[] ratings) { // O(n) SC-O(1)
+        // Arrays.sort(ratings);
+        int count = 0;
+        int i = 0;
+        int n = ratings.length;
+        while (i < n) {
+            if (i == 0) {
+                count++;
+                i++;
+                continue;
+            }
+            if (i > 0 && ratings[i] == ratings[i - 1]) {
+                count += 1;
+                i++;
+                continue;
+            }
+            int peak = 1;
+            while (i < n && ratings[i] > ratings[i - 1]) {
+                count += ++peak;
+                i++;
+            }
+            int down = 1;
+            while (i < n && ratings[i] < ratings[i - 1]) {
+                count += down++;
+                i++;
+            }
+            if (down > peak) {
+                count += down - peak;
+            }
+
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
+
+        Greedy a = new Greedy();
+        Greedy.CheckValidString b = a.new CheckValidString();
+        System.out.println(b.checkValidString("("));
         // int start[] = { 1, 3, 0, 5, 8, 5 };
         // int end[] = { 2, 4, 6, 7, 9, 9 };
         // maxActivity_sorted_end_time(start, end);
