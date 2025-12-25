@@ -633,7 +633,7 @@ public class Greedy {
     }
 
     public int candy_optimal(int[] ratings) { // O(n) SC-O(1)
-        
+
         int count = 0;
         int i = 0;
         int n = ratings.length;
@@ -664,6 +664,46 @@ public class Greedy {
 
         }
         return count;
+    }
+
+    class FractionalKnapsack {  //O(n)
+        class Bag {
+            int v;
+            int w;
+
+            Bag(int value, int weight) {
+                v = value;
+                w = weight;
+            }
+        }
+
+        public double fractionalKnapsack(int[] val, int[] wt, int capacity) {
+           
+            Bag arr[] = new Bag[val.length];
+            for (int i = 0; i < val.length; i++) {
+                arr[i] = new Bag(val[i], wt[i]);
+            }
+            Arrays.sort(arr, (a, b) -> {   // arrange acc to the value / weights
+                double r1 = (double) a.v / a.w;
+                double r2 = (double) b.v / b.w;
+                return Double.compare(r2, r1);
+            });
+           
+            int c = capacity;
+            double ans = 0.0;
+            for (Bag i : arr) {
+                if (i.w <= c) {
+                    ans += i.v;
+                    c -= i.w;
+                } else {
+                    if (c > 0) {
+                        ans += (double) (((double) i.v / (double) i.w) * c);
+                        c = 0;
+                    }
+                }
+            }
+            return ans;
+        }
     }
 
     public static void main(String[] args) {
