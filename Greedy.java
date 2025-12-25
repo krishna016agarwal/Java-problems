@@ -633,7 +633,7 @@ public class Greedy {
     }
 
     public int candy_optimal(int[] ratings) { // O(n) SC-O(1)
-        // Arrays.sort(ratings);
+        
         int count = 0;
         int i = 0;
         int n = ratings.length;
