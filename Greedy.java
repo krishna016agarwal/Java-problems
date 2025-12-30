@@ -666,7 +666,7 @@ public class Greedy {
         return count;
     }
 
-    class FractionalKnapsack {  //O(n)
+    class FractionalKnapsack {  //O(n + nlogn)
         class Bag {
             int v;
             int w;
@@ -709,8 +709,8 @@ public class Greedy {
     public static void main(String[] args) {
 
         Greedy a = new Greedy();
-        Greedy.CheckValidString b = a.new CheckValidString();
-        System.out.println(b.checkValidString("("));
+        // Greedy.CheckValidString b = a.new CheckValidString();
+        // System.out.println(b.checkValidString("("));
         // int start[] = { 1, 3, 0, 5, 8, 5 };
         // int end[] = { 2, 4, 6, 7, 9, 9 };
         // maxActivity_sorted_end_time(start, end);

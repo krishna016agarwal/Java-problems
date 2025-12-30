@@ -1,5 +1,7 @@
 import java.util.*;
 
+import javax.swing.tree.TreeNode;
+
 public class binaryTree {
     public static class Node {
         int data;
@@ -57,6 +59,50 @@ public class binaryTree {
             printPostOrder(tree.left); // printing left subtree
             printPostOrder(tree.right); // printning right subtree
             System.out.print(tree.data + " ");
+
+        }
+
+        public List<Integer> Iterative_Method_preorderTraversal(Node root) {
+
+            ArrayList<Integer> a = new ArrayList<>();
+            if (root == null)
+                return a;
+            Stack<Node> s = new Stack<>();
+            s.push(root);
+            while (!s.isEmpty()) {
+                Node x = s.pop();
+
+                a.add(x.data);
+                if (x.right != null)
+                    s.push(x.right);
+                if (x.left != null)
+                    s.push(x.left);
+
+            }
+            return a;
+        }
+
+        public List<Integer> Iterative_method_inorderTraversal(Node root) {
+            ArrayList<Integer> a = new ArrayList<>();
+            if (root == null)
+                return a;
+            Stack<Node> s = new Stack<>();
+            Node node = root;
+            while (true) {
+                if (node != null) {
+                    s.push(node);
+                    node = node.left;
+                } else {
+                    if (s.isEmpty()) {
+                        break;
+                    }
+                    node = s.pop();
+                    a.add(node.data);
+                    node = node.right;
+                }
+
+            }
+            return a;
 
         }
 
