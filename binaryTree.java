@@ -106,6 +106,24 @@ public class binaryTree {
 
         }
 
+        public List<Integer> Iterative_method_postorderTraversal(Node root) { // O(n) SC-O(n)
+            List<Integer> a = new ArrayList<>();
+            Stack<Node> s = new Stack<>();
+            if (root == null)
+                return a;
+            s.push(root);
+            while (!s.isEmpty()) {
+                Node x = s.pop();
+                a.add(x.data);
+                if (x.left != null)
+                    s.push(x.left);
+                if (x.right != null)
+                    s.push(x.right);
+            }
+            Collections.reverse(a);
+            return a;
+        }
+
         public static void printLevelOrder(Node tree) { // O(n)
 
             if (tree == null) {
