@@ -1,6 +1,6 @@
 import java.util.*;
 
-import javax.swing.tree.TreeNode;
+
 
 public class binaryTree {
     public static class Node {
@@ -609,6 +609,16 @@ public class binaryTree {
             sum = Math.max(sum, l + r + root.data);
             return root.data + Math.max(l, r);
         }
+    }
+
+    public boolean isSameTree(Node p, Node q) {
+        if (p != null && q != null && p.data != q.data)
+            return false;
+        if ((p == null && q != null) || (p != null && q == null))
+            return false;
+        if (p == null && q == null)
+            return true;
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 
     public static void main(String[] args) {
