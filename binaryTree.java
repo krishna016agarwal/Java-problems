@@ -1,6 +1,6 @@
 import java.util.*;
 
-
+import javax.swing.tree.TreeNode;
 
 public class binaryTree {
     public static class Node {
@@ -593,8 +593,26 @@ public class binaryTree {
         }
     }
 
+    class max_path_sum {
+        int sum = Integer.MIN_VALUE;
+
+        public int maxPathSum(Node root) {
+            helper(root);
+            return sum;
+        }
+
+        public int helper(Node root) {
+            if (root == null)
+                return 0;
+            int l = Math.max(0, helper(root.left));
+            int r = Math.max(0, helper(root.right));
+            sum = Math.max(sum, l + r + root.data);
+            return root.data + Math.max(l, r);
+        }
+    }
+
     public static void main(String[] args) {
-        //int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
+        // int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
 
         // BinaryTree tree = new BinaryTree();
         // Node root = tree.buildTree(nodes);
