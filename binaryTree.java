@@ -18,7 +18,7 @@ public class binaryTree {
     public static class BinaryTree {
         static int idx = -1;
 
-        public static Node buildTree(int nodes[]) { // O(n)
+        public Node buildTree(int nodes[]) { // O(n)
             idx++;
             if (nodes[idx] == -1) {
                 return null;
@@ -501,12 +501,91 @@ public class binaryTree {
         }
     }
 
+    class Tree_Traversal {
+        ArrayList<Integer> preorder = new ArrayList<>();
+        ArrayList<Integer> inorder = new ArrayList<>();
+        ArrayList<Integer> postorder = new ArrayList<>();
+
+        Tree_Traversal() {
+        }
+    }
+
+    public Tree_Traversal print(Node root) {
+        Tree_Traversal a = new Tree_Traversal();
+        Stack<Node> s = new Stack<>();
+        s.push(root);
+        while (!s.isEmpty()) { // preorder
+            Node x = s.pop();
+            a.preorder.add(x.data);
+            if (x.right != null)
+                s.push(x.right);
+            if (x.left != null)
+                s.push(x.left);
+        }
+        s.push(root);
+        while (!s.isEmpty()) { // postorder
+            Node x = s.pop();
+            a.postorder.add(x.data);
+            if (x.left != null)
+                s.push(x.left);
+            if (x.right != null)
+                s.push(x.right);
+
+        }
+        Collections.reverse(a.postorder);
+
+        while (true) {
+            if (root != null) {
+                s.push(root);
+                root = root.left;
+            } else {
+                if (s.isEmpty()) {
+                    break;
+                }
+                root = s.pop();
+                a.inorder.add(root.data);
+                root = root.right;
+            }
+
+        }
+        // System.out.println(a.preorder);
+        return a;
+    }
+
+    class is_binary_tree_balanced {
+        public boolean isBalanced(Node root) {
+            if (root == null)
+                return true;
+            int val = helper(
+                    root);
+            if (val < 10000)
+                return true;
+
+            return false;
+        }
+
+        public int helper(Node root) {
+            if (root == null)
+                return 0;
+            int l = helper(root.left) + 1;
+            int r = helper(root.right) + 1;
+            if (l - r != -1 && l - r != 0 && l - r != 1)
+                return 10000;
+            return Math.max(l, r);
+        }
+    }
+
     public static void main(String[] args) {
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
 
-        BinaryTree tree = new BinaryTree();
+        // BinaryTree tree = new BinaryTree();
+        // Node root = tree.buildTree(nodes);
+        // binaryTree a = new binaryTree();
 
-        Node root = tree.buildTree(nodes);
+        // Tree_Traversal b = a.print(root);
+        // System.out.println(b.preorder);
+        // System.out.println(b.postorder);
+        // System.out.println(b.inorder);
 
         // tree.printPreOrder(root);
 
