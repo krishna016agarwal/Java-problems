@@ -1,6 +1,6 @@
 import java.util.*;
 
-
+import javax.swing.tree.TreeNode;
 
 public class binaryTree {
     public static class Node {
@@ -619,6 +619,42 @@ public class binaryTree {
         if (p == null && q == null)
             return true;
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+
+    public List<List<Integer>> zigzagLevelOrder(Node root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null)
+            return result;
+
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+
+        boolean leftToRight = true;
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+            List<Integer> level = new ArrayList<>();
+
+            for (int i = 0; i < size; i++) {
+                Node node = q.poll();
+
+                // insert based on direction
+                if (leftToRight)
+                    level.add(node.data);
+                else
+                    level.add(0, node.data);
+
+                if (node.left != null)
+                    q.add(node.left);
+                if (node.right != null)
+                    q.add(node.right);
+            }
+
+            result.add(level);
+            leftToRight = !leftToRight; // change direction per level
+        }
+
+        return result;
     }
 
     public static void main(String[] args) {
