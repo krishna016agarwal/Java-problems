@@ -1,6 +1,6 @@
 import java.util.*;
 
-import javax.swing.tree.TreeNode;
+
 
 public class binaryTree {
     public static class Node {
@@ -552,12 +552,11 @@ public class binaryTree {
         return a;
     }
 
-    class is_binary_tree_balanced {
+    class is_binary_tree_balanced { // O(n)
         public boolean isBalanced(Node root) {
             if (root == null)
                 return true;
-            int val = helper(
-                    root);
+            int val = helper(root);
             if (val < 10000)
                 return true;
 
@@ -575,8 +574,27 @@ public class binaryTree {
         }
     }
 
+    class diameter_of_tree {
+        int x = 0;
+
+        public int diameterOfBinaryTree(Node root) {
+
+            helper(root);
+            return x;
+        }
+
+        public int helper(Node root) {
+            if (root == null)
+                return 0;
+            int l = helper(root.left);
+            int r = helper(root.right);
+            x = Math.max(x, l + r);
+            return Math.max(l, r) + 1;
+        }
+    }
+
     public static void main(String[] args) {
-        int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
+        //int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
 
         // BinaryTree tree = new BinaryTree();
         // Node root = tree.buildTree(nodes);
