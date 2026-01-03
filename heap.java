@@ -175,7 +175,7 @@ public class heap {
         return nums;
     }
 
-    public int[] heapSort_using_heapify_min(int nums[]) { // decending order
+    public int[] heapSort_using_heapify_min(int nums[]) { // descending order
 
         for (int i = nums.length - 1; i >= 0; i--) { // formation of Max_heap
             if (2 * i + 1 < nums.length || 2 * i + 2 < nums.length)
@@ -223,7 +223,7 @@ public class heap {
             @Override
             public int compareTo(Points a) {
                 if (this.n == a.n)
-                    return this.i - a.i; //ascending order
+                    return this.i - a.i; // ascending order
                 return this.n - a.n;
             }
         }
@@ -243,6 +243,50 @@ public class heap {
                 arr[i] = a.remove().i;
             }
             return arr;
+        }
+    }
+
+    class MaxSlidingWindow {
+
+        class Num implements Comparable<Num> {
+            int n;
+            int i;
+
+            Num(int n, int i) {
+                this.n = n;
+                this.i = i;
+            }
+
+            @Override
+            public int compareTo(Num a) {
+                return a.n - this.n; // descending order
+            }
+        }
+
+        public int[] maxSlidingWindow(int[] nums, int k) {
+
+            int ans[] = new int[nums.length - k + 1];
+            PriorityQueue<Num> q = new PriorityQueue<>();
+
+            for (int m = 0; m < k; m++) {
+                q.add(new Num(nums[m], m));
+            }
+
+            int j = 0;
+            ans[j] = q.peek().n;
+
+            for (int m = k; m < nums.length; m++) {
+
+                while (!q.isEmpty() && q.peek().i <= m - k)
+                    q.remove();
+
+                q.add(new Num(nums[m], m));
+                
+                ans[++j] = q.peek().n;
+
+            }
+            return ans;
+
         }
     }
 
