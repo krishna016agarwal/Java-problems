@@ -210,7 +210,7 @@ public class heap {
         return sum;
     }
 
-    class k_Weakest_Soliders {
+    class k_Weakest_Soliders { // O(n^2)
         class Points implements Comparable<Points> {
             int n;
             int i;
@@ -246,7 +246,7 @@ public class heap {
         }
     }
 
-    class MaxSlidingWindow {
+    class MaxSlidingWindow { // O(nlogk)
 
         class Num implements Comparable<Num> {
             int n;
@@ -281,7 +281,7 @@ public class heap {
                     q.remove();
 
                 q.add(new Num(nums[m], m));
-                
+
                 ans[++j] = q.peek().n;
 
             }
@@ -290,9 +290,22 @@ public class heap {
         }
     }
 
+    public int kthSmallest(int[] arr, int k) {
+
+        PriorityQueue<Integer> q = new PriorityQueue<>();
+        for (int i = 0; i < arr.length; i++) {
+            q.add(arr[i]);
+        }
+        for (int i = 0; i < k - 1; i++) {
+            q.remove();
+        }
+        return q.remove();
+
+    }
+
     public static void main(String args[]) {
-        heap a = new heap();
-        int arr[] = { 7, 6, 5, 4, 3, 2, 9 };
+        // heap a = new heap();
+        // int arr[] = { 7, 6, 5, 4, 3, 2, 9 };
 
         // a.heapify(0, arr);
         // code.printArray(arr);
