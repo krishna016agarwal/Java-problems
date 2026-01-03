@@ -194,7 +194,7 @@ public class heap {
     }
 
     public static int minCost_for_connecting_n_ropes(int[] arr) {
-        // code here
+
         PriorityQueue<Integer> q = new PriorityQueue<>();
         for (int i : arr) {
             q.add(i);
@@ -208,6 +208,42 @@ public class heap {
             q.add(x);
         }
         return sum;
+    }
+
+    class k_Weakest_Soliders {
+        class Points implements Comparable<Points> {
+            int n;
+            int i;
+
+            Points(int n, int i) {
+                this.n = n;
+                this.i = i;
+            }
+
+            @Override
+            public int compareTo(Points a) {
+                if (this.n == a.n)
+                    return this.i - a.i; //ascending order
+                return this.n - a.n;
+            }
+        }
+
+        public int[] kWeakestRows(int[][] mat, int k) {
+            PriorityQueue<Points> a = new PriorityQueue<>();
+            for (int i = 0; i < mat.length; i++) {
+                int c = 0;
+                for (int j = 0; j < mat[0].length; j++) {
+                    if (mat[i][j] == 1)
+                        c++;
+                }
+                a.add(new Points(c, i));
+            }
+            int arr[] = new int[k];
+            for (int i = 0; i < k; i++) {
+                arr[i] = a.remove().i;
+            }
+            return arr;
+        }
     }
 
     public static void main(String args[]) {
