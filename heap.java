@@ -303,7 +303,7 @@ public class heap {
 
     }
 
-    class IsKSortedArray { //O(nlogn) SC-O(n)
+    class IsKSortedArray { // O(nlogn) SC-O(n)
 
         class Num implements Comparable<Num> {
             int n;
@@ -335,6 +335,41 @@ public class heap {
             }
             return "Yes";
 
+        }
+    }
+
+    class ArrayRankTransform {
+        class Node implements Comparable<Node> {
+            int n;
+            int i;
+
+            Node(int n, int i) {
+                this.n = n;
+                this.i = i;
+            }
+
+            public int compareTo(Node a) {
+                return this.n - a.n;
+            }
+        }
+
+        public int[] arrayRankTransform(int[] arr) {
+            PriorityQueue<Node> q = new PriorityQueue<>();
+            for (int i = 0; i < arr.length; i++) {
+                q.add(new Node(arr[i], i));
+            }
+            int k = 0;
+            Integer pre = null;
+            while (!q.isEmpty()) {
+                Node x = q.remove();
+                if (pre == null || x.n != pre) {
+
+                    k++;
+                }
+                arr[x.i] = k;
+                pre = x.n;
+            }
+            return arr;
         }
     }
 
