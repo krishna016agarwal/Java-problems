@@ -303,8 +303,44 @@ public class heap {
 
     }
 
+    class IsKSortedArray { //O(nlogn) SC-O(n)
+
+        class Num implements Comparable<Num> {
+            int n;
+            int i;
+
+            Num(int n, int i) {
+                this.n = n;
+                this.i = i;
+
+            }
+
+            @Override
+            public int compareTo(Num a) {
+                return this.n - a.n;
+            }
+        }
+
+        String isKSortedArray(int arr[], int n, int k) {
+
+            PriorityQueue<Num> q = new PriorityQueue<>();
+            for (int i = 0; i < arr.length; i++) {
+                q.add(new Num(arr[i], i));
+            }
+            int p = 0;
+            while (!q.isEmpty()) {
+                if (Math.abs(q.remove().i - p) > k)
+                    return "No";
+                p++;
+            }
+            return "Yes";
+
+        }
+    }
+
     public static void main(String args[]) {
-        // heap a = new heap();
+        heap a = new heap();
+
         // int arr[] = { 7, 6, 5, 4, 3, 2, 9 };
 
         // a.heapify(0, arr);
