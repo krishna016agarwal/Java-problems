@@ -373,6 +373,25 @@ public class heap {
         }
     }
 
+      public int leastInterval(char[] tasks, int n) {
+       int arr[]=new int[26];
+       int count=0;
+       for(int i=0;i<tasks.length;i++){
+                   arr[tasks[i]-'A']++;
+                   count=Math.max(count,  arr[tasks[i]-'A']);
+       }
+       int result=(count-1)*(n+1);
+       int c=0;
+       for(int i=0;i<26;i++){
+        if(count==arr[i])c++;
+       }
+       return Math.max(tasks.length,result+c);
+
+
+    }
+    
+    
+    
     public static void main(String args[]) {
         heap a = new heap();
 
