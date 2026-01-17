@@ -1,4 +1,4 @@
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class heap {
 
@@ -373,28 +373,86 @@ public class heap {
         }
     }
 
-      public int leastInterval(char[] tasks, int n) {
-       int arr[]=new int[26];
-       int count=0;
-       for(int i=0;i<tasks.length;i++){
-                   arr[tasks[i]-'A']++;
-                   count=Math.max(count,  arr[tasks[i]-'A']);
-       }
-       int result=(count-1)*(n+1);
-       int c=0;
-       for(int i=0;i<26;i++){
-        if(count==arr[i])c++;
-       }
-       return Math.max(tasks.length,result+c);
-
+    public int leastInterval(char[] tasks, int n) {
+        int arr[] = new int[26];
+        int count = 0;
+        for (int i = 0; i < tasks.length; i++) {
+            arr[tasks[i] - 'A']++;
+            count = Math.max(count, arr[tasks[i] - 'A']);
+        }
+        int result = (count - 1) * (n + 1);
+        int c = 0;
+        for (int i = 0; i < 26; i++) {
+            if (count == arr[i])
+                c++;
+        }
+        return Math.max(tasks.length, result + c);
 
     }
-    
-    
-    
+
+    public boolean isNStraightHand(int[] hand, int groupSize) { // O(nlogn)
+        if (hand.length % groupSize != 0)
+            return false;
+        PriorityQueue<Integer> a = new PriorityQueue<>();
+        for (int i : hand)
+            a.add(i);
+        while (!a.isEmpty()) {
+            int q = a.remove();
+            int p = 1; // count=
+            ArrayList<Integer> s = new ArrayList<>();
+            while (p != groupSize && !a.isEmpty()) {
+                int w = a.remove();
+                if (w != q + 1)
+                    s.add(w);
+                else {
+                    p++;
+                    q = w;
+                }
+
+            }
+            if (p != groupSize)
+                return false;
+            for (int i : s)
+                a.add(i);
+        }
+        return true;
+    }
+
+    public boolean isNStraightHand_optimized(int[] hand, int groupSize) { // O(nlogn)
+        int n = hand.length;
+        if (n % groupSize != 0)
+            return false;
+
+        // Count frequency
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        for (int card : hand) {
+            map.put(card, map.getOrDefault(card, 0) + 1);
+        }
+
+        // Process smallest card each time
+
+        while (!map.isEmpty()) {
+            int start = map.firstKey();
+
+            // Try to form group of size groupSize
+            for (int i = 0; i < groupSize; i++) {
+                int curr = start + i;
+
+                if (!map.containsKey(curr))
+                    return false;
+
+                map.put(curr, map.get(curr) - 1);
+                if (map.get(curr) == 0) {
+                    map.remove(curr);
+                }
+            }
+        }
+        return true;
+    }
+
     public static void main(String args[]) {
         heap a = new heap();
-
+      
         // int arr[] = { 7, 6, 5, 4, 3, 2, 9 };
 
         // a.heapify(0, arr);
