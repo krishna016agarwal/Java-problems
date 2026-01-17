@@ -450,9 +450,33 @@ public class heap {
         return true;
     }
 
+    class KthLargest {
+        private PriorityQueue<Integer> pq;
+        private int k;
+
+        public KthLargest(int k, int[] nums) {
+            this.k = k;
+            pq = new PriorityQueue<>(); // min-heap
+
+            for (int num : nums) {
+                add(num);
+            }
+        }
+
+        public int add(int val) {
+            pq.add(val);
+
+            if (pq.size() > k) {
+                pq.poll(); // remove smallest
+            }
+
+            return pq.peek(); // k-th largest
+        }
+    }
+
     public static void main(String args[]) {
         heap a = new heap();
-      
+
         // int arr[] = { 7, 6, 5, 4, 3, 2, 9 };
 
         // a.heapify(0, arr);
