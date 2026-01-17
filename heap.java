@@ -474,6 +474,36 @@ public class heap {
         }
     }
 
+    class MedianFinder {
+        PriorityQueue<Integer> a; // min heap (right side)
+        PriorityQueue<Integer> b; // max heap (left side)
+
+        public MedianFinder() {
+            a = new PriorityQueue<>();
+            b = new PriorityQueue<>(Collections.reverseOrder());
+        }
+
+        public void addNum(int num) {
+            // Step 1: add to max heap
+            b.add(num);
+
+            // Step 2: move top of max heap to min heap
+            a.add(b.poll());
+
+            // Step 3: balance sizes
+            if (a.size() > b.size()) {
+                b.add(a.poll());
+            }
+        }
+
+        public double findMedian() {
+            if (b.size() > a.size()) {
+                return b.peek();
+            }
+            return (b.peek() + a.peek()) / 2.0;
+        }
+    }
+
     public static void main(String args[]) {
         heap a = new heap();
 
