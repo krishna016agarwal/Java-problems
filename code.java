@@ -257,7 +257,7 @@ public class code {
         tower_of_hanoi(n - 1, helper, src, des);
     }
 
-    public static int fibonacci(int n) {
+    public static int fibonacci(int n) { //O(2^n) time complexity O(n) space complexity
         if (n == 1) {
             return 1;
         }
