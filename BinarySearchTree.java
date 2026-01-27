@@ -70,4 +70,66 @@ public class BinarySearchTree {
         }
     }
 
+    class FindTarget {
+
+        Stack<Node> left = new Stack<>();
+        Stack<Node> right = new Stack<>();
+
+        void addAllLeft(Node node) {
+            while (node != null) {
+                left.push(node);
+                node = node.left;
+            }
+        }
+
+        void addAllRight(Node node) {
+            while (node != null) {
+                right.push(node);
+                node = node.right;
+            }
+        }
+
+        Node next() {
+            Node node = left.pop();
+            if (node.right != null)
+                addAllLeft(node.right);
+            return node;
+        }
+
+        Node before() {
+            Node node = right.pop();
+            if (node.left != null)
+                addAllRight(node.left);
+            return node;
+        }
+
+        public boolean findTarget(Node root, int k) {
+            if (root == null)
+                return false;
+
+            addAllLeft(root);
+            addAllRight(root);
+
+            Node l = next();
+            Node r = before();
+
+            while (l != r) { 
+                int sum = l.data + r.data;
+
+                if (sum == k)
+                    return true;
+                else if (sum < k) {
+                    if (left.isEmpty())
+                        break;
+                    l = next();
+                } else {
+                    if (right.isEmpty())
+                        break;
+                    r = before();
+                }
+            }
+            return false;
+        }
+    }
+
 }
