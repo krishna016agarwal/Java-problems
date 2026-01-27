@@ -1,5 +1,7 @@
 import java.util.*;
 
+import org.w3c.dom.Node;
+
 public class binarySearch {
 
     public static int square_root(int n) { // O(logn)
@@ -810,7 +812,7 @@ public class binarySearch {
         return false;
     }
 
-    public boolean searchMatrix_(int[][] matrix, int target) { //O(m+n)
+    public boolean searchMatrix_(int[][] matrix, int target) { // O(m+n)
         int row = 0;
         int col = matrix[0].length - 1;
         while (col != -1 && col != matrix[0].length && row != -1 && row != matrix.length) {
@@ -874,6 +876,8 @@ public class binarySearch {
         }
 
     }
+
+  
 
     public static void main(String args[]) {
 
