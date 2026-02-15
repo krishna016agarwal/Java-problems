@@ -32,7 +32,7 @@ public class dp {
         return b;
     }
 
-    int climbStairs(int n) { // O(n) time and O(1) space    
+    int climbStairs(int n) { // O(n) time and O(1) space
         int a = 0;
         int b = 1;
         if (n <= 1)
@@ -43,6 +43,18 @@ public class dp {
             b = c;
         }
         return b;
+    }
+
+    int maxJump_frog_jump_II(int[] stones) {
+        int n = stones.length;
+        int maxJump = 0;
+        if (n == 2)
+            return stones[1];
+        for (int i = 2; i < n; i++) {
+            maxJump = Math.max(maxJump, stones[i] - stones[i - 2]);
+        }
+
+        return maxJump;
     }
 
     public static void main(String[] args) {
