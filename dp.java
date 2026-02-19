@@ -57,7 +57,7 @@ public class dp {
         return maxJump;
     }
 
-    class Maximum_Sum_of_Non_Adjacent_Elements { //O(n) SC-O(n)
+    class Maximum_Sum_of_Non_Adjacent_Elements { // O(n) SC-O(n)
 
         public int rob(int[] nums) {
             int arr[] = new int[nums.length];
@@ -81,21 +81,51 @@ public class dp {
         }
     }
 
-    public int Maximum_Sum_of_Non_Adjacent_Elements_optimal(int[] nums) { //O(n) SC-O(1)
-       int prev = nums[0];
-       int prev2=0;
-       for(int i=1;i<nums.length;i++){
-        int take = nums[i];
-        if(i>1) take+=prev2;
-        int nottake = 0+prev;
-        int curr=Math.max(take,nottake);
-        prev2=prev;
-        prev=curr;
-       }
-       return prev;
-  
+    public int Maximum_Sum_of_Non_Adjacent_Elements_optimal(int[] nums) { // O(n) SC-O(1)
+        int prev = nums[0];
+        int prev2 = 0;
+        for (int i = 1; i < nums.length; i++) {
+            int take = nums[i];
+            if (i > 1)
+                take += prev2;
+            int nottake = 0 + prev;
+            int curr = Math.max(take, nottake);
+            prev2 = prev;
+            prev = curr;
+        }
+        return prev;
 
     }
+
+    class House_Robber_2 {
+        public int rob(int[] nums) {
+            int n = nums.length;
+            if (n == 1)
+                return nums[0];
+
+            return Math.max(
+                    robLinear(nums, 0, n - 2), // exclude last
+                    robLinear(nums, 1, n - 1) // exclude first
+            );
+        }
+
+        private int robLinear(int[] nums, int start, int end) {
+            int prev1 = 0;
+            int prev2 = 0;
+
+            for (int i = start; i <= end; i++) {
+                int take = nums[i] + prev2;
+                int notTake = prev1;
+
+                int curr = Math.max(take, notTake);
+                prev2 = prev1;
+                prev1 = curr;
+            }
+
+            return prev1;
+        }
+    }
+
     public static void main(String[] args) {
         dp a = new dp();
         dp.Fibonacci b = a.new Fibonacci();
