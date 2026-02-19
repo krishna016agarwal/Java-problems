@@ -81,6 +81,21 @@ public class dp {
         }
     }
 
+    public int Maximum_Sum_of_Non_Adjacent_Elements_optimal(int[] nums) { //O(n) SC-O(1)
+       int prev = nums[0];
+       int prev2=0;
+       for(int i=1;i<nums.length;i++){
+        int take = nums[i];
+        if(i>1) take+=prev2;
+        int nottake = 0+prev;
+        int curr=Math.max(take,nottake);
+        prev2=prev;
+        prev=curr;
+       }
+       return prev;
+  
+
+    }
     public static void main(String[] args) {
         dp a = new dp();
         dp.Fibonacci b = a.new Fibonacci();
