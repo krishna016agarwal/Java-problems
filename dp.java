@@ -57,6 +57,30 @@ public class dp {
         return maxJump;
     }
 
+    class Maximum_Sum_of_Non_Adjacent_Elements { //O(n) SC-O(n)
+
+        public int rob(int[] nums) {
+            int arr[] = new int[nums.length];
+            Arrays.fill(arr, -1);
+            return helper(nums, nums.length - 1, arr);
+
+        }
+
+        public int helper(int[] nums, int i, int[] arr) {
+
+            if (i == 0)
+                return nums[i];
+            if (i < 0)
+                return 0;
+            if (arr[i] != -1)
+                return arr[i];
+            int ls = nums[i] + helper(nums, i - 2, arr);
+            int rs = 0 + helper(nums, i - 1, arr);
+            return arr[i] = Math.max(ls, rs);
+
+        }
+    }
+
     public static void main(String[] args) {
         dp a = new dp();
         dp.Fibonacci b = a.new Fibonacci();
